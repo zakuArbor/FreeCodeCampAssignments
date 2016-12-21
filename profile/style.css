@@ -6,7 +6,7 @@
 }
 
 .page-header {
-  margin: 40px 0 50px;
+  margin: 40px 0 50px !important;
 }
 
 .hexagon { /*Hexagon Rectangle*/
