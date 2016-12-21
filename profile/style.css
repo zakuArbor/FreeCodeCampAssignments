@@ -2,7 +2,7 @@
   letter-spacing: 10px;
   text-decoration: underline;
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
 }
 
 .hexagon { /*Hexagon Rectangle*/
@@ -61,14 +61,13 @@
 #menu_header {
   clear: both;
   margin-top: 20px;
-  margin-bottom: 20px;
   letter-spacing: 10px;
   text-align: center;
   text-decoration: underline;
 }
 ul {
   margin: 0px auto;
-  padding-left: 10px;
+  padding-left: 50px;
 }
 #menu {
   position: relative;
