@@ -25,6 +25,7 @@
 .hexagon:before { /*top height*/
   bottom: 100%;
   border-bottom: 43px solid #64C7CC;
+  margin-top: 10px;
 }
 
 .hexagon:after { /*Bottom height*/
@@ -67,7 +68,7 @@
 }
 ul {
   margin: 0px auto;
-  padding-left: 40%;
+  padding-left: 30%;
 }
 #menu {
   position: relative;
