@@ -10,7 +10,7 @@
   width: 150px; 
   height: 80px;
   background-color: #64C7CC;
-  margin: 43px 0;
+  margin: 70px 0;
 }
 
 .hexagon:before,
@@ -67,7 +67,7 @@
 }
 ul {
   margin: 0px auto;
-  padding-left: 50px;
+  padding-left: 40%;
 }
 #menu {
   position: relative;
