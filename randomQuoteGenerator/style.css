@@ -31,3 +31,13 @@
   text-align: center;
   font-size: 15px;
 }
+
+#footer {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-primary {
+  border:none !important;
+}

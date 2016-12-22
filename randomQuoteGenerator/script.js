@@ -103,24 +103,40 @@ var quotes = [
 
 var color = ["#ff8533", "#ff6666", "#809fff", "#66ff66", "#ff66a3", "#ffff66"];
 
-$(document).ready(function() {
-    $("#getQuote").on("click", function() {
-	var randomID = Math.floor(Math.random()*20+1);
-	var colorID = Math.floor(Math.random()*5);
-	var html = "<i class='fa fa-quote-left' aria-hidden='true'></i>";
-	html += quotes[randomID]["quote"];
-	html += "<i class='fa fa-quote-right' areia-hidden='true'></i>";
-	var author = "&#45; " + quotes[randomID]["author"];
-//	$("body").css("color", color[color_ID]);
-	$(".fa").css("color", color[colorID]);
-	$('body, html').css("background-color", color[colorID]);
-	console.log(color[colorID]);
-        $(".quote").html(html);
-	$(".author").html(author);
-	$("body").css("color", color[colorID]);
-	$("button").css("background-color", color[colorID]);
-	$("button").css("border", "none");
-	console.log(quotes[randomID]["quote"]);
-     });
-});
 
+
+$(document).ready(function() {
+     var html = "<i class='fa fa-quote-left' aria-hidden='true'></i>";
+        html += quotes[0]["quote"];
+        html += "<i class='fa fa-quote-right' areia-hidden='true'></i>";
+        var author = "&#45; " + quotes[0]["author"];
+        $(".fa").css("color", color[0]);
+        $('body, html').css("background-color", color[0]);
+        $(".quote").html(html);
+        $(".author").html(author);
+        $("body").css("color", color[0]);
+        $(".quote").html(html);
+        $(".author").html(author);
+        $("body").css("color", color[0]);
+        $("button").css("background-color", color[0]);
+    
+    $("#getQuote").click(function() {
+        var randomID = Math.floor(Math.random()*20+1);
+        var colorID = Math.floor(Math.random()*5);
+        var html = "<i class='fa fa-quote-left' aria-hidden='true'></i>";
+        html += quotes[randomID]["quote"];
+        html += "<i class='fa fa-quote-right' areia-hidden='true'></i>";
+        var author = "&#45; " + quotes[randomID]["author"];
+        $(".fa").css("color", color[colorID]);
+        $('body, html').css("background-color", color[colorID]);
+        $(".quote").html(html);
+        $(".author").html(author);
+        $("body").css("color", color[colorID]);
+        $(".quote").html(html);
+        $(".author").html(author);
+        $("body").css("color", color[colorID]);
+        $("button").css("background-color", color[colorID]);
+    }
+
+    );
+});
