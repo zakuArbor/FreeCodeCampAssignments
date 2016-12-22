@@ -1,18 +1,33 @@
 #box {
-  position: relative;
+  position: relative;  
   margin: 0 auto;
   width: 50%;
-  height: 50%;
-  background-color: grey;
+  height: auto;
+  background-color: white;
+  margin-top:100px;
+  border-radius: 8px;
+  padding: 10px;
 }
 
-#box {
+.quote {
   position: relative;
-  width: 50%;
-  height: 50%;
-  background-color: red;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+  white-space: wrap;
+  padding: 5px;
+  background-color: white;
+  border-radius: 8px;
+  height: auto;
 }
-#quote {
+
+#getQuote {
   position: relative;
-  
+  bottom:0px;
+}
+
+.author {
+  text-align: center;
+  font-size: 15px;
 }

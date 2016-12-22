@@ -26,7 +26,7 @@ var quotes = [
   },
   {
   "id": 6,
-  "quote": "Education wi thout values, as useful as it is, seems rather to make man a more clever devil.",
+  "quote": "Education without values, as useful as it is, seems rather to make man a more clever devil.",
   "author": "C.S Lewis"
   },
   {
@@ -101,4 +101,26 @@ var quotes = [
   }
 ];
 
-var randomID = Math.floor(Math.random()*20+1);
+var color = ["#ff8533", "#ff6666", "#809fff", "#66ff66", "#ff66a3", "#ffff66"];
+
+$(document).ready(function() {
+    $("#getQuote").on("click", function() {
+	var randomID = Math.floor(Math.random()*20+1);
+	var colorID = Math.floor(Math.random()*5);
+	var html = "<i class='fa fa-quote-left' aria-hidden='true'></i>";
+	html += quotes[randomID]["quote"];
+	html += "<i class='fa fa-quote-right' areia-hidden='true'></i>";
+	var author = "&#45; " + quotes[randomID]["author"];
+//	$("body").css("color", color[color_ID]);
+	$(".fa").css("color", color[colorID]);
+	$('body, html').css("background-color", color[colorID]);
+	console.log(color[colorID]);
+        $(".quote").html(html);
+	$(".author").html(author);
+	$("body").css("color", color[colorID]);
+	$("button").css("background-color", color[colorID]);
+	$("button").css("border", "none");
+	console.log(quotes[randomID]["quote"]);
+     });
+});
+

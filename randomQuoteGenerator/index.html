@@ -1,20 +1,24 @@
 <html>
   <head>
     <title>RANDOM QUOTES</title>  
-    <!--<script src="jquery-3.1.1.min.js"></script>-->
-    <script>
-      $(document).ready(function() {
-
-    $("#getQuote").on("click", function() { 
-            $(".quote").html("Here is the message");                                });
-    
-      });</script>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/scripts/jquery-latest.js"></script>
+    <script src="/scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
     <div class = "fluid-container">
       <div id = "box">
         <div class = "quote">message</div>
-        <button id = "getQuote" class="btn btn-block btn-primary" >Get New Quote</button></button></div>
+ 	<div class = "author">&#45; author</div>
+        <button id = "getQuote" class="btn btn-block btn-primary">
+		Get New Quote
+	</button>
+      </div>
     </div>
   </body>
 </html>
