@@ -110,6 +110,13 @@ $(document).ready(function() {
         html += quotes[0]["quote"];
         html += "<i class='fa fa-quote-right' areia-hidden='true'></i>";
         var author = "&#45; " + quotes[0]["author"];
+	author +=  "&emsp;<a class='fa fa-twitter twitter-share-button'";
+	var text = "&ldquo;" + quotes[0]["quote"].replace(" ", "%20") + "&rdquo;";
+        text += " &ndash; " + quotes[0]["author"];
+        text += "\n\r  more @ https://juhongkim.tk/FreeCodeCampAssignments/randomQuoteGenerator/";
+        author += "href='https://twitter.com/intent/tweet?text="+ text +"'>";
+        author += " Tweet</a>";
+
         $(".fa").css("color", color[0]);
         $('body, html').css("background-color", color[0]);
         $(".quote").html(html);
@@ -127,6 +134,12 @@ $(document).ready(function() {
         html += quotes[randomID]["quote"];
         html += "<i class='fa fa-quote-right' areia-hidden='true'></i>";
         var author = "&#45; " + quotes[randomID]["author"];
+	author +=  "&emsp;<a class='fa fa-twitter twitter-share-button'";
+	var text = "&ldquo;" + quotes[randomID]["quote"].replace(" ", "%20") + "&rdquo;"; 
+	text += " &ndash; " + quotes[randomID]["author"];
+	text += "\n\r  more @ https://juhongkim.tk/FreeCodeCampAssignments/randomQuoteGenerator/";
+	author += "href='https://twitter.com/intent/tweet?text="+ text +"'>";
+	author += " Tweet</a>";
         $(".fa").css("color", color[colorID]);
         $('body, html').css("background-color", color[colorID]);
         $(".quote").html(html);
