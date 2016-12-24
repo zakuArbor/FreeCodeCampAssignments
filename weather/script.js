@@ -11,12 +11,11 @@ $(document).ready(function () {
             weather_link += "&APPID=b5fa033436df259e1fe280df8a10aff6";
             $.getJSON(weather_link, function(json) {
                 console.log(json);
-                var city = json["name"];
-                var weather_desc = json["weather"];
-                var temp = json["main"];
-                var country = json["country"];
-                console.log(weather_link);
-                console.log(city);
+                var location = json["name"] + ", " + json["sys"]["country"];
+                var weather = json["weather"][0]["main"];
+                var temp = json["main"]["temp"];
+		var icon_id = json["weather"][0]["id"];
+                console.log(icon_id);
             });
         });
     }
