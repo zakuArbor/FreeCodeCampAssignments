@@ -18,9 +18,9 @@ $(document).ready(function () {
 		var icon_id = json["weather"][0]["id"];
 		$("#temp").html(temp);
 		$("#weather").html(weather);
-		$("#icon").html();
+		$("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
 		$("#location").html(location);
-                console.log(celciusToFarenheit(temp));
+                console.log("<i class=\'owf owf-" + icon_id + "\'></i>");
 	    });	
         });
     }
