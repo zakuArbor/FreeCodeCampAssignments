@@ -142,7 +142,6 @@ var tempC;
 var tempF;
 
 $(document).ready(function () {
-  if (e.originalEvent.defaultPrevented) return;
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
           var weather_link = "http://api.openweathermap.org/data/2.5/weather";
