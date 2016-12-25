@@ -211,5 +211,6 @@ function getInfo() {
 }
 
 $(document).ready(function () {
+  if (e.originalEvent.defaultPrevented) return;
   getInfo();
 });
