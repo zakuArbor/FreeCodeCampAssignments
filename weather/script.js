@@ -155,7 +155,12 @@ function getInfo() {
                 var background = getBackground(
                         [date,riseDate, setDate]);
                 $('body').css('background-image', 'url("' + background + '")');
-                console.log(test);
+                console.log("pika test");
+                $("#temp").click( function() {
+                  $("#temp").html(celciusToFarenheit(temp) +  "&deg;C test");
+                });
+    
+
             });
         });
     }
@@ -164,18 +169,4 @@ function getInfo() {
 
 $(document).ready(function () {
   getInfo();
-  if (typeof temp !== 'undefined') {
-    getInfo();
-    $("#temp").click( function() {
-    	$("#temp").html(celciusToFarenheit(temp) +  "&deg;C test");
-    });
-    console.log(temp + "test");
-  }
-  else {
-    $("#temp").click( function() {
-      $("#temp").html(celciusToFarenheit(temp) +  "&deg;C test");
-   });  
-  console.log("pika");
-  }
-
 });
