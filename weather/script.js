@@ -174,7 +174,7 @@ function getInfo() {
                 $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
                 $("#location").html(location);
           //sunset and sunrise time are given at UTC time
-               /* var riseDate = new Date(json["sys"]["sunrise"]*1000); 
+                var riseDate = new Date(json["sys"]["sunrise"]*1000); 
                 var setDate = new Date(json["sys"]["sunset"]*1000);
 
                 var background = getBackground(
@@ -182,7 +182,7 @@ function getInfo() {
                 $('body').css('background-image', 'url("' + background + '")');
                 console.log("pika test");
 		$("#temp").click(function() {
-		    var html = $(this).text().match(/\d*/);/*
+		    var html = $(this).text().match(/\d*/);
 		    var type = $(this).text();
 		    console.log(html);
 		    type = type[type.length-1];
@@ -194,7 +194,7 @@ function getInfo() {
 		    else {
 		       $("#temp").html(window.tempC +  "&deg;C");
 		    }
-		});*/
+		});
                 });
             });
         }
