@@ -14,7 +14,7 @@ function withinTimeRange(current_hour, current_min, time) {
   //Time range
   if (timeM_max >= 60) {
     timeM_max -= 60;
-    timeH_max +=1
+    timeH_max +=1;
   }
   else if (timeM_min < 0) {
     timeM_min += 60;
@@ -30,6 +30,28 @@ function withinTimeRange(current_hour, current_min, time) {
   }  
   return withinTimeRange;
 }
+
+function isNight(current_hour, current_min, sunset) {
+	var sunsetH = sunset.getHours();
+	var sunsetM = sunset.getMinutes() + 15;
+	
+	if (sunsetM >= 60) {
+	    sunsetM -= 60;
+	    sunsetH +=1;
+	}
+	
+	if (current_hour > sunsetH) {
+		return true;
+	}
+	else if (current_hour < sunsetH) {
+		return false;
+	}
+	else if (current_hour == sunsetH && current_min > sunsetM) { //if current time is pass the sunset max range.
+		return true;
+	}
+	return false; //before sunset time
+}
+
 
 function getBackground (time) {
   /*
