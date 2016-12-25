@@ -194,10 +194,10 @@ $(document).ready(function () {
 		    else {
 		       $("#temp").html(window.tempC +  "&deg;C");
 		    }
-		});
+		}); //end of toggle
                
-            });
-        }
-    });
+            }); //end of getJSON
+        }); //end of navigator
+  }
   
 });
