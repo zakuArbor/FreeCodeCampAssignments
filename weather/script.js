@@ -116,6 +116,8 @@ function getBackground (time) {
 }
 
 var test = "hello";
+var tempC;
+var tempF;
 
 function getInfo() {
  if (navigator.geolocation) {
@@ -129,7 +131,8 @@ function getInfo() {
                 console.log(json);
                 var location = json["name"] + ", " + json["sys"]["country"];
                 var weather = json["weather"][0]["main"];
-                var temp = json["main"]["temp"] -273.15; //calvin -273.15 = Celcius
+                tempC = json["main"]["temp"] -273.15; //calvin -273.15 = Celcius
+                tempF = celciusToFarenheit(tempC);
                 var icon_id = json["weather"][0]["id"];
 
                 var date = new Date();
@@ -143,7 +146,7 @@ function getInfo() {
                   day = 'n';
                 }
 
-                $("#temp").html(temp + "&deg;C");
+                $("#temp").html(tempC + "&deg;C");
                 $("#weather").html(weather);
                 icon_id += "-" + day;
                 $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
@@ -156,15 +159,30 @@ function getInfo() {
                         [date,riseDate, setDate]);
                 $('body').css('background-image', 'url("' + background + '")');
                 console.log("pika test");
-                $("#temp").toggle(
-			function(temp) {
-			    $("#temp").html(celciusToFarenheit(temp) +  "&deg;C"); 
+		$("#temp").click(function() {
+		    var html = $(this).text().match(/\d*/);
+		    var type = $(this).text();
+		    console.log(html);
+		    type = type[type.length-1];
+		    if (type == "C") {
+		        html = window.tempF;
+                        console.log(html);
+			$("#temp").html(window.tempF +  "&deg;F");
+		    }
+		    else {
+		       $("#temp").html(window.tempC +  "&deg;C");
+		    }
+		});
+/*
+		$("#temp").toggle(
+			function() {
+			    $("#temp").html(celciusToFarenheit(window.temp) +  "&deg;C"); 
 			},
-                        function(temp) {
-                            $("#temp").html(temp +  "&deg;C"); 
+                        function() {
+                            $("#temp").html(window.temp +  "&deg;C"); 
              		}
-                );
-		$("#temp").html(temp + "&deg;C");
+                );*/
+		//$("#temp").html(temp + "&deg;C");
                 });
             });
         }
