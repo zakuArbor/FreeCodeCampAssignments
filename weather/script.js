@@ -162,8 +162,9 @@ function getInfo() {
 			},
                         function(temp) {
                             $("#temp").html(temp +  "&deg;C"); 
-             }
+             		}
                 );
+		$("#temp").html(temp + "&deg;C");
                 });
             });
         }
