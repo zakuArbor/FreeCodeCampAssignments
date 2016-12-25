@@ -156,8 +156,16 @@ function getInfo() {
                         [date,riseDate, setDate]);
                 $('body').css('background-image', 'url("' + background + '")');
                 console.log("pika test");
-                $("#temp").click( function() {
-                  $("#temp").html(celciusToFarenheit(temp) +  "&deg;C test");
+                $("#temp").toggle(
+			function(temp) {
+			    $("#temp").html(celciusToFarenheit(temp) +  "&deg;C"); 
+			},
+                        function(temp) {
+                            $("#temp").html(temp +  "&deg;C"); 
+                        }
+		);
+                
+
                 });
     
 
