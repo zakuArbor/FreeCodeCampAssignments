@@ -162,17 +162,11 @@ function getInfo() {
 			},
                         function(temp) {
                             $("#temp").html(temp +  "&deg;C"); 
-                        }
-		);
-                
-
+             }
+                );
                 });
-    
-
             });
-        });
-    }
-
+        }
 }
 
 $(document).ready(function () {
