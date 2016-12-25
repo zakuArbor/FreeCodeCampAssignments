@@ -60,68 +60,69 @@ function getBackground (time) {
   var sunset  = withinTimeRange(current_hour, current_min, sunset);
 
 
-  if (month >= 3 && month  <=5) { //spring
+  if (month >= 2 && month  <=4) { //spring
     if (night && !sunset) { //if night time
-      background_url = "/images/night.jpg";
+      background_url = "images/night.jpg";
     }
     else if (sunset) { //if sunset time range
-      background_url = "/images/sunset.jpg";
+      background_url = "images/sunset.jpg";
     }
     else { //daytime
-      background_url = "/images/spring_day.jpg";
+      background_url = "images/spring_day.jpg";
     }
   }
-  else if (month >= 6 && month <= 8) { //summer
+  else if (month >= 5 && month <= 7) { //summer
     if (night && !sunset) { //night
-      background_url = "/images/night.jpg";
+      background_url = "images/night.jpg";
     }
     else if (sunset) { //sunset
-      background_url = "/images/summer_set.jpg";
+      background_url = "images/summer_set.jpg";
     }
-    else if (current_hour >=12 && current_hour < sunset.getHours()) { 
+    else if (current_hour >=11 && current_hour < sunset.getHours()) { 
       //afternoon
-      background_url = "/images/summer_afternoon.jpg";
+      background_url = "images/summer_afternoon.jpg";
     }
     else { //daytime
-      background_url = "/images/night.jpg";
+      background_url = "images/night.jpg";
     }
 
   }
-  else if (month >= 9 && month <= 11) { //Fall
+  else if (month >= 8 && month <= 10) { //Fall
     if (night && !sunset) { //night
-      background_url = "/images/night.jpg";
+      background_url = "images/night.jpg";
     }
     else if (sunset) { //sunset
-      background_url = "/images/fall_set.jpg";
+      background_url = "images/fall_set.jpg";
     }
     else {
-      background_url = "/images/fall_day.jpg";
+      background_url = "images/fall_day.jpg";
     }
   }
-  else if (month == 1 || month == 2 || month == 12) { //winter
+  else if (month == 0 || month == 1 || month == 11) { //winter
     if (night && !sunset) { //night
-      background_url = "/images/winter_night_snow.jpg";
+      background_url = "images/winter_night_snow.jpg";
     }
     else if (sunset) { //sunset
-      background_url = "/images/noon.jpg";
+      background_url = "images/noon.jpg";
     }
     else if (sunrise) { //sunrise
-      background_url = "/images/winter_sunrise.jpg";
+      background_url = "images/winter_sunrise.jpg";
     }
     else { //daytime
-      background_url = "/images/winter_day.png";
+      background_url = "images/winter_day.png";
     }
   }
-
   return background_url;
 }
 
-$(document).ready(function () {
-    if (navigator.geolocation) {
+var test = "hello";
+
+function getInfo() {
+ if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
 
             var weather_link = "http://api.openweathermap.org/data/2.5/weather";
-	    weather_link += "?lat=" + position.coords.latitude;
+            weather_link += "?lat=" + position.coords.latitude;
             weather_link += "&lon=" + position.coords.longitude;
             weather_link += "&APPID=b5fa033436df259e1fe280df8a10aff6";
             $.getJSON(weather_link, function(json) {
@@ -129,33 +130,52 @@ $(document).ready(function () {
                 var location = json["name"] + ", " + json["sys"]["country"];
                 var weather = json["weather"][0]["main"];
                 var temp = json["main"]["temp"] -273.15; //calvin -273.15 = Celcius
-		var icon_id = json["weather"][0]["id"];
-		
-		var date = new Date();
-  		var hour = date.getHours();
-		
-		var day = '';
-		if (hour >=6 && hour <= 20) {
+                var icon_id = json["weather"][0]["id"];
+
+                var date = new Date();
+                var hour = date.getHours();
+
+                var day = '';
+                if (hour >=6 && hour <= 20) {
                   day = 'd';
-		}
-		else {
-		  day = 'n';
-		}
+                }
+                else {
+                  day = 'n';
+                }
 
-		$("#temp").html(temp + "&deg;C");
-		$("#weather").html(weather);
+                $("#temp").html(temp + "&deg;C");
+                $("#weather").html(weather);
                 icon_id += "-" + day;
-		$("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
-		$("#location").html(location);
+                $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
+                $("#location").html(location);
+          //sunset and sunrise time are given at UTC time
+                var riseDate = new Date(json["sys"]["sunrise"]*1000); 
+                var setDate = new Date(json["sys"]["sunset"]*1000);
 
-		//sunset and sunrise time are given at UTC time
-		var riseDate = new Date(json["sys"]["sunrise"]*1000); 
-		var setDate = new Date(json["sys"]["sunset"]*1000);
-
-		var background = getBackground(
-			[date,riseDate, setDate]);
-                console.log(background);
-	    });
+                var background = getBackground(
+                        [date,riseDate, setDate]);
+                $('body').css('background-image', 'url("' + background + '")');
+                console.log(test);
+            });
         });
     }
+
+}
+
+$(document).ready(function () {
+  getInfo();
+  if (typeof temp !== 'undefined') {
+    getInfo();
+    $("#temp").click( function() {
+    	$("#temp").html(celciusToFarenheit(temp) +  "&deg;C test");
+    });
+    console.log(temp + "test");
+  }
+  else {
+    $("#temp").click( function() {
+      $("#temp").html(celciusToFarenheit(temp) +  "&deg;C test");
+   });  
+  console.log("pika");
+  }
+
 });
