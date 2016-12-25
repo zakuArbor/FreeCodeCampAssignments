@@ -141,28 +141,6 @@ var test = "hello";
 var tempC;
 var tempF;
 
-function getInfo() {
-
-		    
-		$("#temp").click(function() {
-		    var html = $(this).text().match(/\d*/);
-		    var type = $(this).text();
-		    console.log(html);
-		    type = type[type.length-1];
-		    if (type == "C") {
-		        html = window.tempF;
-                        console.log(html);
-			$("#temp").html(window.tempF +  "&deg;F");
-		    }
-		    else {
-		       $("#temp").html(window.tempC +  "&deg;C");
-		    }
-		});
-                });
-            });
-        }
-}
-
 $(document).ready(function () {
   if (e.originalEvent.defaultPrevented) return;
   if (navigator.geolocation) {
@@ -201,6 +179,25 @@ $(document).ready(function () {
               $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
               $("#location").html(location);
               $('body').css('background-image', 'url("' + background + '")');
+		  
+		  
+	      //Toggle between farenheit and celcius
+	      $("#temp").click(function() {
+		    var html = $(this).text().match(/\d*/);
+		    var type = $(this).text();
+		    type = type[type.length-1];
+		    if (type == "C") {
+		        html = window.tempF;
+                        console.log(html);
+			$("#temp").html(window.tempF +  "&deg;F");
+		    }
+		    else {
+		       $("#temp").html(window.tempC +  "&deg;C");
+		    }
+		});
+                });
+            });
+        }
 	  });
       });
    }
