@@ -180,9 +180,9 @@ function getInfo() {
                 var background = getBackground(
                         [date,riseDate, setDate]);
                 $('body').css('background-image', 'url("' + background + '")');
-                console.log("pika test");
+                console.log("pika test");/*
 		$("#temp").click(function() {
-		    var html = $(this).text().match(/\d*/);
+		    var html = $(this).text().match(/\d*/);/*
 		    var type = $(this).text();
 		    console.log(html);
 		    type = type[type.length-1];
@@ -194,17 +194,7 @@ function getInfo() {
 		    else {
 		       $("#temp").html(window.tempC +  "&deg;C");
 		    }
-		});
-/*
-		$("#temp").toggle(
-			function() {
-			    $("#temp").html(celciusToFarenheit(window.temp) +  "&deg;C"); 
-			},
-                        function() {
-                            $("#temp").html(window.temp +  "&deg;C"); 
-             		}
-                );*/
-		//$("#temp").html(temp + "&deg;C");
+		});*/
                 });
             });
         }
