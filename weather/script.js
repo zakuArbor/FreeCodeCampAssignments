@@ -142,45 +142,8 @@ var tempC;
 var tempF;
 
 function getInfo() {
- if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
 
-            var weather_link = "http://api.openweathermap.org/data/2.5/weather";
-            weather_link += "?lat=" + position.coords.latitude;
-            weather_link += "&lon=" + position.coords.longitude;
-            weather_link += "&APPID=b5fa033436df259e1fe280df8a10aff6";
-            $.getJSON(weather_link, function(json) {
-                console.log(json);
-                var location = json["name"] + ", " + json["sys"]["country"];
-                var weather = json["weather"][0]["main"];
-                tempC = json["main"]["temp"] -273.15; //calvin -273.15 = Celcius
-                tempF = celciusToFarenheit(tempC);
-                var icon_id = json["weather"][0]["id"];
-
-                var date = new Date();
-                var hour = date.getHours();
-
-                var day = '';
-                if (hour >=6 && hour <= 20) {
-                  day = 'd';
-                }
-                else {
-                  day = 'n';
-                }
-
-                $("#temp").html(tempC + "&deg;C");
-                $("#weather").html(weather);
-                icon_id += "-" + day;
-                $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
-                $("#location").html(location);
-          //sunset and sunrise time are given at UTC time
-                var riseDate = new Date(json["sys"]["sunrise"]*1000); 
-                var setDate = new Date(json["sys"]["sunset"]*1000);
-
-                var background = getBackground(
-                        [date,riseDate, setDate]);
-                $('body').css('background-image', 'url("' + background + '")');
-                console.log("pika test");
+		    
 		$("#temp").click(function() {
 		    var html = $(this).text().match(/\d*/);
 		    var type = $(this).text();
@@ -202,5 +165,43 @@ function getInfo() {
 
 $(document).ready(function () {
   if (e.originalEvent.defaultPrevented) return;
-  getInfo();
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+          var weather_link = "http://api.openweathermap.org/data/2.5/weather";
+          weather_link += "?lat=" + position.coords.latitude;
+          weather_link += "&lon=" + position.coords.longitude;
+          weather_link += "&APPID=b5fa033436df259e1fe280df8a10aff6";
+          $.getJSON(weather_link, function(json) {
+              var location = json["name"] + ", " + json["sys"]["country"];
+              var weather = json["weather"][0]["main"];
+              tempC = json["main"]["temp"] -273.15; //calvin -273.15 = Celcius
+              tempF = celciusToFarenheit(tempC); //current temperature in Farenheit
+              var icon_id = json["weather"][0]["id"]; //icon 
+
+              var date = new Date();
+              var hour = date.getHours();
+
+              var day = '';
+              if (hour >=6 && hour <= 20) {
+                day = 'd';
+              }
+              else {
+                day = 'n';
+              }
+
+              //sunset and sunrise time are given at UTC time
+              var riseDate = new Date(json["sys"]["sunrise"]*1000); 
+              var setDate = new Date(json["sys"]["sunset"]*1000);
+              var background = getBackground([date,riseDate, setDate]); //get background url 
+
+		//DISPLAY DATA TO HTML
+	      $("#temp").html(tempC + "&deg;C");
+              $("#weather").html(weather);
+              icon_id += "-" + day;
+              $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
+              $("#location").html(location);
+              $('body').css('background-image', 'url("' + background + '")');
+	  });
+      });
+   }
 });
