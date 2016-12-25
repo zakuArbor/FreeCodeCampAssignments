@@ -1,0 +1,15 @@
+#weather_box {
+  width: 40%;
+  padding: 10px;
+  background-color: red;
+  margin: 10% auto auto auto;
+}
+
+#header {
+  text-align: center;
+  font-weight: bolder;
+  letter-spacing: 5px;
+  font-size: 3em;
+  font-syle: underline
+  word-spacing: 15px;
+}
