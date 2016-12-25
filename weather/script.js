@@ -195,10 +195,9 @@ $(document).ready(function () {
 		       $("#temp").html(window.tempC +  "&deg;C");
 		    }
 		});
-                });
+               
             });
         }
-	  });
-      });
-   }
+    });
+  
 });
