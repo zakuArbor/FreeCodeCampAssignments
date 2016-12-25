@@ -174,13 +174,13 @@ function getInfo() {
                 $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
                 $("#location").html(location);
           //sunset and sunrise time are given at UTC time
-                var riseDate = new Date(json["sys"]["sunrise"]*1000); 
+               /* var riseDate = new Date(json["sys"]["sunrise"]*1000); 
                 var setDate = new Date(json["sys"]["sunset"]*1000);
 
                 var background = getBackground(
                         [date,riseDate, setDate]);
                 $('body').css('background-image', 'url("' + background + '")');
-                console.log("pika test");/*
+                console.log("pika test");
 		$("#temp").click(function() {
 		    var html = $(this).text().match(/\d*/);/*
 		    var type = $(this).text();
