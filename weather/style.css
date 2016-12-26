@@ -1,3 +1,10 @@
+body {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+} 
+
 #weather_box {
   width: 40%;
   padding: 10px;
