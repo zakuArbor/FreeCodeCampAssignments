@@ -151,8 +151,8 @@ $(document).ready(function () {
           $.getJSON(weather_link, function(json) {
               var location = json["name"] + ", " + json["sys"]["country"];
               var weather = json["weather"][0]["main"];
-              tempC = json["main"]["temp"] -273.15.toFixed(1); //calvin -273.15 = Celcius
-              tempF = celciusToFarenheit(tempC).toFixed(1); //current temperature in Farenheit
+              tempC = (json["main"]["temp"] -273.15).toFixed(1); //calvin -273.15 = Celcius
+              tempF = (celciusToFarenheit(tempC)).toFixed(1); //current temperature in Farenheit
               var icon_id = json["weather"][0]["id"]; //icon 
 
               var date = new Date();
