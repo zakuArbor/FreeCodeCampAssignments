@@ -32,21 +32,30 @@ function withinTimeRange(current_hour, current_min, time) {
 }
 
 function isNight(current_hour, current_min, sunset) {
-	var sunsetH = sunset.getHours();
-	var sunsetM = sunset.getMinutes() + 15;
+	var sunsetH_max = sunset.getHours();
+	var sunsetM_max = sunset.getMinutes() + 15;
+	var sunsetH_min = sunset.getHours();
+	var sunsetM_min = sunset.getMinutes -15;
+
 	
-	if (sunsetM >= 60) {
-	    sunsetM -= 60;
-	    sunsetH +=1;
+	if (sunsetM_max >= 60) {
+	    sunsetM_max -= 60;
+	    sunsetH_max +=1;
 	}
-	
-	if (current_hour > sunsetH) {
+	else if (sunsetM_min < 0) {
+    	    sunsetM_min += 60;
+    	    sunsetH_min -=1;
+        }
+
+
+	if (current_hour > sunsetH_max) { //pass the sunset max hour range
 		return true;
 	}
-	else if (current_hour < sunsetH) {
+	else if (current_hour < sunsetH_min) { //pass the sunset min hour range
+		console.log(current_hour + "<" + sunsetH_min);
 		return false;
 	}
-	else if (current_hour == sunsetH && current_min > sunsetM) { //if current time is pass the sunset max range.
+	else if (current_hour == sunsetH_max && current_min > sunsetM_max) { //if current time is pass the sunset max range.
 		return true;
 	}
 	return false; //before sunset time
@@ -177,9 +186,8 @@ $(document).ready(function () {
               icon_id += "-" + day;
               $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
               $("#location").html(location);
-              $('body').css('background-image', 'url("' + background + '")');
-		  
-		  
+              $('body').css('background-image', 'url(' + background + ')');
+
 	      //Toggle between farenheit and celcius
 	      $("#temp").click(function() {
 		    var html = $(this).text().match(/\d*/);
@@ -194,9 +202,9 @@ $(document).ready(function () {
 		       $("#temp").html(window.tempC +  "&deg;C");
 		    }
 		}); //end of toggle
-               
             }); //end of getJSON
         }); //end of navigator
   }
-  
+
 });
+
