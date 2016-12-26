@@ -10,7 +10,7 @@ body {
   padding: 10px;
   margin: 10% auto auto auto;
   text-align: center;
-  background-color: rgba(177, 177, 177, 0.1);
+  background-color: rgba(177, 177, 177, 0.25);
   color: black;
   border-radius: 8px;
 }

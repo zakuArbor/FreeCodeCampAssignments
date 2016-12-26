@@ -52,7 +52,6 @@ function isNight(current_hour, current_min, sunset) {
 		return true;
 	}
 	else if (current_hour < sunsetH_min) { //pass the sunset min hour range
-		console.log(current_hour + "<" + sunsetH_min);
 		return false;
 	}
 	else if (current_hour == sunsetH_max && current_min > sunsetM_max) { //if current time is pass the sunset max range.
@@ -63,33 +62,16 @@ function isNight(current_hour, current_min, sunset) {
 
 
 function getBackground (time) {
-  /*
-  PROBLEMS TO FIX: 
-  -Does not take into consideration that sunset can come after 8
-     ex.) current time is 8:00 so it's night
-          sunset is at 8:30 so not within time range so night appears
-  -similar with sunrise
-  */
-
   var background_url;
   var current_hour = time[0].getHours(); //current hour
   var current_min = time[0].getMinutes(); //current minutes
-  var sunset = time[2];
-  var sunrise = time[1];
+  var sunset_time = time[2];
+  var sunrise_time = time[1];
   var month = time[0].getMonth();
 
-
-  //current time night or day
-  if (current_hour >= 6 && current_hour < 20) { //day
-    night = false;
-  }
-  else { //night
-    night = true;
-  }
-
-  var sunrise = withinTimeRange(current_hour, current_min, sunrise);
-  var sunset  = withinTimeRange(current_hour, current_min, sunset);
-
+  var sunrise = withinTimeRange(current_hour, current_min, sunrise_time);
+  var sunset  = withinTimeRange(current_hour, current_min, sunset_time);
+  var night = isNight(current_hour,current_min,sunset_time);
 
   if (month >= 2 && month  <=4) { //spring
     if (night && !sunset) { //if night time
