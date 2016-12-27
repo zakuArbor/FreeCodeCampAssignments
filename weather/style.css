@@ -1,3 +1,11 @@
+/* Portrait */
+@media only screen 
+  and (max-device-width: 800px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+  background-size: auto !important;
+}
+
 body {
   background-repeat: no-repeat;
   background-position: center;

@@ -31,11 +31,16 @@ function withinTimeRange(current_hour, current_min, time) {
   return withinTimeRange;
 }
 
-function isNight(current_hour, current_min, sunset) {
+function isNight(current_hour, current_min, sunset, sunrise) {
 	var sunsetH_max = sunset.getHours();
 	var sunsetM_max = sunset.getMinutes() + 15;
 	var sunsetH_min = sunset.getHours();
 	var sunsetM_min = sunset.getMinutes -15;
+
+	var sunriseH_max = sunrise.getHours();
+	var sunriseM_max = sunrise.getMinutes() + 15;
+	var sunriseH_min = sunriseH_max;
+	var sunriseM_min = sunrise.getMinutes() - 15;
 
 	
 	if (sunsetM_max >= 60) {
@@ -47,17 +52,31 @@ function isNight(current_hour, current_min, sunset) {
     	    sunsetH_min -=1;
         }
 
+	if (sunriseM_max >= 60) {
+            sunriseM_max -= 60;
+            sunriseH_max +=1;
+        }
+        else if (sunriseM_min < 0) {
+            sunriseM_min += 60;
+            sunriseH_min -=1;
+        }
 
 	if (current_hour > sunsetH_max) { //pass the sunset max hour range
 		return true;
 	}
-	else if (current_hour < sunsetH_min) { //pass the sunset min hour range
-		return false;
+	else if (current_hour < sunsetH_min) { //not pass the sunset min hour range 
+		if (current_hour < sunriseH_min) { //what if current time is 0:15, it is still night, need to check if it is before sunrise
+			//implies that the current time is night
+			return true;
+		}
+		else if (current_hour == sunriseH_min && current_min < sunriseM_min) { //time is before sunrise, so night
+			return true
+		}
 	}
 	else if (current_hour == sunsetH_max && current_min > sunsetM_max) { //if current time is pass the sunset max range.
 		return true;
 	}
-	return false; //before sunset time
+	return false; //implies either sunset or sunrise range or morning or day
 }
 
 
@@ -71,8 +90,8 @@ function getBackground (time) {
 
   var sunrise = withinTimeRange(current_hour, current_min, sunrise_time);
   var sunset  = withinTimeRange(current_hour, current_min, sunset_time);
-  var night = isNight(current_hour,current_min,sunset_time);
-
+  var night = isNight(current_hour,current_min,sunset_time, sunrise_time);
+  console.log(night);
   if (month >= 2 && month  <=4) { //spring
     if (night && !sunset) { //if night time
       background_url = "images/night.jpg";
@@ -185,6 +204,8 @@ $(document).ready(function () {
 		    }
 		}); //end of toggle
             }); //end of getJSON
+	console.log(weather_link);
+
         }); //end of navigator
   }
 
