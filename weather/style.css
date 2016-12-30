@@ -50,3 +50,7 @@ body {
   font-size: 10px;
   color: black;
 }
+
+#loading {
+  font-size: 100px;
+}

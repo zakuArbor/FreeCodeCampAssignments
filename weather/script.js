@@ -1,3 +1,4 @@
+console.log("test");
 function celciusToFarenheit(temp) {
     return temp * 9/5 + 32;
 }
@@ -152,7 +153,7 @@ var tempC;
 var tempF;
 
 $(document).ready(function () {
-  if (navigator.geolocation) {
+//  if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
           var weather_link = "http://api.openweathermap.org/data/2.5/weather";
           weather_link += "?lat=" + position.coords.latitude;
@@ -181,7 +182,10 @@ $(document).ready(function () {
               var setDate = new Date(json["sys"]["sunset"]*1000);
               var background = getBackground([date,riseDate, setDate]); //get background url 
 
-		//DISPLAY DATA TO HTML
+              $("#loading").html("");
+              $("#loading").removeAttr('style');
+
+	      //DISPLAY DATA TO HTML
 	      $("#temp").html(tempC + "&deg;C");
               $("#weather").html(weather);
               icon_id += "-" + day;
@@ -205,9 +209,15 @@ $(document).ready(function () {
 		}); //end of toggle
             }); //end of getJSON
 	console.log(weather_link);
-
+	},
+  	function(failure) {
+	    if(failure.message.indexOf("Only secure origins are allowed") == 0) {
+      		// Secure Origin issue.
+                alert("Sorry, Chrome 50+ does not support geolocation from http");
+    	    }
         }); //end of navigator
-  }
-
+  	
 });
+
+
 
