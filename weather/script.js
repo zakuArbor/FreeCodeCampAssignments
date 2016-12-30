@@ -1,8 +1,3 @@
-console.log("test");
-function celciusToFarenheit(temp) {
-    return temp * 9/5 + 32;
-}
-
 function withinTimeRange(current_hour, current_min, time) {
   var time_hour = time.getHours(); //sunrise hour
   var time_min = time.getMinutes(); //sunrise minutes
@@ -92,7 +87,6 @@ function getBackground (time) {
   var sunrise = withinTimeRange(current_hour, current_min, sunrise_time);
   var sunset  = withinTimeRange(current_hour, current_min, sunset_time);
   var night = isNight(current_hour,current_min,sunset_time, sunrise_time);
-  console.log(night);
   if (month >= 2 && month  <=4) { //spring
     if (night && !sunset) { //if night time
       background_url = "images/night.jpg";
@@ -161,7 +155,6 @@ $(document).ready(function () {
 	     var location = json[root]["display_location"]["city"] + ", ";
               location += json[root]["display_location"]["country"];
               var weather = json[root]["weather"];
-              console.log(location);
               var tempC = json[root].temp_c;
               var tempF = json[root].temp_f;
               var icon = json[root]["icon"];  
@@ -175,7 +168,6 @@ $(document).ready(function () {
               var setDate = new Date();
 	      setDate.setHours(json["sun_phase"]["sunset"]["hour"]);
 	      setDate.setMinutes(json["sun_phase"]["sunset"]["minute"]);
-              console.log(setDate.toString());
               var background = getBackground([date,riseDate, setDate]); //get background url 
 
               $("#loading").html("");
@@ -194,8 +186,7 @@ $(document).ready(function () {
 		    var type = $(this).text();
 		    type = type[type.length-1];
 		    if (type == "C") {
-		        html = window.tempF;
-                        console.log(html);
+		        html = tempF;
 			$("#temp").html(tempF +  "&deg;F");
 		    }
 		    else {
@@ -203,7 +194,6 @@ $(document).ready(function () {
 		    }
 		}); //end of toggle
             }); //end of getJSON
-	console.log(weather_link);
         });  	
 });
 
