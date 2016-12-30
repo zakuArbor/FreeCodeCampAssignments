@@ -148,38 +148,37 @@ function getBackground (time) {
   return background_url;
 }
 
-var test = "hello";
 var tempC;
 var tempF;
 
 $(document).ready(function () {
 //  if (navigator.geolocation) {
+
       navigator.geolocation.getCurrentPosition(function(position) {
-          var weather_link = "http://api.openweathermap.org/data/2.5/weather";
-          weather_link += "?lat=" + position.coords.latitude;
-          weather_link += "&lon=" + position.coords.longitude;
-          weather_link += "&APPID=b5fa033436df259e1fe280df8a10aff6";
-          $.getJSON(weather_link, function(json) {
-              var location = json["name"] + ", " + json["sys"]["country"];
-              var weather = json["weather"][0]["main"];
-              tempC = (json["main"]["temp"] -273.15).toFixed(1); //calvin -273.15 = Celcius
-              tempF = (celciusToFarenheit(tempC)).toFixed(1); //current temperature in Farenheit
-              var icon_id = json["weather"][0]["id"]; //icon 
+          var weather_link = "https://api.wunderground.com/api/";
+          weather_link += "f116132a323e7f5e/astronomy/conditions/q/";
+          weather_link += position.coords.latitude;
+          weather_link += "," + position.coords.longitude + ".json";
+	  $.getJSON(weather_link, function(json) {
+             const root = "current_observation"; 
+	     var location = json[root]["display_location"]["city"] + ", ";
+              location += json[root]["display_location"]["country"];
+              var weather = json[root]["weather"];
+              console.log(location);
+              tempC = json[root].temp_c;
+              tempF = json[root].temp_f;
+              var icon_url = json[root]["icon_url"]; //icon 
 
               var date = new Date();
               var hour = date.getHours();
 
-              var day = '';
-              if (hour >=6 && hour <= 20) {
-                day = 'd';
-              }
-              else {
-                day = 'n';
-              }
-
-              //sunset and sunrise time are given at UTC time
-              var riseDate = new Date(json["sys"]["sunrise"]*1000); 
-              var setDate = new Date(json["sys"]["sunset"]*1000);
+              var riseDate = new Date();
+              riseDate.setHours(json["sun_phase"]["sunrise"]["hour"]);
+              riseDate.setMinutes(json["sun_phase"]["sunrise"]["minute"]); 
+              var setDate = new Date();
+	      setDate.setHours(json["sun_phase"]["sunset"]["hour"]);
+	      setDate.setMinutes(json["sun_phase"]["sunset"]["minute"]);
+              console.log(setDate.toString());
               var background = getBackground([date,riseDate, setDate]); //get background url 
 
               $("#loading").html("");
@@ -188,8 +187,7 @@ $(document).ready(function () {
 	      //DISPLAY DATA TO HTML
 	      $("#temp").html(tempC + "&deg;C");
               $("#weather").html(weather);
-              icon_id += "-" + day;
-              $("#icon").html("<i class=\'owf owf-" + icon_id + "\'></i>");
+              $("#icon").html("<img src =" + icon_url + ">");
               $("#location").html(location);
               $('body').css('background-image', 'url(' + background + ')');
 
