@@ -148,9 +148,6 @@ function getBackground (time) {
   return background_url;
 }
 
-var tempC;
-var tempF;
-
 $(document).ready(function () {
 //  if (navigator.geolocation) {
 
@@ -165,9 +162,9 @@ $(document).ready(function () {
               location += json[root]["display_location"]["country"];
               var weather = json[root]["weather"];
               console.log(location);
-              tempC = json[root].temp_c;
-              tempF = json[root].temp_f;
-              var icon_url = json[root]["icon_url"]; //icon 
+              var tempC = json[root].temp_c;
+              var tempF = json[root].temp_f;
+              var icon = json[root]["icon"];  
 
               var date = new Date();
               var hour = date.getHours();
@@ -187,7 +184,7 @@ $(document).ready(function () {
 	      //DISPLAY DATA TO HTML
 	      $("#temp").html(tempC + "&deg;C");
               $("#weather").html(weather);
-              $("#icon").html("<img src =" + icon_url + ">");
+              $("#icon").html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
               $("#location").html(location);
               $('body').css('background-image', 'url(' + background + ')');
 
@@ -199,22 +196,15 @@ $(document).ready(function () {
 		    if (type == "C") {
 		        html = window.tempF;
                         console.log(html);
-			$("#temp").html(window.tempF +  "&deg;F");
+			$("#temp").html(tempF +  "&deg;F");
 		    }
 		    else {
-		       $("#temp").html(window.tempC +  "&deg;C");
+		       $("#temp").html(tempC +  "&deg;C");
 		    }
 		}); //end of toggle
             }); //end of getJSON
 	console.log(weather_link);
-	},
-  	function(failure) {
-	    if(failure.message.indexOf("Only secure origins are allowed") == 0) {
-      		// Secure Origin issue.
-                alert("Sorry, Chrome 50+ does not support geolocation from http");
-    	    }
-        }); //end of navigator
-  	
+        });  	
 });
 
 
