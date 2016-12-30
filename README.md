@@ -12,5 +12,6 @@ A repository for my FreeCodeCamp work
 <ul>
 <li>Still under testing</li>
 <li>Very slow especially on mobile devices</li>
+<li>Geolocation does not support Chrome version 50 and over if not in https</li>
 </ul>
 </p>
