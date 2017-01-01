@@ -142,9 +142,53 @@ function getBackground (time) {
   return background_url;
 }
 
+
+ navigator.geolocation.getCurrentPosition(function(position) {
+   var weather_link = "https://api.wunderground.com/api/";
+   weather_link += "f116132a323e7f5e/astronomy/conditions/q/";
+   weather_link += position.coords.latitude;
+   weather_link += "," + position.coords.longitude + ".json";
+   $.getJSON(weather_link, function(json) {
+     const root = "current_observation"; 
+     var location = json[root]["display_location"]["city"] + ", ";
+     location += json[root]["display_location"]["country"];
+     var weather = json[root]["weather"];
+     var tempC = json[root].temp_c;
+     var tempF = json[root].temp_f;
+     var icon = json[root]["icon"];  
+
+     var date = new Date();
+     var hour = date.getHours();
+
+     var riseDate = new Date();
+     riseDate.setHours(json["sun_phase"]["sunrise"]["hour"]);
+     riseDate.setMinutes(json["sun_phase"]["sunrise"]["minute"]); 
+     var setDate = new Date();
+     setDate.setHours(json["sun_phase"]["sunset"]["hour"]);
+     setDate.setMinutes(json["sun_phase"]["sunset"]["minute"]);
+     var background = getBackground([date,riseDate, setDate]); //get background url 
+     var info = {'"tempC": "' + tempC  + '",';
+     info += '"tempF": "' + tempF + '",';
+     info += '"icon": "' + icon  + '",';
+     info += '"background": "' + background  + '"}';
+     document.getElementById("hidden_location").innerHTML = info;
+     document.getElementById("temp").innerHTML = tempC + "&deg;C";
+    // document.getElementById("icon").innerHTML = "<i class ='wu wu-white wu-128 wu-" + icon + "'>";
+     document.getElementById("location").innerHTML = location;
+    // document.body.style.backgroundImage = "url(" +  background + ")";
+     document.getElementById("loading") = '';
+  });
+});
+
+
+
+
+
+
+
 $(document).ready(function () {
 //  if (navigator.geolocation) {
-
+/*
       navigator.geolocation.getCurrentPosition(function(position) {
           var weather_link = "https://api.wunderground.com/api/";
           weather_link += "f116132a323e7f5e/astronomy/conditions/q/";
@@ -169,32 +213,37 @@ $(document).ready(function () {
 	      setDate.setHours(json["sun_phase"]["sunset"]["hour"]);
 	      setDate.setMinutes(json["sun_phase"]["sunset"]["minute"]);
               var background = getBackground([date,riseDate, setDate]); //get background url 
-
-              $("#loading").html("");
-              $("#loading").removeAttr('style');
-
+*/
+              var loading = document.getElementById("loading");
+              $(loading).html("");
+              $(loading).removeAttr('style');
+/*
 	      //DISPLAY DATA TO HTML
 	      $("#temp").html(tempC + "&deg;C");
-              $("#weather").html(weather);
-              $("#icon").html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
-              $("#location").html(location);
-              $('body').css('background-image', 'url(' + background + ')');
+              $("#weather").html(weather);*/
+
+	      
+
+              $(document.getElementById("icon")).html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
+              //$(document.getElementById("location")).html(location);
+              $(document.body).css('background-image', 'url(' + background + ')');
 
 	      //Toggle between farenheit and celcius
-	      $("#temp").click(function() {
+	      var temp = document.getElementById("temp");
+	      $(temp).click(function() {
 		    var html = $(this).text().match(/\d*/);
 		    var type = $(this).text();
 		    type = type[type.length-1];
 		    if (type == "C") {
 		        html = tempF;
-			$("#temp").html(tempF +  "&deg;F");
+			$(temp).html(tempF +  "&deg;F");
 		    }
 		    else {
-		       $("#temp").html(tempC +  "&deg;C");
+		       $(temp).html(tempC +  "&deg;C");
 		    }
-		}); //end of toggle
-            }); //end of getJSON
-        });  	
+		}); //end of toggle*/
+//            }); //end of getJSON
+//        });  	
 });
 
 

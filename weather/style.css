@@ -54,3 +54,7 @@ body {
 #loading {
   font-size: 100px;
 }
+
+#hidden_location {
+  display:none;
+}
