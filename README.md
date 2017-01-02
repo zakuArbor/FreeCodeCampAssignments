@@ -10,8 +10,8 @@ A repository for my FreeCodeCamp work
 <h1><u>NOTES</u></h1>
 <h2>Weather</h2>
 <ul>
-<li>Still under testing</li>
-<li>Very slow especially on mobile devices</li>
-<li>Geolocation does not support Chrome version 50 and over if not in https</li>
+<li>Still under testing for time and season system (changing background images based on time and season)</li>
+<li>Very slow especially on mobile devices (still a bit slow after the speed update)</li>
+<li><s>Geolocation does not support Chrome version 50 and over if not in https</s>[FIXED]</li>
 </ul>
 </p>
