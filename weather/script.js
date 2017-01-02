@@ -170,27 +170,30 @@ $(document).ready(function () {
 	      setDate.setMinutes(json["sun_phase"]["sunset"]["minute"]);
               var background = getBackground([date,riseDate, setDate]); //get background url 
 
-              $("#loading").html("");
-              $("#loading").removeAttr('style');
+              var loading = document.getElementById("loading");              
+              $(loading).html("");
+              $(loading).removeAttr('style');
+	 
+              var temp = document.getElementById("temp");
 
 	      //DISPLAY DATA TO HTML
-	      $("#temp").html(tempC + "&deg;C");
-              $("#weather").html(weather);
-              $("#icon").html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
-              $("#location").html(location);
-              $('body').css('background-image', 'url(' + background + ')');
+	      $(temp).html(tempC + "&deg;C");
+              document.getElementById("weather").innerHTML = weather;
+              $(document.getElementById("icon")).html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
+	      document.getElementById("location").innerHTML = location;
+              $(document.body).css('background-image', 'url(' + background + ')');
 
 	      //Toggle between farenheit and celcius
-	      $("#temp").click(function() {
+	      $(temp).click(function() {
 		    var html = $(this).text().match(/\d*/);
 		    var type = $(this).text();
 		    type = type[type.length-1];
 		    if (type == "C") {
 		        html = tempF;
-			$("#temp").html(tempF +  "&deg;F");
+			$(temp).html(tempF +  "&deg;F");
 		    }
 		    else {
-		       $("#temp").html(tempC +  "&deg;C");
+		       $(temp).html(tempC +  "&deg;C");
 		    }
 		}); //end of toggle
             }); //end of getJSON
