@@ -27,6 +27,22 @@ body {
 	background-color: red;
 }
 
+#icons {
+	position: relative;
+	width: 256px;
+	margin: auto;
+}
+
+#search {
+	display: inline-block;
+}
+
+#random {
+	display: inline-block;
+}
+
+
+
 #footer {
 	position: relative;
 	margin: 10px;
