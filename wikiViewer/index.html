@@ -4,18 +4,22 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" type="text/css" href="/home/zakuarbor/Documents/FreeCodeCampAssignments/scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="/scripts/jquery-latest.js"></script>
-        <script src="/scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+        <script src="/home/zakuarbor/Documents/FreeCodeCampAssignments/scripts/jquery-latest.js"></script>
+        <script src="/home/zakuarbor/Documents/FreeCodeCampAssignments/scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <script src="script.js"></script>
     </head>
     <body>
         <div id = "fluid-container">
-           <h1 id = "title">WIKI VIEWER</h1>
            <div id = "search_box">
-              <div id = "icons">
-                 <div id = "search"><a href = '#' class="fa fa-search fa-4x" aria-hidden="true"></a></div>
-                 <div id = "random"><a href = '#' class="fa fa-random fa-4x" aria-hidden="true"></a></div>
+           <h1 id = "title">WIKI VIEWER</h1>
+           
+           <div id = "search_section">
+              <form id = "search_form">
+                <input id = "search_input" type = "text" placeholder="Search">
+                <a id = "search_icon" href = '#' class="fa fa-search fa-3x" aria-hidden="true"></a>
+              </form>
               </div>
+              <div id = "random_icon"><a href = 'https://en.wikipedia.org/wiki/Special:Random' target = "_blank" class="fa fa-random fa-3x" aria-hidden="true">RANDOM</a></div>
             <div id = "results"></div>
            </div>
       </div>
