@@ -7,9 +7,15 @@ $(document).ready(function(){
 		url += search + "&gsrlimit=10&prop=extracts&pilimit=max&";
 		url += "exintro&explaintext&exsentences=1&exlimit=max";
 		url += "&callback=?";
-		console.log(url);
 		$.getJSON(url, function(json){
-			console.log(json);
+			for (var key in json["query"]["pages"]) {
+			  console.log(key);
+			  var page_url = "https://en.wikipedia.org/?curid=";
+			  page_url += key;
+			  var title = json["query"]["pages"][key]["title"];
+			  var info = json["query"]["pages"][key]["extract"];
+			  console.log(title);			
+			}
 		});
 	});
 });
