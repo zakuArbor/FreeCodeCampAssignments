@@ -29,7 +29,7 @@ body {
 }
 
 #search_input {
-	border: 5px solid #323270;
+	border: 5px double #323270;
 	border-radius: 15px;
 	padding: 10px;
 	margin: 5px;
@@ -55,6 +55,41 @@ body {
 
 .fa:hover {
 	color:#333;
+}
+
+#results {
+  position: relative;
+  margin: auto;
+  height: auto;
+}
+
+#result {
+ position: relative;
+ text-align: left;
+}
+
+#result:hover {
+  position: relative;
+  border-left: solid 5px white;
+  padding-left: 5px;
+}
+
+#result_title {
+  position: relative;
+  height: auto;
+  font-weight: bolder;
+  margin-bottom: 0px;
+  background-color: #808080;
+  padding:10px;
+}
+
+#result_content {
+  position: relative
+  height: auto;
+  margin-top: 0px;
+  color: white;
+  background-color: #808080;
+  padding: 10px;
 }
 
 #footer {
