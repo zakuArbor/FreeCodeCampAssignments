@@ -29,7 +29,7 @@ body {
 }
 
 #search_input {
-	border: 5px double #323270;
+	border: solid 5px #323270;
 	border-radius: 15px;
 	padding: 10px;
 	margin: 5px;
