@@ -1,5 +1,11 @@
 $(document).ready(function(){
-	$(document.getElementById("search_icon")).click(function() {
+	$(document.getElementById("search_icon")).click(function () {search();});
+	$(document.getElementById("search_input")).keyup(function(e){
+   		if(e.keyCode == 13) {
+			search();
+    		}
+	});
+	function search() {
 		var search = document.getElementById("search_input").value;
 		var url = "https://en.wikipedia.org/w/api.php?format=json&action=";
 		//url += "opensearch&search=" + search + "&profile=classic";
@@ -29,5 +35,5 @@ $(document).ready(function(){
 			$(document.getElementById("results")).html(result_html);
 			console.log(result_html);
 		});
-	});
+	}//);
 });
