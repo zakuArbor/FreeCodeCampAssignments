@@ -1,6 +1,5 @@
 body {
 	background-color: #DDA0DD !important;
-	opacity: 0.9;
 }
 
 #fluid-container {
@@ -98,4 +97,9 @@ body {
 	text-align: center;
 	top: 60%;
 	clear: both;
+}
+
+a:hover {
+  text-decoration: none !important;
+  opacity: 0.7;
 }
