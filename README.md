@@ -1,11 +1,11 @@
 # FreeCodeCampAssignments
 A repository for my FreeCodeCamp work
 
-<p><a href = "https://codecamp.juhongkim.tk/tribute">Tribute</a></p>
-<p><a href = "https://codecamp.juhongkim.tk/profile">Profile</a></p>
-<p><a href = "https://codecamp.juhongkim.tk/randomQuoteGenerator">Random Quote Generator</a></p>
-<p><a href = "https://codecamp.juhongkim.tk/weather">Weather</a></p>
-<p><a href = "https://juhongkim.tk/FreeCodeCampAssignments/wikiViewer/">Wikipedia Viewer</p>
+<p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/tribute">Tribute</a></p>
+<p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/profile">Profile</a></p>
+<p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/randomQuoteGenerator">Random Quote Generator</a></p>
+<p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/weather">Weather</a></p>
+<p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/wikiViewer/">Wikipedia Viewer</p>
 
 <p>
 <h1><u>NOTES</u></h1>
