@@ -74,6 +74,15 @@ ul {
   margin: 0px auto;
   padding-left: 30%;
 }
+
+@media screen and (max-width: 991px) {
+     /* start of large tablet styles */
+  ul {
+    padding: 0%;
+    margin: 0;
+  }
+}
+
 #menu {
   position: relative;
   clear:both;
