@@ -14,6 +14,6 @@ A repository for my FreeCodeCamp work
 <li>Still under testing for time and season system (changing background images based on time and season)</li>
 <li>Very slow especially on mobile devices (still a bit slow after the speed update)</li>
 <li><s>Geolocation does not support Chrome version 50 and over if not in https</s>[FIXED]</li>
-<li>Weather not loading on Firefox anymore for some odd reason</li>
+<li>Weather not loading on Firefox anymore. Seems like an issue on Fireox side since all websites using geolocation does not seem to work</li>
 </ul>
 </p>
