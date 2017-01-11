@@ -143,17 +143,26 @@ function getBackground (time) {
 }
 
 $(document).ready(function () {
-//  if (navigator.geolocation) {
-
-      navigator.geolocation.getCurrentPosition(function(position) {
+      console.log("Jquery Ready");
+	var ip_link = "https://ipinfo.io/json";
+	console.log(ip_link);
+	$.getJSON(ip_link, function(position) {
+          console.log("success to get coordinates");
+	  var location = position.loc.split(",");
+	  console.log(location);
+	  var longitude = location[1];
+	  var latitude = location[0];
           var weather_link = "https://api.wunderground.com/api/";
           weather_link += "f116132a323e7f5e/astronomy/conditions/q/";
-          weather_link += position.coords.latitude;
-          weather_link += "," + position.coords.longitude + ".json";
+          weather_link += latitude;
+          weather_link += "," + longitude + ".json";
+	  console.log(weather_link);
+	  //display HTML location
+	  var location = position.city + ", " + position.country;
+	  document.getElementById("location").innerHTML = location;
+
 	  $.getJSON(weather_link, function(json) {
              const root = "current_observation"; 
-	     var location = json[root]["display_location"]["city"] + ", ";
-              location += json[root]["display_location"]["country"];
               var weather = json[root]["weather"];
               var tempC = json[root].temp_c;
               var tempF = json[root].temp_f;
@@ -180,7 +189,6 @@ $(document).ready(function () {
 	      $(temp).html(tempC + "&deg;C");
               document.getElementById("weather").innerHTML = weather;
               $(document.getElementById("icon")).html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
-	      document.getElementById("location").innerHTML = location;
               $(document.body).css('background-image', 'url(' + background + ')');
 
 	      //Toggle between farenheit and celcius
@@ -200,5 +208,11 @@ $(document).ready(function () {
         });  	
 });
 
-
+if ("geolocation" in navigator) {
+  /* geolocation is available */
+  console.log("Geolocation is available");
+} else {
+  /* geolocation IS NOT available */
+  console.log("Geolocation is not available");
+}
 
