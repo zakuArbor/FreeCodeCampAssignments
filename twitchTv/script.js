@@ -14,9 +14,9 @@ $(document).ready(function(){
   
   var curr;
   $(all).ready(function() {active(all, window.curr);});
-  $(all).click(function() {active(all, window.curr);});
-  $(online).click(function() {active(online, window.curr);});
-  $(offline).click(function() {active(offline, window.curr);});
+  $(all).click(function() {if (all != window.curr) {active(all, window.curr);}});
+  $(online).click(function() {if (online != window.curr) { active(online, window.curr);}});
+  $(offline).click(function() {if (offline != window.curr){ active(offline, window.curr);}});
    
 });
 
