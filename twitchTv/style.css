@@ -44,3 +44,11 @@
   clear: both;
   padding: 15px;
 }
+
+.status_box {
+  width: 80%;
+  height: 50px;
+  background-color: orange;
+  padding: 5px;
+  margin: 0 auto;
+}
