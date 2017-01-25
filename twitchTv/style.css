@@ -52,11 +52,18 @@
   padding: 15px;
   margin: 0 auto;
   line-height: 70%;
+  margin-bottom: 10px;
+}
+
+.status_box:hover {
+  position: relative;
+  border-left: solid 5px black;
+  padding-left: 5px;
 }
 
 .logo {
   position: relative;
-  display: inline-block;
+  display: block;
   border-radius: 5px;
   background-color: red;
   width: 75px;
@@ -76,12 +83,11 @@
   font-weight: bold;
   font-size: 1.8em;
   letter-spacing: 3px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .status {
   position: relative;
   display:inline-block;
-//  font-size: 1.5;
-  margin-left: 20px;
+  margin-left: 80px;
 }
