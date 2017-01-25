@@ -74,7 +74,10 @@
   position: relative;
   display: inline-block;
   width: 90%;
-  top: -25px;
+  top: -35px;
+  margin-left: 70px;
+  background-color: yellow;
+  height: auto;
 }
 
 .name {
