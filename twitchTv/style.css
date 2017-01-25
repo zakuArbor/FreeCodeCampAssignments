@@ -46,7 +46,7 @@
 }
 
 .status_box {
-  width: 80%;
+  width: 90%;
   height: 100px;
   background-color: orange;
   padding: 15px;
@@ -92,4 +92,19 @@
   position: relative;
   display:inline-block;
   margin-left: 80px;
+}
+
+@media only screen and (max-width: 500px) {
+.name {
+  font-size: 1.3em;
+}
+
+.status {
+  margin-left: 40px;
+}
+
+.info {
+  font-size:0px;
+}
+
 }

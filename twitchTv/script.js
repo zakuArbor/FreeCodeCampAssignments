@@ -7,12 +7,19 @@ function active(target, curr) {
   window.curr = target;
 }
 
-function generateHTML(channel_box, logo, channel, channel_url, status, state) {
+function generateHTML(channel_box, logo, channel, channel_url, status, state, game) {
     var html = "<div class = 'status_box " + state + "'><a href = " + channel_url + ">";
     html += "<img class = 'logo' src =" + logo + ">";
     html += "<div class =  'status_content'>";
     html += "<div class = 'name'>" + channel + "</div>";
+   
+    if (game == null) {
     html += "<div class = 'status'>" + status + "</div></div>";
+    }
+    else {
+      html += "<div class = 'status'>" + game; 
+      html += "<span class = 'info'>: " + status + "</span></div></div>";
+    }
     $(channel_box).append(html);
 }
 
@@ -24,22 +31,25 @@ function displayChannel(channel, channel_box) {
     var logo;
     var status;
     var state;
+    var game
     if(data.stream) {
       state = "online";
       channel_url = data.stream.channel["url"];
       logo = data.stream.channel.logo;
       status = data.stream.channel.status;
-      generateHTML(channel_box, logo, channel, channel_url, status, state);
+      game = data.stream.channel.game;
+      generateHTML(channel_box, logo, channel, channel_url, status, state, game);
     }
     else { //offline
       state = "offline";
       status = "offline";
+      game = null;
       url = "https://wind-bow.gomix.me/twitch-api/channels/" + channel + "?callback=?";
       $.getJSON(url, function(data) {
 	logo = data.logo;
         channel_url = data.url;
         console.log(data.logo);
-        generateHTML(channel_box, logo, channel, channel_url, status, state);
+        generateHTML(channel_box, logo, channel, channel_url, status, state, game);
       });
     }
   });
