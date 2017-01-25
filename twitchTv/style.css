@@ -85,22 +85,23 @@
   font-weight: bold;
   font-size: 1.8em;
   letter-spacing: 3px;
-  margin-left: 20px;
+  padding-bottom: 5px;
 }
 
 .status {
   position: relative;
   display:inline-block;
-  margin-left: 80px;
+//  margin-left: 80px;
 }
 
-@media only screen and (max-width: 500px) {
+.hide {
+  visibility:none;
+}
+
+@media only screen and (max-width: 680px) {
 .name {
-  font-size: 1.3em;
-}
-
-.status {
-  margin-left: 40px;
+  font-size: 1.1em;
+  padding-bottom: 5px;
 }
 
 .info {

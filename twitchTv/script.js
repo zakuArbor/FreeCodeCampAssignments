@@ -1,7 +1,23 @@
-function active(target, curr) {
+function changeView(state){
+  if (state == "all") {
+    $(".online").removeClass("hide");
+    $(".offline").removeClass("hide");
+  } 
+  else if (state == "online") {
+    $(".online").removeClass("hide");
+    $(".offline").addClass("hide");
+  } 
+  else {
+    $(".online").addClass("hide");
+    $(".offline").removeClass("hide");
+  }
+}
+
+function active(target, curr, state) {
   $(target).css("background-color", "#ca90fa");
   $(target).addClass("focus");
-  console.log("test"); 
+  console.log(status); 
+  changeView(state);
   $(curr).css("background-color", "#787878");
   $(curr).removeClass("focus");
   window.curr = target;
@@ -11,13 +27,13 @@ function generateHTML(channel_box, logo, channel, channel_url, status, state, ga
     var html = "<div class = 'status_box " + state + "'><a href = " + channel_url + ">";
     html += "<img class = 'logo' src =" + logo + ">";
     html += "<div class =  'status_content'>";
-    html += "<div class = 'name'>" + channel + "</div>";
+    html += "<div class = 'name col-sm-4'>" + channel + "</div>";
    
     if (game == null) {
-    html += "<div class = 'status'>" + status + "</div></div>";
+    html += "<div class = 'status col-sm-8'>" + status + "</div></div>";
     }
     else {
-      html += "<div class = 'status'>" + game; 
+      html += "<div class = 'status col-sm-8'>" + game; 
       html += "<span class = 'info'>: " + status + "</span></div></div>";
     }
     $(channel_box).append(html);
@@ -48,7 +64,6 @@ function displayChannel(channel, channel_box) {
       $.getJSON(url, function(data) {
 	logo = data.logo;
         channel_url = data.url;
-        console.log(data.logo);
         generateHTML(channel_box, logo, channel, channel_url, status, state, game);
       });
     }
@@ -71,9 +86,9 @@ $(document).ready(function(){
   getChannelInfo();
   var curr;
   $(all).ready(function() {active(all, window.curr);});
-  $(all).click(function() {if (all != window.curr) {active(all, window.curr);}});
-  $(online).click(function() {if (online != window.curr) { active(online, window.curr);}});
-  $(offline).click(function() {if (offline != window.curr){ active(offline, window.curr);}});
+  $(all).click(function() {if (all != window.curr) {active(all, window.curr, "all");}});
+  $(online).click(function() {if (online != window.curr) { active(online, window.curr, "online");}});
+  $(offline).click(function() {if (offline != window.curr){ active(offline, window.curr, "offline");}});
    
 });
 
