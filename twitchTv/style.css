@@ -47,8 +47,41 @@
 
 .status_box {
   width: 80%;
-  height: 50px;
+  height: 100px;
   background-color: orange;
-  padding: 5px;
+  padding: 15px;
   margin: 0 auto;
+  line-height: 70%;
+}
+
+.logo {
+  position: relative;
+  display: inline-block;
+  border-radius: 5px;
+  background-color: red;
+  width: 75px;
+  height: 75px;
+}
+
+.status_content {
+  position: relative;
+  display: inline-block;
+  width: 90%;
+  top: -25px;
+}
+
+.name {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.8em;
+  letter-spacing: 3px;
+  margin-left: 10px;
+}
+
+.status {
+  position: relative;
+  display:inline-block;
+//  font-size: 1.5;
+  margin-left: 20px;
 }
