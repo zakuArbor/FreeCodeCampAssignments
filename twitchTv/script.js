@@ -24,17 +24,24 @@ function active(target, curr, state) {
 }
 
 function generateHTML(channel_box, logo, channel, channel_url, status, state, game) {
-    var html = "<div class = 'status_box " + state + "'><a href = " + channel_url + ">";
-    html += "<img class = 'logo' src =" + logo + ">";
-    html += "<div class =  'status_content'>";
-    html += "<div class = 'name col-sm-4'>" + channel + "</div>";
+    if (status != "DNE") {
+      var html = "<div class = 'status_box " + state + "'><a href = " + channel_url + ">";
+      html += "<img class = 'logo' src =" + logo + ">";
+      html += "<div class =  'status_content'>";
+      html += "<div class = 'name col-sm-4'>" + channel + "</div>";
    
-    if (game == null) {
-    html += "<div class = 'status col-sm-8'>" + status + "</div></div>";
+      if (game == null) {
+      html += "<div class = 'status col-sm-8'>" + status + "</div></div>";
+      }
+      else {
+        html += "<div class = 'status col-sm-8'>" + game; 
+        html += "<span class = 'info'>: " + status + "</span></div></div>";
+      }
     }
     else {
-      html += "<div class = 'status col-sm-8'>" + game; 
-      html += "<span class = 'info'>: " + status + "</span></div></div>";
+      var html = "<div class = 'dne status_box " + state + "'>";
+      html += "<div class =  'dne_message'>";
+      html += "<div class = 'status'>" + game + "</div></div>";
     }
     $(channel_box).append(html);
 }
@@ -62,8 +69,15 @@ function displayChannel(channel, channel_box) {
       game = null;
       url = "https://wind-bow.gomix.me/twitch-api/channels/" + channel + "?callback=?";
       $.getJSON(url, function(data) {
-	logo = data.logo;
-        channel_url = data.url;
+        if(data.status != 404) {
+	  logo = data.logo;
+          channel_url = data.url;
+        }
+        else {
+          channel_url = "#";
+          status = "DNE"
+          game = data.message;
+        }
         generateHTML(channel_box, logo, channel, channel_url, status, state, game);
       });
     }
@@ -71,9 +85,8 @@ function displayChannel(channel, channel_box) {
 }
 
 function getChannelInfo() {
-  var streamers = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+  var streamers = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "brunofin"];
   var channel_box = document.getElementById("status");
-  var html = "";
   for (i = 0; i < streamers.length; i++) {
     displayChannel(streamers[i], channel_box);
   }

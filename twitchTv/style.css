@@ -88,10 +88,19 @@
   padding-bottom: 5px;
 }
 
+.dne {
+  position: relative;
+  display: block;
+  font-weight: bold;
+  font-size: 1.5em;
+  letter-spacing: 3px;
+  text-align: center;
+  padding: 45px;
+}
+
 .status {
   position: relative;
   display:inline-block;
-//  margin-left: 80px;
 }
 
 .hide {
@@ -106,6 +115,10 @@
 
 .info {
   font-size:0px;
+}
+
+.dne {
+  padding: 30px;
 }
 
 }
