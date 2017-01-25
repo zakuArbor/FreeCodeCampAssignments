@@ -11,12 +11,27 @@ function loadContent() {
   
 }
 
-function displayChannel(item, index) {
-  var url = "https://wind-bow.gomix.me/twitch-api/streams/" + item + "?callback=?";
+function displayChannel(channel, index) {
+  var url = "https://wind-bow.gomix.me/twitch-api/streams/" + channel + "?callback=?";
   $.getJSON(url, function(data){
-    console.log(data.stream);
+    var channel_url;
+    var logo;
+    var status;
+    console.log(channel);
+    if(data.stream) {
+      channel_url = data.stream.channel["url"];
+      logo = data.stream.channel.logo;
+      status = data.stream.channel.status;
+    }
+    else { //offline
+      status = offline;
+      url = "https://wind-bow.gomix.me/twitch-api/channels/" + channel + "?callback=?";
+      $.getJSON(url, function(data) {
+	logo = data.logo;
+        channel_url = data.url;
+      });
+    }
   });
-  console.log(url);
 }
 
 function getChannelInfo() {
