@@ -1,6 +1,5 @@
- $(document).ready(function() {
- $("#timeline").click(function() {
-   $("#timeline-content").fadeToggle();
-  });
-
- });
+$(document).ready(function() {
+    $("#timeline").click(function() {
+        $("#timeline-content").fadeToggle();
+    });
+});
