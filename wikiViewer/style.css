@@ -4,34 +4,32 @@ body {
 
 #fluid-container {
 	position: relative;
-	margin: auto;
-	height: 90%;
-	width: 90%;
-	//background-color: white;
+	margin  : auto;
+	height  : 90%;
+	width   : 90%;
 }
 
 #title a{
-	text-align: center;
-	font-weight: bolder;
+	text-align     : center;
+	font-weight    : bolder;
 	text-decoration: underline;
-	color: #323270;
+	color          : #323270;
 }
 
 #search_box {
-	position: relative;
-	top:30%;
-	padding: 10px;
-	margin: auto;
-	height: auto;
+	position  : relative;
+	top       :30%;
+	padding   : 10px;
+	margin    : auto;
+	height    : auto;
 	text-align: center;
-	//background-color: red;
 }
 
 #search_input {
-	border: solid 5px #323270;
+	border       : solid 5px #323270;
 	border-radius: 15px;
-	padding: 10px;
-	margin: 5px;
+	padding      : 10px;
+	margin       : 5px;
 }
 
 #search_input:focus {
@@ -40,12 +38,12 @@ body {
 
 #search_section {
 	position: relative;
-	display: block;
+	display : block;
 }
 
 #search_icon {
 	position: relative;
-	top: 10px;
+	top     : 10px;
 }
 
 .fa {
@@ -58,48 +56,48 @@ body {
 
 #results {
   position: relative;
-  margin: auto;
-  height: auto;
+  margin  : auto;
+  height  : auto;
 }
 
 #result {
- position: relative;
+ position  : relative;
  text-align: left;
 }
 
 #result:hover {
-  position: relative;
-  border-left: solid 5px white;
+  position    : relative;
+  border-left : solid 5px white;
   padding-left: 5px;
 }
 
 #result_title {
-  position: relative;
-  height: auto;
-  font-weight: bolder;
-  margin-bottom: 0px;
+  position        : relative;
+  height          : auto;
+  font-weight     : bolder;
+  margin-bottom   : 0px;
   background-color: #808080;
-  padding:10px;
+  padding         :10px;
 }
 
 #result_content {
-  position: relative
-  height: auto;
-  margin-top: 0px;
-  color: white;
+  position        : relative
+  height          : auto;
+  margin-top      : 0px;
+  color           : white;
   background-color: #808080;
-  padding: 10px;
+  padding         : 10px;
 }
 
 #footer {
-	position: relative;
-	margin: 10px;
+	position  : relative;
+	margin    : 10px;
 	text-align: center;
-	top: 60%;
-	clear: both;
+	top       : 60%;
+	clear     : both;
 }
 
 a:hover {
   text-decoration: none !important;
-  opacity: 0.7;
+  opacity        : 0.7;
 }
