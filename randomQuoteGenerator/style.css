@@ -1,50 +1,50 @@
 #box {
-  position: relative;  
-  margin: 0 auto;
-  width: 50%;
-  height: auto;
-  background-color: white;
-  margin-top:100px;
-  border-radius: 8px;
-  padding: 10px;
+    position        : relative;
+    margin          : 0 auto;
+    width           : 50%;
+    height          : auto;
+    background-color: white;
+    margin-top      : 100px;
+    border-radius   : 8px;
+    padding         : 10px;
 }
 
 @media screen and (max-width: 991px) {
-     /* start of large tablet styles */
-  #box {
-    width: 80%;
-  }
+    /* start of large tablet styles */
+    #box {
+        width: 80%;
+    }
 }
 
 .quote {
-  position: relative;
-  font-size: 20px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  text-align: center;
-  white-space: wrap;
-  padding: 5px;
-  background-color: white;
-  border-radius: 8px;
-  height: auto;
+    position        : relative;
+    font-size       : 20px;
+    font-weight     : bold;
+    letter-spacing  : 2px;
+    text-align      : center;
+    white-space     : wrap;
+    padding         : 5px;
+    background-color: white;
+    border-radius   : 8px;
+    height          : auto;
 }
 
 #getQuote {
-  position: relative;
-  bottom:0px;
+    position        : relative;
+    bottom          : 0px;
 }
 
 .author {
-  text-align: center;
-  font-size: 15px;
+    text-align      : center;
+    font-size       : 15px;
 }
 
 #footer {
-  color: white;
-  text-align: center;
-  font-weight: bold;
+    color           : white;
+    text-align      : center;
+    font-weight     : bold;
 }
 
 .btn-primary {
-  border:none !important;
+    border          : none !important;
 }
