@@ -16,5 +16,6 @@ A repository for my FreeCodeCamp work
 <li>Very slow especially on mobile devices (still a bit slow after the speed update)</li>
 <li><s>Geolocation does not support Chrome version 50 and over if not in https</s>[FIXED]</li>
 <li><s>Weather not loading on Firefox anymore. Seems like an issue on Fireox side since all websites using geolocation does not seem to work</s>Switch on method of getting the user location[RESOLVED] </li>
+<li>Weather not loading on Firefox anymore due to Firefox unable to retrieve geo coordinates after Firefox new update. Suspecting Firefox's new implement Strict Secure Cookies</li>
 </ul>
 </p>
