@@ -13,7 +13,7 @@ A repository for my FreeCodeCamp work
 <h2>Weather</h2>
 <ul>
 <li>Still under testing for time and season system (changing background images based on time and season)</li>
-<li>Very slow especially on mobile devices (still a bit slow after the speed update)</li>
+<li><s>Very slow especially on mobile devices (still a bit slow after the speed update)</s>A second or two load on any major devices</li>
 <li><s>Geolocation does not support Chrome version 50 and over if not in https</s>[FIXED]</li>
 <li><s>Weather not loading on Firefox anymore. Seems like an issue on Fireox side since all websites using geolocation does not seem to work</s>Switch on method of getting the user location[RESOLVED] </li>
 <li><s>Weather not loading on Firefox anymore due to Firefox unable to retrieve geo coordinates after Firefox new update. Suspecting Firefox's new implementation on Strict Secure Cookies</s>Reverted to HTML5 geolocation</li>
