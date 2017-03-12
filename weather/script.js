@@ -129,6 +129,9 @@ $(document).ready(function() {
     console.log(ip_link);
     if (navigator.geolocation || "geolocation" in navigator) {
 	  console.log('Geolocation is supported!');
+	  var latitude = position.coords.latitude;
+	  var longitude = position.coords.longitude;
+	  console.log(latitude);
 	}
 	else {
   		console.log('Geolocation is not supported for this Browser/OS.');	
