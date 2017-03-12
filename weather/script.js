@@ -133,80 +133,68 @@ $(document).ready(function() {
   			var latitude = position.coords.latitude;
 	  		var longitude = position.coords.longitude;
 	  		console.log(latitude);
-  			var location_link = "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyD6Lyhki4lziNuFmfJHnBPT709zvGb-Ylo";
+  			var location_link = "https://maps.googleapis.com/maps/api/geocode/json?latlng=";
+			location_link += latitude + "," + longitude + "&key=AIzaSyD6Lyhki4lziNuFmfJHnBPT709zvGb-Ylo";
   			$.getJSON(location_link, function(json) {
-  				console.log(json["results"]["address_components"][3]);
-    	    	var location = position.city + ", " + position.country;
-	    	    document.getElementById("location").innerHTML = location;
-        	});
-  		}
-		);
-	  console.log('Geolocation is supported!');
+				var city = json["results"][0]["address_components"][2]["short_name"];
+				var country = json["results"][0]["address_components"][5]["short_name"];
+    	    			var location = city + ", " + country;
+	    	    		document.getElementById("location").innerHTML = location;
+        		});
+	 var weather_link = "https://api.wunderground.com/api/";  		
+		weather_link += "f116132a323e7f5e/astronomy/conditions/q/";
+	        weather_link += latitude;
+        	weather_link += "," + longitude + ".json";
+        	// AIzaSyD6Lyhki4lziNuFmfJHnBPT709zvGb-Ylo 
+	  	console.log('Geolocation is supported!');
 	  
+        	$.getJSON(weather_link, function(json) {
+            	const root  = "current_observation";
+            	var weather = json[root]["weather"];
+            	var tempC   = json[root].temp_c;
+            	var tempF   = json[root].temp_f;
+            	var icon    = json[root]["icon"];
+
+            	var date    = new Date();
+            	var hour    = date.getHours();
+
+            	var riseDate= new Date();
+            	riseDate.setHours(json["sun_phase"]["sunrise"]["hour"]);
+            	riseDate.setMinutes(json["sun_phase"]["sunrise"]["minute"]);
+            	var setDate = new Date();
+            	setDate.setHours(json["sun_phase"]["sunset"]["hour"]);
+            	setDate.setMinutes(json["sun_phase"]["sunset"]["minute"]);
+            	var background= getBackground([date, riseDate, setDate]); //get background url 
+
+            	var loading   = document.getElementById("loading");
+            	$(loading).html("");
+            	$(loading).removeAttr('style');
+
+            	var temp = document.getElementById("temp");
+
+            	//DISPLAY DATA TO HTML
+            	$(temp).html(tempC + "&deg;C");
+            	document.getElementById("weather").innerHTML = weather;
+            	$(document.getElementById("icon")).html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
+            	$(document.body).css('background-image', 'url(' + background + ')');
+
+            	//Toggle between farenheit and celcius
+            	$(temp).click(function() {
+                	var html = $(this).text().match(/\d*/);
+                	var type = $(this).text();
+                	type = type[type.length - 1];
+                	if (type == "C") {
+                    		html = tempF;
+                    		$(temp).html(tempF + "&deg;F");
+                	} else {
+                    		$(temp).html(tempC + "&deg;C");
+                	}
+            	}); //end of toggle
+        	}); //end of getJSON
+	});
 	}
-	else {
-  		console.log('Geolocation is not supported for this Browser/OS.');	
-	}
+    	else {
+                console.log('Geolocation is not supported for this Browser/OS.');
+        }
 
-    $.getJSON(ip_link, function(position) {
-        console.log("success to get coordinates");
-        var location = position.loc.split(",");
-        console.log(location);
-        var longitude = location[1];
-        var latitude = location[0];
-        var weather_link = "https://api.wunderground.com/api/";
-        weather_link += "f116132a323e7f5e/astronomy/conditions/q/";
-        weather_link += latitude;
-        weather_link += "," + longitude + ".json";
-        // AIzaSyD6Lyhki4lziNuFmfJHnBPT709zvGb-Ylo 
-
-        console.log(weather_link);
-        //display HTML location
-        var location = position.city + ", " + position.country;
-        document.getElementById("location").innerHTML = location;
-
-        $.getJSON(weather_link, function(json) {
-            const root  = "current_observation";
-            var weather = json[root]["weather"];
-            var tempC   = json[root].temp_c;
-            var tempF   = json[root].temp_f;
-            var icon    = json[root]["icon"];
-
-            var date    = new Date();
-            var hour    = date.getHours();
-
-            var riseDate= new Date();
-            riseDate.setHours(json["sun_phase"]["sunrise"]["hour"]);
-            riseDate.setMinutes(json["sun_phase"]["sunrise"]["minute"]);
-            var setDate = new Date();
-            setDate.setHours(json["sun_phase"]["sunset"]["hour"]);
-            setDate.setMinutes(json["sun_phase"]["sunset"]["minute"]);
-            var background= getBackground([date, riseDate, setDate]); //get background url 
-
-            var loading   = document.getElementById("loading");
-            $(loading).html("");
-            $(loading).removeAttr('style');
-
-            var temp = document.getElementById("temp");
-
-            //DISPLAY DATA TO HTML
-            $(temp).html(tempC + "&deg;C");
-            document.getElementById("weather").innerHTML = weather;
-            $(document.getElementById("icon")).html("<i class ='wu wu-white wu-128 wu-" + icon + "'>");
-            $(document.body).css('background-image', 'url(' + background + ')');
-
-            //Toggle between farenheit and celcius
-            $(temp).click(function() {
-                var html = $(this).text().match(/\d*/);
-                var type = $(this).text();
-                type = type[type.length - 1];
-                if (type == "C") {
-                    html = tempF;
-                    $(temp).html(tempF + "&deg;F");
-                } else {
-                    $(temp).html(tempC + "&deg;C");
-                }
-            }); //end of toggle
-        }); //end of getJSON
-    });
 });
