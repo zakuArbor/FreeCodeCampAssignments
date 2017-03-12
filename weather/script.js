@@ -133,6 +133,12 @@ $(document).ready(function() {
   			var latitude = position.coords.latitude;
 	  		var longitude = position.coords.longitude;
 	  		console.log(latitude);
+  			var location_link = "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyD6Lyhki4lziNuFmfJHnBPT709zvGb-Ylo";
+  			$.getJSON(location_link, function(json) {
+  				console.log(json["results"]["address_components"][3]);
+    	    	var location = position.city + ", " + position.country;
+	    	    document.getElementById("location").innerHTML = location;
+        	});
   		}
 		);
 	  console.log('Geolocation is supported!');
@@ -152,6 +158,8 @@ $(document).ready(function() {
         weather_link += "f116132a323e7f5e/astronomy/conditions/q/";
         weather_link += latitude;
         weather_link += "," + longitude + ".json";
+        // AIzaSyD6Lyhki4lziNuFmfJHnBPT709zvGb-Ylo 
+
         console.log(weather_link);
         //display HTML location
         var location = position.city + ", " + position.country;
