@@ -127,7 +127,7 @@ $(document).ready(function() {
     console.log("Jquery Ready");
     var ip_link = "https://ipinfo.io/json";
     console.log(ip_link);
-    if (navigator.geolocation) {
+    if (navigator.geolocation || "geolocation" in navigator) {
 	  console.log('Geolocation is supported!');
 	}
 	else {
