@@ -194,11 +194,3 @@ $(document).ready(function() {
         }); //end of getJSON
     });
 });
-
-if ("geolocation" in navigator) {
-    /* geolocation is available */
-    console.log("Geolocation is available");
-} else {
-    /* geolocation IS NOT available */
-    console.log("Geolocation is not available");
-}
