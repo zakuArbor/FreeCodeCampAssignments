@@ -127,20 +127,13 @@ $(document).ready(function() {
     console.log("Jquery Ready");
     var ip_link = "https://ipinfo.io/json";
     console.log(ip_link);
-    navigator.geolocation.getCurrentPosition(
-    	function(success) { /* Do some magic. */ 
-    		var latitude  = position.coords.latitude;
-		    var longitude = position.coords.longitude;
-    		console.log("works");
-    		console.log(longitude);
-    	},
-  		function(failure) {
-    		if(failure.message.indexOf("Only secure origins are allowed") == 0) {
-      		// Secure Origin issue.
-    		}
-  			};
-		}
-	);
+    if (navigator.geolocation) {
+	  console.log('Geolocation is supported!');
+	}
+	else {
+  		console.log('Geolocation is not supported for this Browser/OS.');	
+	}
+
     $.getJSON(ip_link, function(position) {
         console.log("success to get coordinates");
         var location = position.loc.split(",");
