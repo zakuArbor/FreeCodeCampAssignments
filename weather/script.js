@@ -128,10 +128,15 @@ $(document).ready(function() {
     var ip_link = "https://ipinfo.io/json";
     console.log(ip_link);
     if (navigator.geolocation || "geolocation" in navigator) {
+    	navigator.geolocation.getCurrentPosition(
+    		function(position) {
+  			var latitude = position.coords.latitude;
+	  		var longitude = position.coords.longitude;
+	  		console.log(latitude);
+  		}
+		);
 	  console.log('Geolocation is supported!');
-	  var latitude = position.coords.latitude;
-	  var longitude = position.coords.longitude;
-	  console.log(latitude);
+	  
 	}
 	else {
   		console.log('Geolocation is not supported for this Browser/OS.');	
