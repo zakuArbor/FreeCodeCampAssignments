@@ -127,6 +127,20 @@ $(document).ready(function() {
     console.log("Jquery Ready");
     var ip_link = "https://ipinfo.io/json";
     console.log(ip_link);
+    navigator.geolocation.getCurrentPosition(
+    	function(success) { /* Do some magic. */ 
+    		var latitude  = position.coords.latitude;
+		    var longitude = position.coords.longitude;
+    		console.log("works");
+    		console.log(longitude);
+    	},
+  		function(failure) {
+    		if(failure.message.indexOf("Only secure origins are allowed") == 0) {
+      		// Secure Origin issue.
+    		}
+  			};
+		}
+	);
     $.getJSON(ip_link, function(position) {
         console.log("success to get coordinates");
         var location = position.loc.split(",");
