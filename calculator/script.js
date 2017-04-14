@@ -41,6 +41,9 @@ function display_action (result, input) {
 	}
 	else {
 		print += " " + input + " ";
+		num_set = false;
+		operation_set = true;
+		actions.push(input);
 	}
 	if (result != null) {
 		result.innerHTML = print;
@@ -115,38 +118,22 @@ $(document).ready(function() {
 	//Gather arithmetric operation input
 	$(add).click(function() {
 		if (num_set == true && operation_set == false) {
-			actions.push("add");
-			console.log("actions");
-			num_set = false;
-			operation_set = true;
-			result.innerHTML = "+";
+			display_action(result, "+");
 		}
 	});
 	$(sub).click(function() {
 		if (num_set == true && operation_set == false) {
-			actions.push("sub");
-			console.log("actions");
-			num_set = false;
-			operation_set = true;
-			result.innerHTML = "-";
+			display_action(result, "-");
 		}
 	});
 	$(mult).click(function() {
 		if (num_set == true && operation_set == false) {
-			actions.push("mult");
-			console.log("actions");
-			num_set = false;
-			operation_set = true;
-			result.innerHTML = "*";
+			display_action(result, "*");
 		}
 	});
 	$(div).click(function() {
 		if (num_set == true && operation_set == false) {
-			actions.push("div");
-			console.log("actions");
-			num_set = false;
-			operation_set = true;
-			result.innerHTML = "/";
+			display_action(result, "/");
 		}
 	});
 	/*******************************************************/
