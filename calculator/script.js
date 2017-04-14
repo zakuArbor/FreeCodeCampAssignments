@@ -7,6 +7,7 @@
 var actions = []; //a queue of operation to do	
 var num_set = false; //if the previous action/input was a number
 var operation_set = false; //if the previous action/input was an arithmetric operation or a functional operation
+var result_set = false; //if the result has been computed or not
 var print = ""; //print number or operation symbol
 
 /**
@@ -16,7 +17,7 @@ var print = ""; //print number or operation symbol
 */
 function calc_statement (result) {
 	var result_num = parseFloat(actions[0]);
-
+	console.log(actions);
 	if (actions.length == 1) {
 		return actions.pop();
 	}
@@ -57,13 +58,14 @@ function calc_statement (result) {
 * @param a number that represents the result from the mathematical statement   	 
 */
 function display_result (result, result_num) {
+	result_set = true;
 	print = result_num;
 	result.innerHTML = print;
 
 	//reset all flags and operation queue
 	num_set = false;
 	operation_set = false;
-	actions = [];
+	actions = [result_num];
 }
 
 /**
@@ -77,6 +79,11 @@ function display_result (result, result_num) {
 function display_action (result, input) {
 	var reg_num = /^\d*$/;
 	if (input.match(reg_num)) {
+		if (result_set) {
+			result_set = false;
+			actions.pop();
+		}
+
 		print += input;
 		if (num_set == true) {
 			var num = actions.pop();
@@ -92,8 +99,11 @@ function display_action (result, input) {
 	else {
 		print += " " + input + " ";
 		num_set = false;
+		result_set = false;
 		operation_set = true;
 		actions.push(input);
+		console.log("push");
+		console.log(actions);
 	}
 	if (result != null) {
 		result.innerHTML = print;
@@ -168,27 +178,27 @@ $(document).ready(function() {
 	/*******************************************************/
 	//Gather arithmetric operation input
 	$(add).click(function() {
-		if (num_set == true && operation_set == false) {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
 			display_action(result, "+");
 		}
 	});
 	$(sub).click(function() {
-		if (num_set == true && operation_set == false) {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
 			display_action(result, "-");
 		}
 	});
 	$(mult).click(function() {
-		if (num_set == true && operation_set == false) {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
 			display_action(result, "*");
 		}
 	});
 	$(div).click(function() {
-		if (num_set == true && operation_set == false) {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
 			display_action(result, "/");
 		}
 	});
 	$(equal).click(function() {
-		if (num_set == true && operation_set == false) {
+		if ((num_set == true && operation_set == false)) {
 			var result_num = calc_statement(result);
 			display_result(result, result_num);
 		}
