@@ -7,8 +7,7 @@
 var actions = []; //a queue of operation to do	
 var num_set = false; //if the previous action/input was a number
 var operation_set = false; //if the previous action/input was an arithmetric operation or a functional operation
-var result = document.getElementById("result");
-
+var print = ""; //print number or operation symbol
 
 /**
 * Gather user's input that is a number and generates a string number by appending the input to the string 
@@ -20,13 +19,37 @@ function generate_num (num, num_input) {
 	return num + num_input;
 }
 
-function display_action (input) {
-
+/**
+* Display user's input and display it on the result screen
+*
+* If input is a number, number gets appended to the result screen 
+*
+* @param result	reference to result id
+* @param input	User's raw input (either a number or arithmetric operation)  	 
+*/
+function display_action (result, input) {
+	var reg_num = /^\d*$/;
+	if (input.match(reg_num)) {
+		print += input;
+		if (num_set == true) {
+			var num = actions.pop();
+			num += input;
+			actions.push(num);
+		}
+		num_set = true;
+		operation_set = false;
+	}
+	else {
+		print += " " + input + " ";
+	}
+	if (result != null) {
+		result.innerHTML = print;
+	}
 }
 
 $(document).ready(function() {
 	var result_num = 0; //result number after arithmetric operation
-	var print = ""; //print number or operation symbol
+	var result = document.getElementById("result");
 	/**
 	1.a Set a
 	2.b Set operator (ex. [+, -, *, /])
@@ -58,64 +81,34 @@ $(document).ready(function() {
  	/*******************************************************/
 	//Gather number input
 	$(one).click(function() {
-		actions.push("1");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 1;
+		display_action(result, "1");
 	});
 	$(two).click(function() {
-		actions.push("2");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 2;
+		display_action(result, "2");
 	});
 	$(three).click(function() {
-		actions.push("3");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 3;
+		display_action(result, "3");
 	});
 	$(four).click(function() {
-		actions.push("4");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 4;
+		display_action(result, "4");
 	});
 	$(five).click(function() {
-		actions.push("5");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 5;
+		display_action(result, "5");
 	});
 	$(six).click(function() {
-		actions.push("6");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 6;
+		display_action(result, "6");
 	});
 	$(seven).click(function() {
-		actions.push("7");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 7;
+		display_action(result, "7");
 	});
 	$(eight).click(function() {
-		actions.push("8");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 8;
+		display_action(result, "8");
 	});
 	$(nine).click(function() {
-		actions.push("9");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 9;
+		display_action(result, "9");
 	});
 	$(zero).click(function() {
-		actions.push("0");
-		num_set = true;
-		operation_set = false;
-		result.innerHTML = 0;
+		display_action(result, "0");
 	});
 	/*******************************************************/
 	/*******************************************************/
