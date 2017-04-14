@@ -10,25 +10,53 @@ var operation_set = false; //if the previous action/input was an arithmetric ope
 var print = ""; //print number or operation symbol
 
 /**
-* Compute mathematical statement and print its result 
+* Compute mathematical statement and return result 
 *
 * @param result	reference to result id   	 
 */
 function calc_statement (result) {
-	var result_num = actions[0];
-	console.log(actions);
-	var need_addition = false;
-	for (var i = 1; i < actions.length; i+=2) {
-		if (actions[i] == "+" || actions[i] == "-") {
-			need_addition = true;
+	var result_num = parseFloat(actions[0]);
+
+	if (actions.length == 1) {
+		return actions.pop();
+	}
+	while (actions.length > 0) {
+		if (actions[1] == "+" || actions[1] == "-") {
+			if (actions[1] == "-") { 
+				actions[2] = parseFloat(actions[2]) * -1;
+			}
+			actions.shift(); //removes i-1
+			actions.shift(); //removes i
+			result_num += parseFloat(calc_statement(result));
 			break;
-		}
+		} 
 		else {
-			if (actions[i] == "*") {
-				result_num *= actions[i+1];
+			if (actions[1] == "*") {
+				result_num *= parseFloat(actions[1+1]);
+			}
+			else {
+				result_num /= parseFloat(actions[1+1]);
+			}
+			//push result
+			actions[2] = result_num;		
+			//pop previous actions
+			actions.shift();
+			actions.shift();	
+			if (actions.length == 1) {
+				break;
 			}
 		}
 	}
+	return result_num;
+}
+
+/**
+* Print the result from the mathematical statement 
+*
+* @param result	reference to result id
+* @param a number that represents the result from the mathematical statement   	 
+*/
+function display_result (result, result_num) {
 	print = result_num;
 	result.innerHTML = print;
 
@@ -161,7 +189,8 @@ $(document).ready(function() {
 	});
 	$(equal).click(function() {
 		if (num_set == true && operation_set == false) {
-			calc_statement(result);
+			var result_num = calc_statement(result);
+			display_result(result, result_num);
 		}
 	});
 	/*******************************************************/
