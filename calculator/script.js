@@ -10,13 +10,32 @@ var operation_set = false; //if the previous action/input was an arithmetric ope
 var print = ""; //print number or operation symbol
 
 /**
-* Gather user's input that is a number and generates a string number by appending the input to the string 
+* Compute mathematical statement and print its result 
 *
-* @param num	A string number to perform an arithemtric operation on  	 
-* @return	An appeneded string number (ex. user actions.push("2" => "1" + "2" = "12")
+* @param result	reference to result id   	 
 */
-function generate_num (num, num_input) {
-	return num + num_input;
+function calc_statement (result) {
+	var result_num = actions[0];
+	console.log(actions);
+	var need_addition = false;
+	for (var i = 1; i < actions.length; i+=2) {
+		if (actions[i] == "+" || actions[i] == "-") {
+			need_addition = true;
+			break;
+		}
+		else {
+			if (actions[i] == "*") {
+				result_num *= actions[i+1];
+			}
+		}
+	}
+	print = result_num;
+	result.innerHTML = print;
+
+	//reset all flags and operation queue
+	num_set = false;
+	operation_set = false;
+	actions = [];
 }
 
 /**
@@ -35,6 +54,9 @@ function display_action (result, input) {
 			var num = actions.pop();
 			num += input;
 			actions.push(num);
+		}
+		else {
+			actions.push(input);
 		}
 		num_set = true;
 		operation_set = false;
@@ -79,6 +101,7 @@ $(document).ready(function() {
 	var sub = document.getElementById("sub");
 	var mult = document.getElementById("mult");
 	var div = document.getElementById("div");
+	var equal = document.getElementById("equal");
 	/*******************************************************/ 
 	
  	/*******************************************************/
@@ -134,6 +157,11 @@ $(document).ready(function() {
 	$(div).click(function() {
 		if (num_set == true && operation_set == false) {
 			display_action(result, "/");
+		}
+	});
+	$(equal).click(function() {
+		if (num_set == true && operation_set == false) {
+			calc_statement(result);
 		}
 	});
 	/*******************************************************/
