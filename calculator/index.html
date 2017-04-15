@@ -3,37 +3,51 @@
 	<title>Calculator</title>
 	<link rel="stylesheet" type="text/css" href="/home/zakuarbor/Desktop/FreeCodeCampAssignments/scripts/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="/home/zakuarbor/Desktop/FreeCodeCampAssignments/scripts/jquery-latest.js"></script>
     <script src="/home/zakuarbor/Desktop/FreeCodeCampAssignments/scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
 </head>
 <body>
-	<div id = "container">
-		<div id = "result"></div><br>
-		<div id = "numbers">
-			<div id = "zero" class = "num">0</div>
-			<div id = "one" class = "num">1</div>
-			<div id = "two" class = "num">2</div>
-			<div id = "three" class = "num">3</div>
-			<div id = "four" class = "num">4</div>
-			<div id = "five" class = "num">5</div>
-			<div id = "six" class = "num">6</div>
-			<div id = "seven" class = "num">7</div>
-			<div id = "eight" class = "num">8</div>
-			<div id = "nine" class = "num">9</div>
-			<div id = "dot" class = "num">.</div>
+	<div class = "container-fluid">
+	<div id = "result_row" class="row">
+		<div class="col-xs-12 text-center">
+			<div id = "result"></div>
 		</div>
-		<div id = "arithemtric_operations">
-			<div id = "add">+</div>
-			<div id = "sub">-</div>
-			<div id = "mult">x</div>
-			<div id = "div">/</div>
-			<div id = "equal">=</div>
+	</div>
+	<div class="row">
+		<div id = "footer" class="text-center col-xs-3">Kim</div>
+		<div id = "ce" class="functional_op col-xs-3 text-center">
+			CE
 		</div>
-		<div id = "functional_operations">
-			<div id = "ce">CE</div>
-			<div id = "ac">AC</div>
+		<div id = "ac" class="functional_op col-xs-3 text-center">
+			AC
 		</div>
+		<div id = "div" class = "arithmetric_op col-xs-3 text-center">/</div>
+	</div>
+	<div class="row">
+		<div id = "seven" class="num col-xs-3 text-center">7</div>
+		<div id = "eight" class="num col-xs-3 text-center">8</div>
+		<div id = "nine" class="num col-xs-3 text-center">9</div>	
+		<div id = "mult" class = "arithmetric_op col-xs-3 text-center">x</div>
+	</div>
+	<div class="row">
+		<div id = "four" class = "num col-xs-3 text-center">4</div>
+		<div id = "five" class = "num col-xs-3 text-center">5</div>
+		<div id = "six" class = "num col-xs-3 text-center">6</div>
+		<div id = "sub" class = "arithmetric_op col-xs-3 text-center">-</div>
+	</div>
+	<div class = "row"> 
+		<div id = "one" class = "num col-xs-3 text-center">1</div>
+		<div id = "two" class = "num col-xs-3 text-center">2</div>
+		<div id = "three" class = "num col-xs-3 text-center">3</div>
+		<div id = "add" class = "arithmetric_op col-xs-3 text-center">+</div>
+	</div>
+	<div class = "row">
+		<div id = "zero" class = "num col-xs-6 text-center">0</div>
+		<div id = "dot" class = "num col-xs-3 text-center">.</div>	
+		<div id = "equal" class = "arithmetric_op num col-xs-3 text-center">=</div>
+	</div>
 	</div>
 </body>
 </html>
