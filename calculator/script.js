@@ -10,6 +10,8 @@ var operation_set = false; //if the previous action/input was an arithmetric ope
 var result_set = false; //if the result has been computed or not
 var print = ""; //print number or operation symbol
 var is_dot = false; //determines if a number is a decimal
+
+
 /**
 * Compute mathematical statement and return result 
 *
@@ -17,7 +19,6 @@ var is_dot = false; //determines if a number is a decimal
 */
 function calc_statement (result) {
 	var result_num = parseFloat(actions[0]);
-	console.log(actions);
 	if (actions.length == 1) {
 		return actions.pop();
 	}
@@ -89,11 +90,9 @@ function display_action (result, input) {
 		if (num_set == true) {
 			var num = actions.pop();
 			num += input;
-			console.log(num);
 			actions.push(num);
 		}
 		else {
-			console.log("failed");
 			actions.push(input);
 		}
 
@@ -103,13 +102,15 @@ function display_action (result, input) {
 	else if (input == ".") {
 		print += ".";
 		is_dot = true;
-		num_set = true;
 		if (operation_set) {
 			operation_set = false;
 			actions.push(".");
 		}
 		else {
 			var num = actions.pop();
+			if (num == undefined) {
+				num = "";
+			}
 			num += ".";
 			actions.push(num);
 		}
@@ -127,6 +128,46 @@ function display_action (result, input) {
 	if (result != null) {
 		result.innerHTML = print;
 	}
+}
+
+/**
+* Clear either all inputs or a previous entry
+* 
+*
+* @param result	reference to result id
+* @param clear_type	either "ac" indicating clear everything from the calculator or "ce" to clear previous entry
+*/
+function clear_actions(result, clear_type) {
+	if (clear_type == "ac") {
+		num_set = false;
+		operation_set = false;
+		is_dot = false;
+		result_set = false;
+		actions = [];
+		print = "";
+	}
+	if (clear_type == "ce") {
+		if (actions.length > 0) { //prevents popping on an empty array
+			var previous_entry = actions.pop();
+			print = print.slice(0, print.length-1);
+			if (operation_set) {
+				operation_set = false;
+				print = print.slice(0, print.length-2); //get rids of the " " + operation
+			}
+			else { //a number (or a '.')
+				if (previous_entry == ".") {
+					is_dot = false;
+				}
+				else if (previous_entry.length == 1) {
+					num_set = false;
+					if (actions.length > 1) { //to ensure that the first element in the array is not an operation
+						operation_set = true;
+					}
+				}
+			}
+		}
+	}
+	result.innerHTML = print;
 }
 
 $(document).ready(function() {
@@ -154,12 +195,18 @@ $(document).ready(function() {
 	/*******************************************************/
 
 	/*******************************************************/
-	//Operation Button References 
+	//Arithmetric Operation Button References 
 	var add = document.getElementById("add");
 	var sub = document.getElementById("sub");
 	var mult = document.getElementById("mult");
 	var div = document.getElementById("div");
 	var equal = document.getElementById("equal");
+	/*******************************************************/ 
+
+	/*******************************************************/
+	//Functional Operation Button References 
+	var clear_entry = document.getElementById("ce");
+	var clear_all = document.getElementById("ac");
 	/*******************************************************/ 
 	
  	/*******************************************************/
@@ -231,14 +278,13 @@ $(document).ready(function() {
 	/*******************************************************/
 	/*******************************************************/
 	//Gather functional operation input
-	/*
-	$(ac).click(function() {
-		actions.push("ac");
+	$(clear_all).click(function() {
+		clear_actions(result, "ac");
 	});
-	$(ce).click(function() {
-		actions.push("ce");
+	$(clear_entry).click(function() {
+		console.log("test ce");
+		clear_actions(result, "ce");
 	});
-	*/
 	/*******************************************************/
 	
 	
