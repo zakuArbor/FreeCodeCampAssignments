@@ -9,7 +9,7 @@ var num_set = false; //if the previous action/input was a number
 var operation_set = false; //if the previous action/input was an arithmetric operation or a functional operation
 var result_set = false; //if the result has been computed or not
 var print = ""; //print number or operation symbol
-
+var is_dot = false; //determines if a number is a decimal
 /**
 * Compute mathematical statement and return result 
 *
@@ -82,27 +82,46 @@ function display_action (result, input) {
 		if (result_set) {
 			result_set = false;
 			actions.pop();
+			print = "";
 		}
 
 		print += input;
 		if (num_set == true) {
 			var num = actions.pop();
 			num += input;
+			console.log(num);
 			actions.push(num);
 		}
 		else {
+			console.log("failed");
 			actions.push(input);
 		}
+
 		num_set = true;
 		operation_set = false;
+	}
+	else if (input == ".") {
+		print += ".";
+		is_dot = true;
+		num_set = true;
+		if (operation_set) {
+			operation_set = false;
+			actions.push(".");
+		}
+		else {
+			var num = actions.pop();
+			num += ".";
+			actions.push(num);
+		}
 	}
 	else {
 		print += " " + input + " ";
 		num_set = false;
+		is_dot = false;
 		result_set = false;
 		operation_set = true;
 		actions.push(input);
-		console.log("push");
+		console.log(parseFloat(".1"));
 		console.log(actions);
 	}
 	if (result != null) {
@@ -131,6 +150,7 @@ $(document).ready(function() {
 	var eight = document.getElementById("eight");
 	var nine = document.getElementById("nine");
 	var zero = document.getElementById("zero");
+	var dot = document.getElementById("dot");
 	/*******************************************************/
 
 	/*******************************************************/
@@ -173,6 +193,11 @@ $(document).ready(function() {
 	});
 	$(zero).click(function() {
 		display_action(result, "0");
+	});
+	$(dot).click(function() {console.log("test");
+		if (is_dot == false) {
+			display_action(result, ".");
+		}
 	});
 	/*******************************************************/
 	/*******************************************************/
