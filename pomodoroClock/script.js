@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	var break_time = 25; //min
-	var study_time = 25; //min
+	var break_time = 0.1; //min
+	var study_time = 0.1; //min
 
 	var increase_break_panel = document.getElementById("increase_break_time");
 	var increase_study_panel = document.getElementById("increase_study_time"); 
@@ -16,24 +16,38 @@ $(document).ready(function() {
 	var current_time = study_time * 60;
 	var current_status = "Study" //Study or Break
 	var isStudyTime = true;
+	var start_new_clock = true;
+
 
 	var time_interval = setInterval(function(){ 
+		if (start_new_clock) {
+			current_status_panel.innerHTML = current_status;
+			start_new_clock = false;
+		}
 		current_time -= 1; //decrement by 1 second for each second that passes
 		var min = Math.floor((current_time/60) % 60); //min
 		var sec = Math.floor(current_time % 60);
+		console.log("start");
+		console.log(current_time);
 
 		current_time_panel.innerHTML = min + ":" + sec;
 
 		if (current_time <= 0) {
-			clearInterval(timeInteveral);
-			current_time = break_time;
+			//clearInterval(time_interval);
+			console.log("switch");
+			console.log(current_time);
+			start_new_clock = true;
 			if (isStudyTime) {
-				current_status = "Study";	
+
+				current_time = break_time * 60;
+				isStudyTime = false;
+				current_status = "Break";	
 			}
 			else {
-				current_status = "Break";
-			}
-			current_status_panel = current_status; 
+				current_time = study_time * 60;
+				isStudyTime = true;
+				current_status = "Study";
+			} 
 		} 
 	}, 1000);
 });
