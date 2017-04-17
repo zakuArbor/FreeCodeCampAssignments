@@ -8,7 +8,7 @@
 *
 * Purpose: Want to make sure that time can never be less than or equal to 0
 *
-* @param time: the variable that holds the current time setting for either break or study time	
+* @param time: the variable that holds the current time amount to set for either break or study time	
 * @return 1 iff time > 1 and 0 iff time = 1	 
 */
 function decrease_time (time) {
@@ -22,7 +22,7 @@ function decrease_time (time) {
 * Display updated time setting
 *
 * @param panel: The DOM reference to the display id
-* @param time: the variable that holds the current time setting for either break or study time
+* @param time: the variable that holds the current time amount to set for either break or study time
 **/
 function update_time_setting (panel, time) {
 	panel.innerHTML = time;
@@ -44,14 +44,26 @@ $(document).ready(function() {
 
 	var current_status_panel = document.getElementById("current_status");
 	var current_time_panel = document.getElementById("current_time");
+	/***************************************************************************/
+
+
+	/***************************************************************************/
+	var current_time = study_time * 60;
+	var current_status = "Study" //Study or Break
+	var isStudyTime = true;
+	var start_new_clock = true;
 
 	var current_time = study_time * 60;
 	var current_status = "Study" //Study or Break
 	var isStudyTime = true;
 	var start_new_clock = true;
+	var isPaused = false;
+	display_study_setting.innerHTML = study_time;
+	display_break_setting.innerHTML = break_time;
 	/***************************************************************************/
+
 	/***************************************************************************/
-	//changing time intervals action listener
+	//Action listener for changing break/study time setting and pausing clock
 	$(increase_study_panel).click(function() {
 		study_time += 1;
 		update_time_setting(display_study_setting, study_time);
@@ -71,40 +83,42 @@ $(document).ready(function() {
 		break_time -= decrease_time(break_time);
 		update_time_setting(display_break_setting, break_time);
 	});
-	/***************************************************************************/
-	
-	/***************************************************************************/
-	var current_time = study_time * 60;
-	var current_status = "Study" //Study or Break
-	var isStudyTime = true;
-	var start_new_clock = true;
-	display_study_setting.innerHTML = study_time;
-	display_break_setting.innerHTML = break_time;
-	/***************************************************************************/
 
-	var time_interval = setInterval(function(){ 
-		if (start_new_clock) {
-			current_status_panel.innerHTML = current_status;
-			start_new_clock = false;
+	$(current_time_panel).click(function() {
+		if (isPaused) {
+			isPaused = false;
 		}
-		current_time -= 1; //decrement by 1 second for each second that passes
-		var min = Math.floor((current_time/60) % 60); //min
-		var sec = Math.floor(current_time % 60);
+		else {
+			isPaused = true;	
+		}
+	});
+	/***************************************************************************/
 
-		current_time_panel.innerHTML = min + ":" + sec;
-
-		if (current_time <= 0) {
-			start_new_clock = true;
-			if (isStudyTime) {
-				current_time = break_time * 60;
-				isStudyTime = false;
-				current_status = "Break";	
+	var time_interval = setInterval(function(){
+		if (!isPaused) {	
+			if (start_new_clock) {
+				current_status_panel.innerHTML = current_status;
+				start_new_clock = false;
 			}
-			else {
-				current_time = study_time * 60;
-				isStudyTime = true;
-				current_status = "Study";
+			current_time -= 1; //decrement by 1 second for each second that passes
+			var min = Math.floor((current_time/60) % 60); //min
+			var sec = Math.floor(current_time % 60);
+
+			current_time_panel.innerHTML = min + ":" + sec;
+
+			if (current_time <= 0) {
+				start_new_clock = true;
+				if (isStudyTime) {
+					current_time = break_time * 60;
+					isStudyTime = false;
+					current_status = "Break";	
+				}
+				else {
+					current_time = study_time * 60;
+					isStudyTime = true;
+					current_status = "Study";
+				} 
 			} 
-		} 
+		}
 	}, 1000);
 });
