@@ -251,6 +251,7 @@ $(document).ready(function() {
 	//MouseDown
 	$(one).mousedown(function() {
 		one.style.opacity = "0.5";
+		console.log("mousefown");
 	});
 	$(two).mousedown(function() {
 		two.style.opacity = "0.5";
@@ -320,6 +321,7 @@ $(document).ready(function() {
 	//Mouseup
 	$(one).mouseup(function() {
 		one.style.opacity = "1";
+		console.log("mouse up");
 	});
 	$(two).mouseup(function() {
 		two.style.opacity = "1";
