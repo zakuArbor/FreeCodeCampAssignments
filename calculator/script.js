@@ -248,6 +248,144 @@ $(document).ready(function() {
 	});
 	/*******************************************************/
 	/*******************************************************/
+	//MouseDown
+	$(one).mousedown(function() {
+		one.style.opacity = "0.5";
+	});
+	$(two).mousedown(function() {
+		two.style.opacity = "0.5";
+	});
+	$(three).mousedown(function() {
+		three.style.opacity = "0.5";
+	});
+	$(four).mousedown(function() {
+		four.style.opacity = "0.5";
+	});
+	$(five).mousedown(function() {
+		five.style.opacity = "0.5";
+	});
+	$(six).mousedown(function() {
+		six.style.opacity = "0.5";
+	});
+	$(seven).mousedown(function() {
+		seven.style.opacity = "0.5";
+	});
+	$(eight).mousedown(function() {
+		eight.style.opacity = "0.5";
+	});
+	$(nine).mousedown(function() {
+		nine.style.opacity = "0.5";
+	});
+	$(zero).mousedown(function() {
+		zero.style.opacity = "0.5";
+	});
+	$(dot).mousedown(function() {console.log("test");
+		if (is_dot == false) {
+			dot.style.opacity = "0.5";
+		}
+	});
+		$(add).mousedown(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			add.style.opacity = "0.5";
+		}
+	});
+	$(sub).mousedown(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			sub.style.opacity = "0.5";
+		}
+	});
+	$(mult).mousedown(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			mult.style.opacity = "0.5";
+		}
+	});
+	$(div).mousedown(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			div.style.opacity = "0.5";
+		}
+	});
+	$(equal).mousedown(function() {
+		if ((num_set == true && operation_set == false)) {
+			equal.style.opacity = "0.5";
+		}
+	});
+	$(clear_all).mousedown(function() {
+		clear_all.style.opacity = "0.5";
+	});
+	$(clear_entry).mousedown(function() {
+		clear_entry.style.opacity = "0.5";
+	});
+	/*******************************************************/
+	/*******************************************************/
+	//Mouseup
+	$(one).mouseup(function() {
+		one.style.opacity = "1";
+	});
+	$(two).mouseup(function() {
+		two.style.opacity = "1";
+	});
+	$(three).mouseup(function() {
+		three.style.opacity = "1";
+	});
+	$(four).mouseup(function() {
+		four.style.opacity = "1";
+	});
+	$(five).mouseup(function() {
+		five.style.opacity = "1";
+	});
+	$(six).mouseup(function() {
+		six.style.opacity = "1";
+	});
+	$(seven).mouseup(function() {
+		seven.style.opacity = "1";
+	});
+	$(eight).mouseup(function() {
+		eight.style.opacity = "1";
+	});
+	$(nine).mouseup(function() {
+		nine.style.opacity = "1";
+	});
+	$(zero).mouseup(function() {
+		zero.style.opacity = "1";
+	});
+	$(dot).mouseup(function() {console.log("test");
+		if (is_dot == false) {
+			dot.style.opacity = "1";
+		}
+	});
+	$(add).mouseup(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			add.style.opacity = "1";
+		}
+	});
+	$(sub).mouseup(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			sub.style.opacity = "1";
+		}
+	});
+	$(mult).mouseup(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			mult.style.opacity = "1";
+		}
+	});
+	$(div).mouseup(function() {
+		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
+			div.style.opacity = "1";
+		}
+	});
+	$(equal).mouseup(function() {
+		if ((num_set == true && operation_set == false)) {
+			equal.style.opacity = "1";
+		}
+	});
+	$(clear_all).mouseup(function() {
+		clear_all.style.opacity = "1";
+	});
+	$(clear_entry).mouseup(function() {
+		clear_entry.style.opacity = "1";
+	});
+	/*******************************************************/
+	/*******************************************************/
 	//Gather arithmetric operation input
 	$(add).click(function() {
 		if ((num_set == true && operation_set == false) || (operation_set == false && result_set == true)) {
