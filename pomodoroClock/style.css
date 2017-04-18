@@ -1,0 +1,70 @@
+body {
+	background-color: #373737;
+	color: white;
+}
+
+#break_study_settings {
+	display: block;
+	margin: auto;
+	width: 50%;
+	margin-top: 5%;
+	margin-left: 35%;
+	margin-bottom: 2em;
+	font-size: 2em;
+}
+
+#break_block {
+	display: inline-block;
+	margin-right: 25%;
+}
+
+#study_block {
+	display: inline-block;
+}
+
+.set_duration {
+	font-size: 0.5em;
+}
+
+#display_clock {
+	display: block;
+	margin: auto;
+	font-size: 2em;
+	width: 12em;
+	height: 12em;
+	border-radius: 50%;
+	//background-color: green;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #F4F4F4;
+}
+
+#clock_content {
+	position: relative;
+	//background-color: red;
+	padding-top: 20%;
+	text-align: center;
+}
+
+
+#current_status {
+	font-size: 1.5em;
+	margin-bottom: 15%;
+}
+
+#current_time {
+	font-size: 2.1em;
+}
+
+#decrease_break_time, #display_break_setting, #increase_break_time,  
+#decrease_study_time, #display_study_setting, #increase_study_time {
+	display: inline-block;
+}
+
+
+@media only screen and (max-device-width: 600px) and (orientation: portrait) {
+    #display_clock {
+    	width: 10em;
+    	height: 10em;
+    }
+}
