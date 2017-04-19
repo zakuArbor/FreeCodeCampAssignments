@@ -51,16 +51,28 @@ $(document).ready(function() {
 	var current_time = study_time * 60;
 	var current_status = "Study" //Study or Break
 	var isStudyTime = true;
-	var start_new_clock = true;
 
 	var current_time = study_time * 60;
 	var current_status = "Study" //Study or Break
 	var isStudyTime = true;
 	var start_new_clock = true;
 	var isPaused = false;
+	var wasPaused = false; //similar to isPause but is a boolean value if a pause did happened in the past and not the current time
+	var session_total_time = current_time; //total study or break time
+	var progress_time = 0; //% to fill in
 	display_study_setting.innerHTML = study_time;
 	display_break_setting.innerHTML = break_time;
 	/***************************************************************************/
+
+	var circle = new ProgressBar.Circle("#display_clock", {
+		strokeWidth: 4,
+		color: '#FCB03C',
+		duration: current_time * 1000, //milliseconds
+		easing: 'easeInOut',
+		trailColor: '#F4F4F4',
+		trailWidth: 2,
+		svgStyle: null
+	});
 
 	/***************************************************************************/
 	//Action listener for changing break/study time setting and pausing clock
@@ -87,24 +99,39 @@ $(document).ready(function() {
 	$(current_time_panel).click(function() {
 		if (isPaused) {
 			isPaused = false;
+			circle.animate(1.0, current_time*1000);
+			wasPaused = false;
 		}
 		else {
+			console.log(progress_time);
 			isPaused = true;	
+			//circle.set(circle.value());
+			circle.stop()
+			wasPaused = true;
 		}
 	});
 	/***************************************************************************/
-
+	
 	var time_interval = setInterval(function(){
 		if (!isPaused) {	
 			if (start_new_clock) {
 				current_status_panel.innerHTML = current_status;
 				start_new_clock = false;
+				circle.set(0.0);
+				circle.animate(1.0, current_time * 1000);
+				session_total_time = current_time;
 			}
 			current_time -= 1; //decrement by 1 second for each second that passes
+			//progress_time = (session_total_time - current_time)/session_total_time;
+			progress_time +=1;
+			console.log(progress_time);
+
 			var min = Math.floor((current_time/60) % 60); //min
 			var sec = Math.floor(current_time % 60);
 
 			current_time_panel.innerHTML = min + ":" + sec;
+
+
 
 			if (current_time <= 0) {
 				start_new_clock = true;
