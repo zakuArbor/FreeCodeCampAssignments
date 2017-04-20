@@ -29,8 +29,8 @@ function update_time_setting (panel, time) {
 }
 
 $(document).ready(function() {
-	var break_time = 0.5; //constraint: >= 1min
-	var study_time = 0.6; //constraint: >= 1min
+	var break_time = 25; //constraint: >= 1min
+	var study_time = 25; //constraint: >= 1min
 
 	/***************************************************************************/
 	//panel references
@@ -104,6 +104,13 @@ $(document).ready(function() {
 			if (start_new_clock) {
 				var min = Math.floor((current_time/60) % 60); //min
 				var sec = Math.floor(current_time % 60);
+				$(display_clock_panel).css("color", "white");
+				if (isStudyTime) {
+					$(display_clock_panel).css("border-color", "#32CD32");
+				}
+				else {
+					$(display_clock_panel).css("border-color", "#FF0009");
+				}
 				current_status_panel.innerHTML = current_status;
 				current_time_panel.innerHTML = min + ":" + sec;
 			}
@@ -112,9 +119,11 @@ $(document).ready(function() {
 			var sec = Math.floor(current_time % 60);
 
 			current_time_panel.innerHTML = min + ":" + sec;
-
+			console.log(current_time);
 			if (current_time <= 0) {
 				start_new_clock = true;
+				var snd = new Audio("alarm.mp3"); // buffers automatically when created
+				snd.play();
 				if (isStudyTime) {
 					current_time = break_time * 60;
 					isStudyTime = false;
