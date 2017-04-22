@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>Tic Tac Toe</title>
+ 	<meta name="viewport" content="initial-scale=1.0">	
  	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="/home/zakuarbor/Desktop/FreeCodeCampAssignments/scripts/jquery-latest.js"></script>
@@ -10,21 +11,23 @@
 <body>
 <div class = "container-fluid">
 	<div id = "board">
-		<div  class = "row" = "">
-			<div id = "1" class = "col-xs-4"></div>
-			<div id = "2" class = "col-xs-4"></div>
-			<div id = "3" class = "col-xs-4"></div>
-		</div>
-		<div  class = "row" = "">
-			<div id = "4" class = "col-xs-4"></div>
-			<div id = "5" class = "col-xs-4"></div>
-			<div id = "6" class = "col-xs-4"></div>
-		</div>
-		<div  class = "row" = "">
-			<div id = "7" class = "col-xs-4"></div>
-			<div id = "8" class = "col-xs-4"></div>
-			<div id = "9" class = "col-xs-4"></div>
-		</div>
+	<table>
+		<tr id = "row1">
+			<th id = "one" class = "square">X</th>
+			<th id = "two" class = "square">O</th>
+			<th id = "three" class = "square"></th>
+		</tr>
+		<tr id = "row2">
+			<th id = "four" class = "square"></th>
+			<th id = "five" class = "square"></th>
+			<th id = "six" class = "square"></th>
+		</tr>
+		<tr id = "row3">
+			<th id = "seven" class = "square"></th>
+			<th id = "eight" class = "square"></th>
+			<th id = "nine" class = "square"></th>
+		</tr>
+	</table>
 	</div>
 </div>
 </body>
