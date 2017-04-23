@@ -12,19 +12,75 @@ var possible_win_combination =
 
 /*******************/
 //References to all possible square panels in the board
-var one = document.getElementById("one");
-var two = document.getElementById("two");
-var three = document.getElementById("three");
-var four = document.getElementById("four");
-var five = document.getElementById("five");
-var six = document.getElementById("six");
-var seven = document.getElementById("seven");
-var eight = document.getElementById("eight");
-var nine = document.getElementById("nine");
+var one_panel = document.getElementById("one");
+var two_panel = document.getElementById("two");
+var three_panel = document.getElementById("three");
+var four_panel = document.getElementById("four");
+var five_panel = document.getElementById("five");
+var six_panel = document.getElementById("six");
+var seven_panel = document.getElementById("seven");
+var eight_panel = document.getElementById("eight");
+var nine_panel = document.getElementById("nine");
+/*******************/
+/*******************/
+//Copy of references of all possible square panels in the board
+var one, two, three, four, five, six, seven, eight, nine;
 /*******************/
 
 
-function gameActionListener {
+var validMoves = [true, true, true, true, true, true, true, true, true];
+
+
+/**
+* Set up game to the default values
+**/
+function setupGame () {
+	one = one_panel;
+	two = two_panel;
+	three = three_panel;
+	four = four_panel;
+	five = five_panel;
+	six = six_panel;
+	seven = seven_panel;
+	eight = eight_panel;
+	nine = nine_panel;
+
+	gameStart = false;
+	player1Turn = true;
+}
+
+
+/**
+* Check if move is valid
+*
+* Check if the square/space has already been taken previously
+**/
+function validMove(selected_square) {
+	if (selected_square) {
+		return true;
+	}
+	return false;
+}
+
+
+/**
+*
+*
+*
+**/
+function updateBoard(selected_square, player1Turn) {
+
+}
+
+
+/**
+* Return the reference of the square/space selected (player's move) to mark
+*
+* Listen to player's move and return its reference (the square/space chosen)
+*
+* @return: reference to the selected space to mark
+**/
+function gameActionListener() {
 	var selected_square; //reference to the selected square
 	$(one).click(function() {
 		selected_square = one;
@@ -61,6 +117,9 @@ $(document).ready(function() {
 	var multi_player_panel = document.getElementById("multi_player");
 	var gameStart = false;
 	var selected_square;
+	var player1Turn = true;
+
+	setupGame();
 
 	var game_mode; //1 for single, 2 for multiplayer
 
@@ -79,6 +138,9 @@ $(document).ready(function() {
 		}
 		else if (game_mode == 2) {
 			selected_square = gameActionListener(game_mode);
+			if (validMove(selected_square)) {
+				updateBoard(selected_square, player1Turn);
+			}
 		}
 	}
 }
