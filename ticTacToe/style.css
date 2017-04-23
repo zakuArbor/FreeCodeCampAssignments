@@ -11,8 +11,38 @@ body {
 	padding: 10px;
 }
 
+#game_option {
+	position: absolute;
+	z-index: 777;
+	width: 550px;
+	height: 550px;
+	padding: 10px;
+	margin-left: -10px;
+	margin-top: -10px;
+	background-color: #f2f2f2 !important;
+	opacity: 0.9;
+}
+
+.player_option {
+	position: relative;
+	margin: auto;
+	margin-top: 5%;
+	width: 80%;
+	height: 35%;
+	padding-top: 5%;
+	background-color: red;
+	text-align: center;
+	font-size: 3.5em;
+}
+
+.player_option:hover {
+	background-color: black;
+	color: white;
+}
 
 table, th, td {
+	z-index: 100;
+	//display: none;
     border: 2px solid black;
     border-collapse: collapse;
     font-size: 100px;
