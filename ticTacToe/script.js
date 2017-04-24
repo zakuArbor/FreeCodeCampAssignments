@@ -40,9 +40,9 @@ var one, two, three, four, five, six, seven, eight, nine;
 
 
 var validMoves = [true, true, true, true, true, true, true, true, true];
-
+var num_of_moves = 0;
 /**
-*
+* Retrn a list of all possible winning combinations in tic tac toe
 **/
 function setPlayerWinCombination () {
 	var possible_win_combination = 
@@ -120,9 +120,10 @@ function setBoard () {
 	gameStart = false;
 	player1Turn = true;
 
+	num_of_moves = 0;
+
 	square_based_combination1 = setPlayerWinCombination();
 	square_based_combination2 = setPlayerWinCombination();
-	console.log(square_based_combination1);
 
 	location_of_combo1 = location_of_combo;
 	location_of_combo2 = location_of_combo;
@@ -177,6 +178,9 @@ function setPlayerPiece(game_mode) {
 	});
 }
 
+/**
+* Clear board and start a new game (next transition)
+**/
 function newGame() {
 	one_panel.innerHTML = "";
 	two_panel.innerHTML = "";
@@ -191,6 +195,13 @@ function newGame() {
 }
 
 /**
+* Display winning message
+*
+* Display winning message and transit to a new game if player clicks the message or the board itself
+*
+* @param game_mode: 1 if single player, 2 for multiplayer
+* @param selected_square: reference to the selected space to mark
+* @param combo: an array that contains references to space/square that allowed the player to win 
 **/
 function displayWinner(game_mode, playerNum, combo) {
 	for (var i = 0; i < 3; i++) {
@@ -218,11 +229,29 @@ function displayWinner(game_mode, playerNum, combo) {
 	});
 }
 
+function drawMessage() {
+	var win_panel = document.getElementById("win_panel");
+	var win_message_panel = document.getElementById("win_message");
+	$(win_panel).css("display", "block");
+	win_message_panel.innerHTML = "It was a Draw";
+	$(win_panel).click(function () {
+		$(win_panel).css("display", "none");
+		newGame();
+	});
+}
+
 /**
+* Check if player wins based on their recent move
+*
+* Does not return anything but heads to the winning state (displayWInner) if player won
+*
+* @param game_mode: 1 if single player, 2 for multiplayer
+* @param selected_square: reference to the selected space to mark
 **/
 function checkWin(game_mode, selected_square_num) { 
 	var length;
 	var combo;
+	var won = false;
 	selected_square_num -= 1; //due to array index starting at 0
 	
 	if (player1Turn) { //player1Turn set false when player 1 made valid move
@@ -236,6 +265,7 @@ function checkWin(game_mode, selected_square_num) {
 							if (combo[2].textContent == player1Piece) {
 								//win
 								displayWinner(game_mode, 1, combo);
+								won = true;
 								console.log("win");
 							}
 						}	
@@ -254,6 +284,7 @@ function checkWin(game_mode, selected_square_num) {
 						if (combo[1].textContent == player2Piece) {
 							if (combo[2].textContent == player2Piece) {
 								//win
+								won = true;
 								displayWinner(game_mode, 2, combo);
 								console.log("win");
 							}
@@ -263,12 +294,17 @@ function checkWin(game_mode, selected_square_num) {
 			}
 		}
 	}
+	if (!won && num_of_moves == 9) {
+		drawMessage();
+	}
 }
 
 /**
 * Check if move is valid
 *
 * Check if the square/space has already been taken previously
+*
+* @param selected_square: reference to the selected space to mark if valid
 **/
 function validMove(selected_square) {
 	if (selected_square) {
@@ -278,6 +314,9 @@ function validMove(selected_square) {
 }
 
 /**
+* Removes opponent's possible winning combinations based on the player's move
+*
+* @param selected_square_num: integer representing space to mark
 **/
 function removeOpponentsWinCombination(selected_square_num) {
 	selected_square_num -= 1; //due to lists starting from 0
@@ -301,9 +340,12 @@ function removeOpponentsWinCombination(selected_square_num) {
 /**
 * Mark player's move onto the board
 *
+* @param game_mode: 1 if single player, 2 for multiplayer
 * @param selected_square: reference to the selected space to mark
+* @param selected_square_num: integer representing space to mark
 **/
 function updateBoard(game_mode, selected_square, selected_square_num) {
+	num_of_moves++;
 	if (player1Turn) {
 		selected_square.innerHTML = player1Piece;
 		removeOpponentsWinCombination(selected_square_num);console.log("num " + selected_square_num);
@@ -323,6 +365,8 @@ function updateBoard(game_mode, selected_square, selected_square_num) {
 * Return the reference of the square/space selected (player's move) to mark
 *
 * Listen to player's move and return its reference (the square/space chosen)
+*
+* @param game_mode: 1 if single player, 2 for multiplayer
 **/
 function gameActionListener(game_mode) {
 	var selected_square; //reference to the selected square
@@ -423,8 +467,9 @@ function player_vs_computer(game_mode) {
 }
 
 /**
+* Direct to the appropiate method to make move depending on game mode
 *
-*
+* @param game_mode: 1 if single player, 2 for multiplayer
 **/
 function makeMove(game_mode) {
 	console.log("making move");
@@ -437,8 +482,7 @@ function makeMove(game_mode) {
 }
 
 /**
-*
-*
+* Play game
 **/
 function playGame() {
 	setBoard();
