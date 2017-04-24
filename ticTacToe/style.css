@@ -11,8 +11,9 @@ body {
 	padding: 10px;
 }
 
-#game_option {
+#game_option, #choosePiece, #win_message {
 	position: absolute;
+	//display: none;
 	z-index: 777;
 	width: 550px;
 	height: 550px;
@@ -21,6 +22,22 @@ body {
 	margin-top: -10px;
 	background-color: #f2f2f2 !important;
 	opacity: 0.9;
+}
+
+#choosePiece, #win_message {
+	display: none;
+}
+
+.piece_option {
+	position: relative;
+	margin: auto;
+	margin-top: 5%;
+	width: 80%;
+	height: 35%;
+	padding-top: 5%;
+	background-color: red;
+	text-align: center;
+	font-size: 8em;	
 }
 
 .player_option {
@@ -35,7 +52,7 @@ body {
 	font-size: 3.5em;
 }
 
-.player_option:hover {
+.player_option:hover, .piece_option:hover {
 	background-color: black;
 	color: white;
 }
