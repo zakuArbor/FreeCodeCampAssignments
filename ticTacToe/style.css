@@ -11,7 +11,7 @@ body {
 	padding: 10px;
 }
 
-#game_option, #choosePiece, #win_message {
+#game_option, #choosePiece, #win_panel {
 	position: absolute;
 	//display: none;
 	z-index: 777;
@@ -24,7 +24,18 @@ body {
 	opacity: 0.9;
 }
 
-#choosePiece, #win_message {
+#win_message {
+	position: relative;
+	margin: auto;
+	margin-top: 30%;
+	width: 80%;
+	height: 35%;
+	background-color: red;
+	text-align: center;
+	font-size: 5em;	
+}
+
+#choosePiece, #win_panel {
 	display: none;
 }
 

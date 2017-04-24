@@ -177,20 +177,50 @@ function setPlayerPiece(game_mode) {
 	});
 }
 
-/**
-**/
-function displayWinner(playerNum, combo) {
-	for (var i = 0; i < 3; i++) {
-		$(combo[i]).css("background-color", "black");
-		$(combo[i]).css("color", "white");
-	}
-	var win_message_panel = document.getElementById("win_message");
-	$(win_message_panel).css("display", "block");
+function newGame() {
+	one_panel.innerHTML = "";
+	two_panel.innerHTML = "";
+	three_panel.innerHTML = "";
+	four_panel.innerHTML = "";
+	five_panel.innerHTML = "";
+	six_panel.innerHTML = "";
+	seven_panel.innerHTML = "";
+	eight_panel.innerHTML = "";
+	nine_panel.innerHTML = "";
+	playGame();
 }
 
 /**
 **/
-function checkWin(selected_square_num) { 
+function displayWinner(game_mode, playerNum, combo) {
+	for (var i = 0; i < 3; i++) {
+		$(combo[i]).css("background-color", "black");
+		$(combo[i]).css("color", "white");
+	}
+	var win_panel = document.getElementById("win_panel");
+	var win_message_panel = document.getElementById("win_message");
+	$(win_panel).css("display", "block");
+	var message;
+	if (game_mode == 2) {
+		message = "Player " + playerNum + " won";
+	}
+	else {
+		message = "You have lost";
+	}
+	win_message_panel.innerHTML = message;
+	$(win_panel).click(function () {
+		$(win_panel).css("display", "none");
+		for (var i = 0; i < 3; i++) {
+			$(combo[i]).css("background-color", "#C17753");
+			$(combo[i]).css("color", "black");
+		}
+		newGame();
+	});
+}
+
+/**
+**/
+function checkWin(game_mode, selected_square_num) { 
 	var length;
 	var combo;
 	selected_square_num -= 1; //due to array index starting at 0
@@ -205,7 +235,7 @@ function checkWin(selected_square_num) {
 						if (combo[1].textContent == player1Piece) {
 							if (combo[2].textContent == player1Piece) {
 								//win
-								displayWinner(1, combo);
+								displayWinner(game_mode, 1, combo);
 								console.log("win");
 							}
 						}	
@@ -224,7 +254,7 @@ function checkWin(selected_square_num) {
 						if (combo[1].textContent == player2Piece) {
 							if (combo[2].textContent == player2Piece) {
 								//win
-								displayWinner(2, combo);
+								displayWinner(game_mode, 2, combo);
 								console.log("win");
 							}
 						}	
@@ -273,17 +303,17 @@ function removeOpponentsWinCombination(selected_square_num) {
 *
 * @param selected_square: reference to the selected space to mark
 **/
-function updateBoard(selected_square, selected_square_num) {
+function updateBoard(game_mode, selected_square, selected_square_num) {
 	if (player1Turn) {
 		selected_square.innerHTML = player1Piece;
 		removeOpponentsWinCombination(selected_square_num);console.log("num " + selected_square_num);
-		checkWin(selected_square_num);
+		checkWin(game_mode, selected_square_num);
 		player1Turn = false;
 	}
 	else {
 		selected_square.innerHTML = player2Piece;
 		removeOpponentsWinCombination(selected_square_num);
-		checkWin(selected_square_num);
+		checkWin(game_mode, selected_square_num);
 		player1Turn = true;
 	}
 }
@@ -294,7 +324,7 @@ function updateBoard(selected_square, selected_square_num) {
 *
 * Listen to player's move and return its reference (the square/space chosen)
 **/
-function gameActionListener() {
+function gameActionListener(game_mode) {
 	var selected_square; //reference to the selected square
 	var selected_square_num; //selected square number
 	
@@ -304,7 +334,7 @@ function gameActionListener() {
 		selected_square_num = 1;
 		console.log("1");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(two).click(function() {
@@ -313,7 +343,7 @@ function gameActionListener() {
 		selected_square_num = 2;
 		console.log("2");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(three).click(function() {
@@ -322,7 +352,7 @@ function gameActionListener() {
 		selected_square_num = 3;
 		console.log("3");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(four).click(function() {
@@ -331,7 +361,7 @@ function gameActionListener() {
 		selected_square_num = 4;
 		console.log("4");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(five).click(function() {
@@ -340,7 +370,7 @@ function gameActionListener() {
 		selected_square_num = 5;
 		console.log("5");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(six).click(function() {
@@ -349,7 +379,7 @@ function gameActionListener() {
 		selected_square_num = 6;
 		console.log("6");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(seven).click(function() {
@@ -358,7 +388,7 @@ function gameActionListener() {
 		selected_square_num = 7;
 		console.log("7");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(eight).click(function() {
@@ -367,7 +397,7 @@ function gameActionListener() {
 		selected_square_num = 8;
 		console.log("8");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 	$(nine).click(function() {
@@ -376,7 +406,7 @@ function gameActionListener() {
 		selected_square_num = 9;
 		console.log("9");
 		if (validMove(selected_square)) {
-			updateBoard(selected_square, selected_square_num);
+			updateBoard(game_mode, selected_square, selected_square_num);
 		}
 	});
 }
