@@ -124,6 +124,39 @@ function getSpacePanel (selected_square_num) {
 			break;
 	} 
 }
+
+function setSpacePanelNull (selected_square_num) {
+	switch(selected_square_num) {
+		case 1:
+			one = null;
+			break;
+		case 2:
+			two = null;
+			break;
+		case 3:
+			three = null;
+			break;
+		case 4:
+			four = null;
+			break;
+		case 5:
+			five = null;
+			break;
+		case 6:
+			six = null;
+			break;
+		case 7:
+			seven = null;
+			break;
+		case 8:
+			eight = null;
+			break;
+		case 9:
+			nine = null;
+			break;
+	} 
+}
+
 /**
 * Set references to all possible square panels in the board
 **/
@@ -504,6 +537,7 @@ function gameActionListener(game_mode) {
 	});
 	$(six).click(function() {
 		selected_square = six;
+		console.log(six);
 		six = null;
 		selected_square_num = 6;
 		console.log("6");
@@ -587,6 +621,7 @@ function computerMove(game_mode) {
 				for (var i = 0; i < 3; i++) {
 					selected_square = getSpacePanel(combo_nums[i]);
 					if (validMove(selected_square)) {
+						setSpacePanelNull (combo_nums[i]);
 						updateBoard(game_mode, selected_square, combo_nums[i]);
 						madeMove = true;
 						break;
@@ -594,9 +629,11 @@ function computerMove(game_mode) {
 				}
 			}
 			if (!madeMove) { //if algorithm fails to find the best move
-				for (var i = 0; i <= 9; i++) {
+				console.log("making new move linearly");
+				for (var i = 1; i <= 9; i++) {
 					selected_square = getSpacePanel(i);
 					if (validMove(selected_square)) {
+						setSpacePanelNull(i);
 						updateBoard(game_mode, selected_square, i);
 						madeMove = true;
 						break;
