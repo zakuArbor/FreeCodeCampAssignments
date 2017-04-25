@@ -288,8 +288,11 @@ function displayWinner(game_mode, playerNum, combo) {
 	if (game_mode == 2) {
 		message = "Player " + playerNum + " won";
 	}
-	else {
+	else if (game_mode == 1 && playerNum == 1) {
 		message = "You have won";
+	}
+	else {
+		message = "You have lost"
 	}
 	win_message_panel.innerHTML = message;
 	$(win_panel).click(function () {
