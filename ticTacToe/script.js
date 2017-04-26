@@ -599,6 +599,11 @@ function computerMove(game_mode) {
 	if (won) {
 		return;
 	}
+	if (validMove(five)) {
+			five = null;
+			updateBoard(game_mode, selected_square, 5);
+	}
+	else {
 		console.log("computer moves");
 
 		
@@ -613,23 +618,23 @@ function computerMove(game_mode) {
 
 		if (!madeMove && square_based_combination2[previous_move_num2] != null) { //action that opitmizes winning
 			console.log("find computer's next move to win");
-			//console.log(square_based_combination2[previous_move_num2]);
+			console.log(square_based_combination2[previous_move_num2]);
 			var length = square_based_combination2[previous_move_num2].length;
 			for (var i = 0; i < length; i++) {
 				if (square_based_combination2[previous_move_num2][i].getValid()) {
 					combo = square_based_combination2[previous_move_num2][i].getCombo();
 					combo_nums = square_based_combination2[previous_move_num2][i].getComboNums();
 					num_of_remaining_space = 3;
-					if (combo[0].textContent == player1Piece) {
+					if (combo[0].textContent == player2Piece) {
 						num_of_remaining_space -=1;console.log("add");
 					}
-					if (combo[1].textContent == player1Piece) {
+					if (combo[1].textContent == player2Piece) {
 						num_of_remaining_space -=1;console.log("add");
 					}
-					if (combo[2].textContent == player1Piece) {
+					if (combo[2].textContent == player2Piece) {
 						num_of_remaining_space -=1; console.log("add");
 					}	
-					if (num_of_remaining_space < priorityCombo) {
+					if (num_of_remaining_space < priority_remaining_space) {
 						priorityCombo = combo;
 						priority_remaining_space = num_of_remaining_space;
 					}
@@ -648,7 +653,7 @@ function computerMove(game_mode) {
 				}
 			}
 		}
-		priorityCombo = 3; //reset the least number of moves for opponent to win
+		priority_remaining_space = 3; //reset the least number of moves for opponent to win
 		if (!madeMove && square_based_combination1[previous_move_num1] != null) { //make action to prevent oppoenent to win
 			console.log("find computer's next move to prevent losing");
 			//console.log(square_based_combination1[previous_move_num1]);
@@ -701,7 +706,8 @@ function computerMove(game_mode) {
 					break;
 				}	
 			}
-		}		
+		}	
+	}	
 }
 
 
