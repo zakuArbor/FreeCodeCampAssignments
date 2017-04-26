@@ -607,7 +607,7 @@ function computerMove(game_mode) {
 		console.log("computer moves");
 
 		
-		var priorityCombo; //the combo that will lead the opponent to most likely win based on his most recent action
+		var priorityCombo, priorityCombo_nums; //the combo that will lead the opponent to most likely win based on his most recent action
 		var priority_remaining_space = 3; //the least number of moves left for opponent to win
 		var num_of_remaining_space = 3; //the remaining tiles
 		var combo, combo_nums;
@@ -642,6 +642,7 @@ function computerMove(game_mode) {
 						for (var i = 0; i < 3; i++) {
 							selected_square = getSpacePanel(combo_nums[i]);
 							if (validMove(selected_square)) {
+								console.log("move win move");
 								setSpacePanelNull (combo_nums[i]);
 								updateBoard(game_mode, selected_square, combo_nums[i]);
 								madeMove = true;
@@ -653,45 +654,53 @@ function computerMove(game_mode) {
 				}
 			}
 		}
-		priority_remaining_space = 3; //reset the least number of moves for opponent to win
-		if (!madeMove && square_based_combination1[previous_move_num1] != null) { //make action to prevent oppoenent to win
-			console.log("find computer's next move to prevent losing");
-			//console.log(square_based_combination1[previous_move_num1]);
-			var length = square_based_combination1[previous_move_num1].length;
-			for (var i = 0; i < length; i++) {
-				if (square_based_combination1[previous_move_num1][i].getValid()) {
-					combo = square_based_combination1[previous_move_num1][i].getCombo();
-					combo_nums = square_based_combination1[previous_move_num1][i].getComboNums();
-					num_of_remaining_space = 3;
-					if (combo[0].textContent == player1Piece) {
-						num_of_remaining_space -=1;
-					}
-					if (combo[1].textContent == player1Piece) {
-						num_of_remaining_space -=1;
-					}
-					if (combo[2].textContent == player1Piece) {
-						num_of_remaining_space -=1;
-					}	
-					if (num_of_remaining_space < priority_remaining_space) {
-						priorityCombo = combo;
-						priority_remaining_space = num_of_remaining_space;
-					}
-					if (priority_remaining_space <= 1) {
-						break;
+		if (!madeMove) {//make action to prevent oppoenent to win
+			console.log("**********************************************");
+			for (var space_num = 0; space_num < 9; space_num++) {
+				num_of_remaining_space = 3; //reset the least number of moves for opponent to win
+				if (square_based_combination1[space_num] != null) { 
+					console.log("find computer's next move to prevent losing");
+					console.log(square_based_combination1[previous_move_num1]);
+					var length = square_based_combination1[space_num].length;
+					for (var i = 0; i < length; i++) {
+						if (square_based_combination1[space_num][i].getValid()) {
+							combo = square_based_combination1[space_num][i].getCombo();
+							combo_nums = square_based_combination1[space_num][i].getComboNums();
+							num_of_remaining_space = 3;
+							if (combo[0].textContent == player1Piece) {
+								num_of_remaining_space -=1;
+								console.log("add");
+							}
+							if (combo[1].textContent == player1Piece) {
+								num_of_remaining_space -=1;console.log("add");
+							}
+							if (combo[2].textContent == player1Piece) {
+								num_of_remaining_space -=1;console.log("add");
+							}	
+							if (num_of_remaining_space < priority_remaining_space) {
+								priorityCombo = combo;
+								priority_remaining_space = num_of_remaining_space;
+							}
+							if (priority_remaining_space <= 1) {
+								if (combo.length > 0) {
+									for (var i = 0; i < 3; i++) {
+										selected_square = getSpacePanel(combo_nums[i]);
+										if (validMove(selected_square)) {
+											setSpacePanelNull (combo_nums[i]);
+											updateBoard(game_mode, selected_square, combo_nums[i]);
+											madeMove = true;
+											return;
+										}
+									}
+								}
+							}
+						}
 					}
 				}
-			}
-			if (combo.length > 0) {
-				for (var i = 0; i < 3; i++) {
-					selected_square = getSpacePanel(combo_nums[i]);
-					if (validMove(selected_square)) {
-						setSpacePanelNull (combo_nums[i]);
-						updateBoard(game_mode, selected_square, combo_nums[i]);
-						madeMove = true;
-						break;
-					}
-				}
-			}
+		}
+			console.log(combo);
+			console.log("**********************************************");
+			
 		}
 		
 		
