@@ -593,7 +593,49 @@ function computerMove(game_mode) {
 		var combo, combo_nums;
 		var madeMove = false;
 		combo = [];
-		if (square_based_combination1[previous_move_num] != null) {
+		
+
+		if (!madeMove && square_based_combination2[previous_move_num] != null) { //action that opitmizes winning
+			console.log("find computer's next move");
+			console.log(square_based_combination2[previous_move_num]);
+			var length = square_based_combination2[previous_move_num].length;
+			for (var i = 0; i < length; i++) {
+				if (square_based_combination2[previous_move_num][i].getValid()) {
+					combo = square_based_combination2[previous_move_num][i].getCombo();
+					combo_nums = square_based_combination2[previous_move_num][i].getComboNums();
+					num_of_remaining_space = 3;
+					if (combo[0].textContent == player1Piece) {
+						num_of_remaining_space -=1;
+					}
+					if (combo[1].textContent == player1Piece) {
+						num_of_remaining_space -=1;
+					}
+					if (combo[2].textContent == player1Piece) {
+						num_of_remaining_space -=1;
+					}	
+					if (num_of_remaining_space > priorityCombo) {
+						priorityCombo = combo;
+						priority_remaining_space = num_of_remaining_space;
+					}
+					if (priority_remaining_space == 1) {
+						break;
+					}
+				}
+			}
+			if (combo.length > 0) {
+				for (var i = 0; i < 3; i++) {
+					selected_square = getSpacePanel(combo_nums[i]);
+					if (validMove(selected_square)) {
+						setSpacePanelNull (combo_nums[i]);
+						updateBoard(game_mode, selected_square, combo_nums[i]);
+						madeMove = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if (!madeMove && square_based_combination1[previous_move_num] != null) { //make action to prevent oppoenent to win
 			console.log("find computer's next move");
 			console.log(square_based_combination1[previous_move_num]);
 			var length = square_based_combination1[previous_move_num].length;
@@ -631,19 +673,21 @@ function computerMove(game_mode) {
 					}
 				}
 			}
-			if (!madeMove) { //if algorithm fails to find the best move
-				console.log("making new move linearly");
-				for (var i = 1; i <= 9; i++) {
-					selected_square = getSpacePanel(i);
-					if (validMove(selected_square)) {
-						setSpacePanelNull(i);
-						updateBoard(game_mode, selected_square, i);
-						madeMove = true;
-						break;
-					}	
-				}
-			}
 		}
+		
+		
+		if (!madeMove) { //if algorithm fails to find the best move to win or prevent opponent to win
+			console.log("making new move linearly");
+			for (var i = 1; i <= 9; i++) {
+				selected_square = getSpacePanel(i);
+				if (validMove(selected_square)) {
+					setSpacePanelNull(i);
+					updateBoard(game_mode, selected_square, i);
+					madeMove = true;
+					break;
+				}	
+			}
+		}		
 	}
 }
 
