@@ -9,7 +9,7 @@ A repository for my FreeCodeCamp work
 <p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/twitchTv/">Twitch TV</p>
 <p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/calculator/">Calculator</p>
 <p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/pomodoroClock/">Pomodoro Clock</p>
-
+<p><a href = "http://juhongkim.tk/FreeCodeCampAssignments/ticTacToe/">Tic Tac Toe</p>
 <p>
 <h1><u>NOTES</u></h1>
 <h2>Weather</h2>
