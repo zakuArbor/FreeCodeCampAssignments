@@ -344,9 +344,6 @@ function checkWin(game_mode, selected_square_num) {
 	var combo;
 	
 	selected_square_num -= 1; //due to array index starting at 0
-	console.log("***");
-	console.log(won);
-	console.log("***");
 
 	if (player1Turn) {
 		if (playedFirstMove1) {
@@ -362,9 +359,6 @@ function checkWin(game_mode, selected_square_num) {
 									displayWinner(game_mode, 1, combo);
 									won = true;
 									console.log("win 1");
-									console.log("***");
-	console.log(won);
-	console.log("***");
 								}
 							}	
 						}
@@ -375,9 +369,6 @@ function checkWin(game_mode, selected_square_num) {
 		playedFirstMove1 = true;
 	}
 	else {
-		if (won) {
-			return;
-		}
 		if (playedFirstMove2) {
 			if (square_based_combination2[selected_square_num] != null) { 
 				length = square_based_combination2[selected_square_num].length
@@ -605,11 +596,9 @@ function gameActionListener(game_mode) {
 
 function computerMove(game_mode) {
 	var selected_square = five;
-	if (validMove(five)) {
-			five = null;
-			updateBoard(game_mode, selected_square, 5);
+	if (won) {
+		return;
 	}
-	else {
 		console.log("computer moves");
 
 		
@@ -713,7 +702,6 @@ function computerMove(game_mode) {
 				}	
 			}
 		}		
-	}
 }
 
 
