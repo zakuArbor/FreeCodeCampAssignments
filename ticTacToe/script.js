@@ -636,7 +636,7 @@ function computerMove(game_mode) {
 				}
 			}
 		}
-
+		priorityCombo = 3; //reset the least number of moves for opponent to win
 		if (!madeMove && square_based_combination1[previous_move_num1] != null) { //make action to prevent oppoenent to win
 			console.log("find computer's next move to prevent losing");
 			//console.log(square_based_combination1[previous_move_num1]);
