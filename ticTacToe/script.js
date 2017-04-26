@@ -45,6 +45,8 @@ var one, two, three, four, five, six, seven, eight, nine;
 
 var validMoves = [true, true, true, true, true, true, true, true, true];
 var num_of_moves = 0;
+var player1Piece = "x"; //'x' or 'o' Default: player 1 is x
+var player2Piece = "o"; //'x' or 'o' Default: player 2 is o
 /**
 * Retrn a list of all possible winning combinations in tic tac toe
 **/
@@ -187,22 +189,28 @@ function setBoard () {
 	nine = nine_panel;
 
 	gameStart = false;
-	player1Turn = true;
+	
 
 	num_of_moves = 0;
 
 	square_based_combination1 = setPlayerWinCombination();
 	square_based_combination2 = setPlayerWinCombination();
 
-	location_of_combo1 = location_of_combo;
-	location_of_combo2 = location_of_combo;
-
-
 	playedFirstMove1 = false;
 	playedFirstMove2 = false;
 
 	previous_move_num1 = "";
 	previous_move_num2 = "";
+
+
+	if (player1Piece == "x") {
+		console.log("test");
+		player1Turn = true;
+	}
+	else {console.log("test2");
+		player1Turn = false;
+	}
+
 }
 
 /**
@@ -255,9 +263,11 @@ function setPlayerPiece(game_mode) {
 }
 
 /**
-* Clear board and start a new game (next transition)
+* Clear board to its original settings and start a new game 
+*
+* @param game_mode: 1 if single player, 2 for multiplayer
 **/
-function newGame() {
+function newGame(game_mode) {
 	one_panel.innerHTML = "";
 	two_panel.innerHTML = "";
 	three_panel.innerHTML = "";
@@ -267,7 +277,8 @@ function newGame() {
 	seven_panel.innerHTML = "";
 	eight_panel.innerHTML = "";
 	nine_panel.innerHTML = "";
-	playGame();
+	setBoard();
+	makeMove(game_mode);
 }
 
 /**
@@ -304,18 +315,18 @@ function displayWinner(game_mode, playerNum, combo) {
 			$(combo[i]).css("background-color", "#C17753");
 			$(combo[i]).css("color", "black");
 		}
-		newGame();
+		newGame(game_mode);
 	});
 }
 
-function drawMessage() {
+function drawMessage(game_mode) {
 	var win_panel = document.getElementById("win_panel");
 	var win_message_panel = document.getElementById("win_message");
 	$(win_panel).css("display", "block");
 	win_message_panel.innerHTML = "It was a Draw";
 	$(win_panel).click(function () {
 		$(win_panel).css("display", "none");
-		newGame();
+		newGame(game_mode);
 	});
 }
 
@@ -383,7 +394,7 @@ function checkWin(game_mode, selected_square_num) {
 		playedFirstMove2 = true;
 	}
 	if (!won && num_of_moves == 9) {
-		drawMessage();
+		drawMessage(game_mode);
 	}
 }
 
@@ -440,29 +451,29 @@ function removeOpponentsWinCombination(selected_square_num) {
 **/
 function updateBoard(game_mode, selected_square, selected_square_num) {
 	num_of_moves++;
-	console.log("on updateBoard");
-	console.log();
+	//console.log("on updateBoard");
+	//console.log();
 	if (player1Turn) {
 		previous_move_num1 = selected_square_num;
-		console.log(player1Piece);
-		console.log("player 1 placed on " + selected_square_num);
+		//console.log(player1Piece);
+		//console.log("player 1 placed on " + selected_square_num);
 		selected_square.innerHTML = player1Piece;
 		removeOpponentsWinCombination(selected_square_num);
 		checkWin(game_mode, selected_square_num);
 		player1Turn = false;
-		console.log("end of player 1");
+		//console.log("end of player 1");
 		if (game_mode == 1) {
 			player_vs_computer(game_mode);
 		}
 	}
 	else if (!player1Turn) {
 		previous_move_num2 = selected_square_num;
-		console.log("player 2 placed on " + selected_square_num);
+		//console.log("player 2 placed on " + selected_square_num);
 		selected_square.innerHTML = player2Piece;
 		removeOpponentsWinCombination(selected_square_num);
 		checkWin(game_mode, selected_square_num);
 		player1Turn = true;
-		console.log("end of player 2");
+		//console.log("end of player 2");
 		if (game_mode == 1) {
 			player_vs_computer(game_mode);
 		}
@@ -600,7 +611,7 @@ function computerMove(game_mode) {
 		
 
 		if (!madeMove && square_based_combination2[previous_move_num2] != null) { //action that opitmizes winning
-			console.log("find computer's next move to win");
+			//console.log("find computer's next move to win");
 			//console.log(square_based_combination2[previous_move_num2]);
 			var length = square_based_combination2[previous_move_num2].length;
 			for (var i = 0; i < length; i++) {
@@ -638,7 +649,7 @@ function computerMove(game_mode) {
 		}
 		priorityCombo = 3; //reset the least number of moves for opponent to win
 		if (!madeMove && square_based_combination1[previous_move_num1] != null) { //make action to prevent oppoenent to win
-			console.log("find computer's next move to prevent losing");
+			//console.log("find computer's next move to prevent losing");
 			//console.log(square_based_combination1[previous_move_num1]);
 			var length = square_based_combination1[previous_move_num1].length;
 			for (var i = 0; i < length; i++) {
@@ -679,7 +690,7 @@ function computerMove(game_mode) {
 		
 		
 		if (!madeMove) { //if algorithm fails to find the best move to win or prevent opponent to win
-			console.log("making new move linearly");
+			//console.log("making new move linearly");
 			for (var i = 1; i <= 9; i++) {
 				selected_square = getSpacePanel(i);
 				if (validMove(selected_square)) {
@@ -700,9 +711,9 @@ function computerMove(game_mode) {
 * @param game_mode: integer either 1 or 2 indicating if game is single player or multiplayer
 **/
 function player_vs_computer(game_mode) {
-	console.log(player1Turn);
-	console.log(player1Piece);
-	console.log(game_mode);
+	//console.log(player1Turn);
+	//console.log(player1Piece);
+	//console.log(game_mode);
 	
 	if (player1Turn) { //player 1 is always human player
 		//console.log("player1 turn");
@@ -742,8 +753,6 @@ $(document).ready(function() {
 	var gameStart = false;
 	var selected_square;
 	var player1Turn = true;
-	var player1Piece; //'x' or 'o'
-	var player2Piece; //'x' or 'o'
 	var square_based_combination1;
 	var square_based_combination2;
 	var previous_move_num1; //the space number on the most recent move made made by player 1
