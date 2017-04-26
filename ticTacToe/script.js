@@ -47,6 +47,7 @@ var validMoves = [true, true, true, true, true, true, true, true, true];
 var num_of_moves = 0;
 var player1Piece = "x"; //'x' or 'o' Default: player 1 is x
 var player2Piece = "o"; //'x' or 'o' Default: player 2 is o
+var won = false;
 /**
 * Retrn a list of all possible winning combinations in tic tac toe
 **/
@@ -202,7 +203,7 @@ function setBoard () {
 	previous_move_num1 = "";
 	previous_move_num2 = "";
 
-
+	won = false;
 	if (player1Piece == "x") {
 		console.log("test");
 		player1Turn = true;
@@ -341,9 +342,12 @@ function drawMessage(game_mode) {
 function checkWin(game_mode, selected_square_num) { 
 	var length;
 	var combo;
-	var won = false;
-	selected_square_num -= 1; //due to array index starting at 0
 	
+	selected_square_num -= 1; //due to array index starting at 0
+	console.log("***");
+	console.log(won);
+	console.log("***");
+
 	if (player1Turn) {
 		if (playedFirstMove1) {
 			if (square_based_combination1[selected_square_num] != null) { 
@@ -357,7 +361,10 @@ function checkWin(game_mode, selected_square_num) {
 									//win
 									displayWinner(game_mode, 1, combo);
 									won = true;
-									console.log("win");
+									console.log("win 1");
+									console.log("***");
+	console.log(won);
+	console.log("***");
 								}
 							}	
 						}
@@ -368,6 +375,9 @@ function checkWin(game_mode, selected_square_num) {
 		playedFirstMove1 = true;
 	}
 	else {
+		if (won) {
+			return;
+		}
 		if (playedFirstMove2) {
 			if (square_based_combination2[selected_square_num] != null) { 
 				length = square_based_combination2[selected_square_num].length
@@ -381,9 +391,10 @@ function checkWin(game_mode, selected_square_num) {
 							if (combo[1].textContent == player2Piece) {
 								if (combo[2].textContent == player2Piece) {
 									//win
-									won = true;
 									displayWinner(game_mode, 2, combo);
+									won = true;
 									console.log("win");
+									return;
 								}
 							}	
 						}
@@ -451,7 +462,7 @@ function removeOpponentsWinCombination(selected_square_num) {
 **/
 function updateBoard(game_mode, selected_square, selected_square_num) {
 	num_of_moves++;
-	//console.log("on updateBoard");
+	console.log("on updateBoard");
 	//console.log();
 	if (player1Turn) {
 		previous_move_num1 = selected_square_num;
