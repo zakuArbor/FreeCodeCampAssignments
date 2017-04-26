@@ -601,17 +601,18 @@ function computerMove(game_mode) {
 	else {
 		console.log("computer moves");
 
-		previous_move_num1 -= 1;	//since arrays start from 0
+		
 		var priorityCombo; //the combo that will lead the opponent to most likely win based on his most recent action
 		var priority_remaining_space = 3; //the least number of moves left for opponent to win
 		var num_of_remaining_space = 3; //the remaining tiles
 		var combo, combo_nums;
 		var madeMove = false;
 		combo = [];
-		
+		previous_move_num1 -= 1;	//since arrays start from 0
+		previous_move_num2 -= 1;	//since arrays start from 0
 
 		if (!madeMove && square_based_combination2[previous_move_num2] != null) { //action that opitmizes winning
-			//console.log("find computer's next move to win");
+			console.log("find computer's next move to win");
 			//console.log(square_based_combination2[previous_move_num2]);
 			var length = square_based_combination2[previous_move_num2].length;
 			for (var i = 0; i < length; i++) {
@@ -649,7 +650,7 @@ function computerMove(game_mode) {
 		}
 		priorityCombo = 3; //reset the least number of moves for opponent to win
 		if (!madeMove && square_based_combination1[previous_move_num1] != null) { //make action to prevent oppoenent to win
-			//console.log("find computer's next move to prevent losing");
+			console.log("find computer's next move to prevent losing");
 			//console.log(square_based_combination1[previous_move_num1]);
 			var length = square_based_combination1[previous_move_num1].length;
 			for (var i = 0; i < length; i++) {
