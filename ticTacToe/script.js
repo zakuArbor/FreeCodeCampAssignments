@@ -672,7 +672,7 @@ function computerMove(game_mode) {
 					if (combo[2].textContent == player1Piece) {
 						num_of_remaining_space -=1;
 					}	
-					if (num_of_remaining_space < priorityCombo) {
+					if (num_of_remaining_space < priority_remaining_space) {
 						priorityCombo = combo;
 						priority_remaining_space = num_of_remaining_space;
 					}
