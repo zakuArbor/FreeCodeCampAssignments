@@ -599,13 +599,7 @@ function computerMove(game_mode) {
 	if (won) {
 		return;
 	}
-	if (validMove(five)) {
-			five = null;
-			updateBoard(game_mode, selected_square, 5);
-	}
-	else {
-		console.log("computer moves");
-
+	
 		
 		var priorityCombo, priorityCombo_nums; //the combo that will lead the opponent to most likely win based on his most recent action
 		var priority_remaining_space = 3; //the least number of moves left for opponent to win
@@ -716,7 +710,7 @@ function computerMove(game_mode) {
 				}	
 			}
 		}	
-	}	
+	
 }
 
 
