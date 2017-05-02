@@ -64,6 +64,10 @@ $(document).ready(function() {
 	/***************************************************************************/
 	var min = Math.floor((current_time/60) % 60); //min
 	var sec = Math.floor(current_time % 60);
+	if (sec <= 9) {
+		sec = "0" + sec;
+	}
+
 	current_status_panel.innerHTML = current_status;
 	current_time_panel.innerHTML = min + ":" + sec;
 
@@ -117,7 +121,11 @@ $(document).ready(function() {
 			current_time -= 1; //decrement by 1 second for each second that passes
 			var min = Math.floor((current_time/60) % 60); //min
 			var sec = Math.floor(current_time % 60);
-
+			
+			if (sec <= 9) {
+				var sec = "0" + sec;
+			}	
+		
 			current_time_panel.innerHTML = min + ":" + sec;
 			console.log(current_time);
 			if (current_time <= 0) {
