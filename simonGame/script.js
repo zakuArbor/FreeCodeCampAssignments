@@ -6,7 +6,7 @@ $(document).ready(function() {
 	var blue_button = document.getElementById("blue");
 	var yellow_button = document.getElementById("yellow");
 
-	var switch_button = document.getElementById("switch");
+	var power_button = document.getElementById("switch");
 	var start_button = document.getElementById("start");
 	var count_button = document.getElementById("count");
 	/********************/
@@ -14,11 +14,22 @@ $(document).ready(function() {
 	/********************/
 	var color = [blue_button, green_button, red_button, yellow_button];
 	var isOn = false;
+	var start = false;
+	var count = 0;
+	var actions = [];
+	var playersActions = [];
 	/********************/
 
-	$(switch_button).click(function() {
+	$(power_button).click(function() {
 		isOn = isOn == false ? true : false;
 		console.log(isOn); 
 	});
+
+	$(start_button).click(){
+		start = true;
+		count = 0;
+		actions = [];
+		console.log("start");
+	}
 
 });
