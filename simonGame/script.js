@@ -115,6 +115,7 @@ function startGame(count_button) {
 	actions = [];
 	playerActions = [];
 	count_button.innerHTML = 0;
+	playerMove = 0;
 }
 
 /**
@@ -124,11 +125,14 @@ function startGame(count_button) {
 *	1. If strict mode, reset game
 *	2. Else, replay sequence to user
 *
+* @param action: an action object 
+*
 * @var strict: boolean value indicating if the game mode is strict 
 * @var actions: a sequences of actions that the player is to replay
 * Note: @var is not a param but just a note on what the variables in the function means
 **/
-function falseMove() {
+function falseMove(action) {
+	action.endAction();
 	if (strict) {
 
 	}
@@ -184,7 +188,7 @@ $(document).ready(function() {
 		console.log("down");
 		red.playAction();
 		if (!checkActions(red, actions[playerMove])) {
-			falseMove();
+			falseMove(red);
 		}
 		playerMove++;
 	});
