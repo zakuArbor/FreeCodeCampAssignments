@@ -9,10 +9,11 @@ THINGS TO DO:
 
 var isOn = false;
 var start = false;
+var strict = false;
 var count = 0;
 var actions = [];
 var playerActions = [];
-
+var playerMove = 0;
 
 
 /**
@@ -52,10 +53,10 @@ Action.prototype = {
 * Checks if player played the correct action
 *
 * @param player_action_count: the current # of actions the player has currently played
-* @param actions: an action the player is suppose to replay at the moment
-* @param playerActions: the latest action the player played 
+* @param action: an action the player is suppose to replay at the moment
+* @param playerAction: the latest action the player played 
 **/
-function checkActions(actions, playerActions) {
+function checkActions(action, playerAction) {
 	if (action.getColor() == playerAction.getColor()) {
 		return true;
 	}
@@ -116,6 +117,28 @@ function startGame(count_button) {
 	count_button.innerHTML = 0;
 }
 
+/**
+* Guide gamepath to the appropriate path when user plays incorrect move
+*
+* If player plays wrong move:
+*	1. If strict mode, reset game
+*	2. Else, replay sequence to user
+*
+* @var strict: boolean value indicating if the game mode is strict 
+* @var actions: a sequences of actions that the player is to replay
+* Note: @var is not a param but just a note on what the variables in the function means
+**/
+function falseMove() {
+	if (strict) {
+
+	}
+	else {
+		console.log("incorrect sequences");
+		playSequence(actions);
+		playerMove = 0;
+	}
+}
+
 $(document).ready(function() {
 	/********************/
 	//References to html Elements
@@ -131,11 +154,13 @@ $(document).ready(function() {
 	
 	/********************/
 	var blue = new Action(blue_button, "sound.wav");
-	var green = new Action(green_button, "sound.wav");
-	var red = new Action(red_button, "sound.wav");
-	var yellow = new Action(yellow_button, "sound.wav");
+	var green = new Action(green_button, "sound2.wav");
+	var red = new Action(red_button, "sound3.wav");
+	var yellow = new Action(yellow_button, "sound4.wav");
 	var possible_actions = [blue, green, red, yellow];
 	/********************/
+
+
 
 	$(power_button).click(function() {
 		isOn = isOn == false ? true : false;
@@ -147,9 +172,25 @@ $(document).ready(function() {
 		if (isOn) {
 			console.log("start");
 			startGame(count_button);
+			start = true;
 			count += createActionToSequence(actions, possible_actions);
 			playSequence(actions);
+
 			console.log(actions);
 		}
+	});
+
+	$(red_button).mousedown(function() {
+		console.log("down");
+		red.playAction();
+		if (!checkActions(red, actions[playerMove])) {
+			falseMove();
+		}
+		playerMove++;
+	});
+
+	$(red_button).mouseup(function() {
+		console.log("up");
+		red.endAction();
 	});
 });
