@@ -10,10 +10,13 @@ THINGS TO DO:
 var isOn = false;
 var start = false;
 var strict = false;
+var playMove = false; //indicates if player can start replaying move
 var count = 0;
 var actions = [];
 var playerActions = [];
 var playerMove = 0;
+var createNextAction = false;
+var playedFalse = false;
 
 
 /**
@@ -57,10 +60,34 @@ Action.prototype = {
 * @param playerAction: the latest action the player played 
 **/
 function checkActions(action, playerAction) {
-	if (action.getColor() == playerAction.getColor()) {
-		return true;
+	var setTimeOut = false;
+	if (playerAction.length == action.length) {
+		console.log("end of sequence add new seuqence needed");
+		playMove = 0;
+		createNextAction = true;
+		setTimeOut = true;
 	}
-	return false;
+
+	var actionCorrect;
+	if (action.getColor() == playerAction.getColor()) {
+		actionCorrect = true;
+	}
+	else {
+		actionCorrect = false;
+		playedFalse = true;
+	}
+
+	if (setTimeOut) {
+		setTimeout(function() {
+			action.endAction();
+			playerAction.endAction();
+			return actionCorrect;
+		}, 1000);
+	}
+	else {
+		return actionCorrect;
+	}
+
 }
 
 
@@ -70,9 +97,11 @@ function checkActions(action, playerAction) {
 * @param actions: an action object
 **/
 function playAction(action) {
+	playMove = false;
 	action.playAction();
 	setTimeout(function(){
         action.endAction();
+        playMove = true;
    }, 1500);
 }
 
@@ -82,8 +111,19 @@ function playAction(action) {
 * @param actions: a sequence of action objects
 **/
 function playSequence(actions) {
-	for (var i = 0; i < actions.length; i++) {
-		playAction(actions[i]);
+	if (createNextAction) {
+		console.log(action.sound_name);
+		playAction(actions[0]);
+		for (var i = 1; i < actions.length; i++) {
+			var action = actions[i];
+			setTimeout(function() {
+				console.log(action.sound_name);
+				playAction(action);			
+			}, 1500);
+		}
+		createNextAction = false;
+		playedFalse = false;	
+		playMove = true;
 	}
 	console.log("end of sequence");
 }
@@ -110,12 +150,41 @@ function createActionToSequence(actions, possible_actions) {
 * @param count_button: reference to the count element
 **/
 function startGame(count_button) {
+	for (var i = 0; i < count; i++) {
+		actions[i].endAction();
+	}
 	start = false;
+	playMove = false;
+	playedFalse = false;
 	count = 0;
 	actions = [];
 	playerActions = [];
 	count_button.innerHTML = 0;
 	playerMove = 0;
+	createNextAction = true;
+}
+
+/**
+* The next level of simon game 
+*
+* Once player completes the sequence, a new action will be added to the sequence
+* and be played to the player to imitate
+*
+* @possible_actions: an array of possible actions to add (each element in the array is an action object)
+*
+* @var playedFalse: true iff player made a mistake in the sequence
+* @var playerMove: indicates the number of successfull steps imitated in the sequence
+**/
+function nextMovesToReplay(possible_actions) {	
+	if (!playedFalse) {		
+		if (createNextAction) {
+			playMove = false;
+			console.log("next moves to replay");
+			count += createActionToSequence(actions, possible_actions);
+			playSequence(actions);
+		}
+		playerMove++;
+	}
 }
 
 /**
@@ -169,8 +238,13 @@ $(document).ready(function() {
 	$(power_button).click(function() {
 		isOn = isOn == false ? true : false;
 		console.log(isOn); 
-	});
+		actions = [blue, red];
+		createNextAction = true;
 
+		count = 2;
+		playSequence(actions);
+		console.log();
+	});
 
 	$(start_button).click(function() {
 		if (isOn) {
@@ -184,17 +258,39 @@ $(document).ready(function() {
 		}
 	});
 
+	/********************/
 	$(red_button).mousedown(function() {
 		console.log("down");
-		red.playAction();
-		if (!checkActions(red, actions[playerMove])) {
-			falseMove(red);
+		if (playMove) {
+			red.playAction();
+			if (!checkActions(actions[playerMove], red)) {
+				playedFalse = true;
+				falseMove(red);
+			}
 		}
-		playerMove++;
 	});
-
 	$(red_button).mouseup(function() {
 		console.log("up");
 		red.endAction();
+		nextMovesToReplay(possible_actions);
 	});
+
+	$(blue_button).mousedown(function() {
+		console.log("down");
+		if (playMove) {
+			blue.playAction();
+			if (!checkActions(actions[playerMove], blue)) {
+				playedFalse = true;
+				falseMove(blue);
+			}
+		}
+	});
+
+	$(blue_button).mouseup(function() {
+		console.log("up");
+		blue.endAction();
+		nextMovesToReplay(possible_actions);
+	});
+	/********************/
+	
 });
