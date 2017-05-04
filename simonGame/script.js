@@ -61,20 +61,25 @@ Action.prototype = {
 **/
 function checkActions(action, playerAction) {
 	var setTimeOut = false;
-	if (playerAction.length == action.length) {
-		console.log("end of sequence add new seuqence needed");
-		playMove = 0;
-		createNextAction = true;
-		setTimeOut = true;
-	}
 
 	var actionCorrect;
 	if (action.getColor() == playerAction.getColor()) {
 		actionCorrect = true;
+		console.log("correct move");
 	}
 	else {
 		actionCorrect = false;
 		playedFalse = true;
+		console.log("incorrect move");
+	}
+
+	if (actionCorrect && (playerMove + 1) == actions.length) {
+		console.log("end of sequence add new seuqence needed");
+		console.log(player);
+		console.log("******");
+		playMove = 0;
+		createNextAction = true;
+		setTimeOut = true;
 	}
 
 	if (setTimeOut) {
@@ -112,7 +117,7 @@ function playAction(action) {
 **/
 function playSequence(actions) {
 	if (createNextAction) {
-		console.log(action.sound_name);
+		console.log(actions[0].sound_name);
 		playAction(actions[0]);
 		for (var i = 1; i < actions.length; i++) {
 			var action = actions[i];
@@ -238,12 +243,6 @@ $(document).ready(function() {
 	$(power_button).click(function() {
 		isOn = isOn == false ? true : false;
 		console.log(isOn); 
-		actions = [blue, red];
-		createNextAction = true;
-
-		count = 2;
-		playSequence(actions);
-		console.log();
 	});
 
 	$(start_button).click(function() {
@@ -263,6 +262,8 @@ $(document).ready(function() {
 		console.log("down");
 		if (playMove) {
 			red.playAction();
+			playedFalse = false;
+
 			if (!checkActions(actions[playerMove], red)) {
 				playedFalse = true;
 				falseMove(red);
@@ -279,6 +280,8 @@ $(document).ready(function() {
 		console.log("down");
 		if (playMove) {
 			blue.playAction();
+			playedFalse = false;
+
 			if (!checkActions(actions[playerMove], blue)) {
 				playedFalse = true;
 				falseMove(blue);
