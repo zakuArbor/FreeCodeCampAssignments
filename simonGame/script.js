@@ -14,7 +14,7 @@ var playMove = false; //indicates if player can start replaying move
 var count = 0;
 var actions = [];
 var playerActions = [];
-var playerMove = 0;
+var playerNumMove = 0;
 var createNextAction = false;
 var playedFalse = false;
 
@@ -75,15 +75,13 @@ function checkActions(action, playerAction) {
 		playedFalse = true;
 		console.log("incorrect move");
 	}
-
-	if (actionCorrect && (playerMove + 1) == actions.length) {
+	if (actionCorrect && (playerNumMove + 1) == actions.length) {
 		console.log("end of sequence add new seuqence needed");
 		playMove = 0;
 		createNextAction = true;
 		setTimeOut = true;
 	}
-	console.log("return value");
-	console.log(actionCorrect);
+
 	if (setTimeOut) {
 		setTimeout(function() {
 			action.endAction();
@@ -148,7 +146,13 @@ function playSequence(actions) {
 function createActionToSequence(actions, possible_actions) {
 	console.log("add new action");
 	var id = Math.floor(Math.random() * 4);
-	actions.push(possible_actions[id]);
+	
+	//actions.push(possible_actions[id]);
+	
+	/**/
+	actions.push(possible_actions[0]);	
+	/**/
+
 	console.log(possible_actions[id].getColor());
 	return 1;
 }
@@ -169,7 +173,7 @@ function startGame(count_button) {
 	actions = [];
 	playerActions = [];
 	count_button.innerHTML = 0;
-	playerMove = 0;
+	playerNumMove = 0;
 	createNextAction = true;
 }
 
@@ -182,7 +186,7 @@ function startGame(count_button) {
 * @possible_actions: an array of possible actions to add (each element in the array is an action object)
 *
 * @var playedFalse: true iff player made a mistake in the sequence
-* @var playerMove: indicates the number of successfull steps imitated in the sequence
+* @var playerNumMove: indicates the number of successfull steps imitated in the sequence
 **/
 function nextMovesToReplay(possible_actions) {	
 	if (playedFalse == false) {		
@@ -192,6 +196,11 @@ function nextMovesToReplay(possible_actions) {
 			count += createActionToSequence(actions, possible_actions);
 			playSequence(actions);
 			createNextAction = false;
+		}
+		else {
+			console.log("test");
+			playerNumMove++;
+			console.log(playerNumMove);
 		}
 	}
 }
@@ -217,7 +226,7 @@ function falseMove(action) {
 	else {
 		console.log("incorrect sequences");
 		playSequence(actions);
-		playerMove = 0;
+		playerNumMove = 0;
 	}
 }
 
@@ -273,7 +282,8 @@ $(document).ready(function() {
 		if (playMove) {
 			red.playAction();
 			playedFalse = false;
-			if (checkActions(actions[playerMove], red) == false) {
+			console.log(playerNumMove);
+			if (checkActions(actions[playerNumMove], red) == false) {
 				console.log("returned false");
 				playedFalse = true;
 				falseMove(red);
@@ -281,7 +291,7 @@ $(document).ready(function() {
 		}
 	});
 	$(red_button).mouseup(function() {
-		console.log("up");
+		console.log("up*************************************");
 		red.endAction();
 		nextMovesToReplay(possible_actions);
 	});
@@ -291,9 +301,10 @@ $(document).ready(function() {
 		if (playMove) {
 			blue.playAction();
 			playedFalse = false;
+			console.log(playerNumMove);
 
-			if (checkActions(actions[playerMove], blue) == false) {
-				onsole.log("returned false");
+			if (checkActions(actions[playerNumMove], blue) == false) {
+				console.log("returned false");
 				playedFalse = true;
 				falseMove(blue);
 			}
@@ -301,7 +312,7 @@ $(document).ready(function() {
 	});
 
 	$(blue_button).mouseup(function() {
-		console.log("up");
+		console.log("up*************************************");
 		blue.endAction();
 		nextMovesToReplay(possible_actions);
 	});
