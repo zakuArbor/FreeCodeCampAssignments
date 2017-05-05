@@ -55,9 +55,12 @@ Action.prototype = {
 /**
 * Checks if player played the correct action
 *
+* Return true iff the action the player played matches with the action in the sequence
+*
 * @param player_action_count: the current # of actions the player has currently played
 * @param action: an action the player is suppose to replay at the moment
 * @param playerAction: the latest action the player played 
+* @return true iff the action is correct
 **/
 function checkActions(action, playerAction) {
 	var setTimeOut = false;
@@ -75,13 +78,12 @@ function checkActions(action, playerAction) {
 
 	if (actionCorrect && (playerMove + 1) == actions.length) {
 		console.log("end of sequence add new seuqence needed");
-		console.log(player);
-		console.log("******");
 		playMove = 0;
 		createNextAction = true;
 		setTimeOut = true;
 	}
-
+	console.log("return value");
+	console.log(actionCorrect);
 	if (setTimeOut) {
 		setTimeout(function() {
 			action.endAction();
@@ -144,8 +146,10 @@ function playSequence(actions) {
 * @return returns 1 to be added to the count
 **/
 function createActionToSequence(actions, possible_actions) {
+	console.log("add new action");
 	var id = Math.floor(Math.random() * 4);
 	actions.push(possible_actions[id]);
+	console.log(possible_actions[id].getColor());
 	return 1;
 }
 
@@ -181,14 +185,14 @@ function startGame(count_button) {
 * @var playerMove: indicates the number of successfull steps imitated in the sequence
 **/
 function nextMovesToReplay(possible_actions) {	
-	if (!playedFalse) {		
+	if (playedFalse == false) {		
 		if (createNextAction) {
 			playMove = false;
 			console.log("next moves to replay");
 			count += createActionToSequence(actions, possible_actions);
 			playSequence(actions);
+			createNextAction = false;
 		}
-		playerMove++;
 	}
 }
 
@@ -250,7 +254,13 @@ $(document).ready(function() {
 			console.log("start");
 			startGame(count_button);
 			start = true;
-			count += createActionToSequence(actions, possible_actions);
+			//count += createActionToSequence(actions, possible_actions);
+			
+			/**/
+			count = 1;
+			actions = [red]
+			/**/
+
 			playSequence(actions);
 
 			console.log(actions);
@@ -263,8 +273,8 @@ $(document).ready(function() {
 		if (playMove) {
 			red.playAction();
 			playedFalse = false;
-
-			if (!checkActions(actions[playerMove], red)) {
+			if (checkActions(actions[playerMove], red) == false) {
+				console.log("returned false");
 				playedFalse = true;
 				falseMove(red);
 			}
@@ -282,7 +292,8 @@ $(document).ready(function() {
 			blue.playAction();
 			playedFalse = false;
 
-			if (!checkActions(actions[playerMove], blue)) {
+			if (checkActions(actions[playerMove], blue) == false) {
+				onsole.log("returned false");
 				playedFalse = true;
 				falseMove(blue);
 			}
