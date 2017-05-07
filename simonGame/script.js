@@ -48,6 +48,9 @@ Action.prototype = {
 	endAction: function () {
 		$(this.color).removeClass("playAction");
 		this.sound.pause();
+	},
+	pauseSound: function () {
+		this.sound.pause();
 	}
 }
 
@@ -101,13 +104,15 @@ function checkActions(action, playerAction) {
 *
 * @param actions: an action object
 **/
-function playAction(action) {
+function playAction(action, delay) {
 	playMove = false;
-	action.playAction();
-	setTimeout(function(){
-        action.endAction();
-        playMove = true;
-   }, 1500);
+	setTimeout(function () {
+		action.playAction();
+		setTimeout(function(){
+	        action.endAction();
+	        playMove = true;
+	   	}, 1500);
+	}, delay);
 }
 
 /**
@@ -117,18 +122,18 @@ function playAction(action) {
 **/
 function playSequence(actions) {
 	if (createNextAction) {
-		console.log(actions[0].sound_name);
-		playAction(actions[0]);
-		for (var i = 1; i < actions.length; i++) {
-			var action = actions[i];
-			setTimeout(function() {
-				console.log(action.sound_name);
-				playAction(action);			
-			}, 1500);
-		}
-		createNextAction = false;
-		playedFalse = false;	
-		playMove = true;
+		setTimeout(function() {
+			console.log(actions[0].sound_name);
+			playAction(actions[0], 0);
+
+			for (var i = 1; i < actions.length; i++) { //i = 1 since the first action in the sequence is already played
+				playAction(actions[i], 1750);			
+			}
+		
+			createNextAction = false;
+			playedFalse = false;	
+			playMove = true;
+		}, 1500);
 	}
 	console.log("end of sequence");
 }
@@ -288,10 +293,16 @@ $(document).ready(function() {
 				playedFalse = true;
 				falseMove(red);
 			}
+			var redInterval = setInterval(function() {
+				red.endAction();
+				console.log("pika");
+				red.playAction();
+			}, 1500);
 		}
 	});
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
+		clearInterval(redInterval);
 		red.endAction();
 		nextMovesToReplay(possible_actions);
 	});
