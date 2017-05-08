@@ -8,6 +8,7 @@ THINGS TO DO:
 /**/
 //Constants
 var soundLength = 1500;
+var maxReplayLength = 1500;
 /**/
 
 
@@ -21,6 +22,7 @@ var playerActions = [];
 var playerNumMove = 0;
 var createNextAction = false;
 var playedFalse = false;
+var nextAction = false;
 
 
 /**
@@ -51,7 +53,7 @@ Action.prototype = {
 	},
 	endAction: function () {
 		$(this.color).removeClass("playAction");
-		this.sound.pause();
+		this.pauseSound();
 	},
 	pauseSound: function () {
 		this.sound.pause();
@@ -108,15 +110,32 @@ function checkActions(action, playerAction) {
 *
 * @param actions: an action object
 **/
-function playAction(action, delay) {
+function playAction(action, delay, i, event) {
 	playMove = false;
 	setTimeout(function () {
 		action.playAction();
 		setTimeout(function(){
+			console.log("close playACtion " + action.sound_name);
 	        action.endAction();
 	        playMove = true;
-	   	}, 1500);
+	        if (event == "next") {
+	        	playNextAction(i);
+	        }
+	        
+	   	}, maxReplayLength);
 	}, delay);
+}
+
+function playNextAction(i) {
+	i++;
+	if (i < actions.length) {
+		console.log("next action");
+		playAction(actions[i], 0, i, "next");
+	}
+	else {
+		console.log("at the last action");
+	}
+
 }
 
 /**
@@ -125,15 +144,19 @@ function playAction(action, delay) {
 * @param actions: a sequence of action objects
 **/
 function playSequence(actions) {
+	var i = 0; //loop counter for the position in the actions list
 	if (createNextAction) {
 		setTimeout(function() {
-			console.log(actions[0].sound_name);
-			playAction(actions[0], 0);
+			console.log(actions[i].sound_name);
+			playAction(actions[i], 0, 0, "next");
 
+			/*nextAction = false;
 			for (var i = 1; i < actions.length; i++) { //i = 1 since the first action in the sequence is already played
-				playAction(actions[i], 1750);			
-			}
-		
+					console.log(actions[i].sound_name);
+					console.log(i);
+					playAction(actions[i], 1750);
+					console.log("pika2");
+			}*/
 			createNextAction = false;
 			playedFalse = false;	
 			playMove = true;
@@ -253,9 +276,9 @@ $(document).ready(function() {
 	/********************/
 	
 	/********************/
-	var blue = new Action(blue_button, "sound.mp3");
-	var green = new Action(green_button, "sound2.mp3");
-	var red = new Action(red_button, "sound3.mp3");
+	var blue = new Action(blue_button, "sound.wav");
+	var green = new Action(green_button, "sound2.wav");
+	var red = new Action(red_button, "sound3.wav");
 	var yellow = new Action(yellow_button, "sound4.wav");
 	var possible_actions = [blue, green, red, yellow];
 	/********************/
