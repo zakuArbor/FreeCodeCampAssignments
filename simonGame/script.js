@@ -90,18 +90,7 @@ function checkActions(action, playerAction) {
 		createNextAction = true;
 		setTimeOut = true;
 	}
-	/*
-	if (setTimeOut) {
-		setTimeout(function() {
-			action.endAction();
-			playerAction.endAction();
-			return actionCorrect;
-		}, 1000);
-	}
-	else {*/
 		return actionCorrect;
-	//}
-
 }
 
 
@@ -149,14 +138,6 @@ function playSequence(actions) {
 		setTimeout(function() {
 			console.log(actions[i].sound_name);
 			playAction(actions[i], 0, 0, "next");
-
-			/*nextAction = false;
-			for (var i = 1; i < actions.length; i++) { //i = 1 since the first action in the sequence is already played
-					console.log(actions[i].sound_name);
-					console.log(i);
-					playAction(actions[i], 1750);
-					console.log("pika2");
-			}*/
 			createNextAction = false;
 			playedFalse = false;	
 			playMove = true;
@@ -179,10 +160,10 @@ function createActionToSequence(actions, possible_actions) {
 	console.log("add new action");
 	var id = Math.floor(Math.random() * 4);
 	
-	//actions.push(possible_actions[id]);
+	actions.push(possible_actions[id]);
 	
 	/**/
-	actions.push(possible_actions[0]);	
+//	actions.push(possible_actions[0]);	
 	/**/
 
 	console.log(possible_actions[id].getColor());
@@ -228,6 +209,7 @@ function nextMovesToReplay(possible_actions) {
 			count += createActionToSequence(actions, possible_actions);
 			playSequence(actions);
 			createNextAction = false;
+			playerNumMove = 0;
 		}
 		else {
 			console.log("test");
@@ -295,11 +277,11 @@ $(document).ready(function() {
 			console.log("start");
 			startGame(count_button);
 			start = true;
-			//count += createActionToSequence(actions, possible_actions);
+			count += createActionToSequence(actions, possible_actions);
 			
 			/**/
-			count = 1;
-			actions = [red]
+			//count = 1;
+			//actions = [red]
 			/**/
 
 			playSequence(actions);
@@ -315,7 +297,7 @@ $(document).ready(function() {
 			red.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
-			if (checkActions(actions[playerNumMove], red) == false) {
+			if (playerNumMove < actions.length && checkActions(actions[playerNumMove], red) == false) {
 				console.log("returned false");
 				playedFalse = true;
 				falseMove(red);
@@ -354,6 +336,56 @@ $(document).ready(function() {
 	$(blue_button).mouseup(function() {
 		console.log("up*************************************");
 		blue.endAction();
+		nextMovesToReplay(possible_actions);
+	});
+
+	$(green_button).mousedown(function() {
+		console.log("down");
+		if (playMove) {
+			green.playAction();
+			playedFalse = false;
+			console.log(playerNumMove);
+
+			if (checkActions(actions[playerNumMove], green) == false) {
+				console.log("returned false");
+				playedFalse = true;
+				falseMove(green);
+			}
+
+			setTimeout(function() {
+				green.endAction();
+			}, soundLength);
+		}
+	});
+
+	$(green_button).mouseup(function() {
+		console.log("up*************************************");
+		green.endAction();
+		nextMovesToReplay(possible_actions);
+	});
+
+	$(yellow_button).mousedown(function() {
+		console.log("down");
+		if (playMove) {
+			yellow.playAction();
+			playedFalse = false;
+			console.log(playerNumMove);
+
+			if (checkActions(actions[playerNumMove], yellow) == false) {
+				console.log("returned false");
+				playedFalse = true;
+				falseMove(yellow);
+			}
+
+			setTimeout(function() {
+				yellow.endAction();
+			}, soundLength);
+		}
+	});
+
+	$(yellow_button).mouseup(function() {
+		console.log("up*************************************");
+		yellow.endAction();
 		nextMovesToReplay(possible_actions);
 	});
 	/********************/
