@@ -9,6 +9,7 @@ THINGS TO DO:
 //Constants
 var soundLength = 1500;
 var maxReplayLength = 1500;
+var timeDelayBetweenActions = 500;
 /**/
 
 
@@ -115,11 +116,20 @@ function playAction(action, delay, i, event) {
 	}, delay);
 }
 
+function updateCountPanel(count_panel, count){
+	count_panel.innerHTML = count;
+}
+
+/**
+* Play/replay the next action in the sequence to the player
+*
+* @param i: a counter for the action array that represents the position in the array of action objects
+**/
 function playNextAction(i) {
 	i++;
 	if (i < actions.length) {
 		console.log("next action");
-		playAction(actions[i], 0, i, "next");
+		playAction(actions[i], timeDelayBetweenActions, i, "next");
 	}
 	else {
 		console.log("at the last action");
@@ -173,9 +183,9 @@ function createActionToSequence(actions, possible_actions) {
 /**
 * Intializes all game parameters to it's default values
 *
-* @param count_button: reference to the count element
+* @param count_panel: reference to the count element
 **/
-function startGame(count_button) {
+function startGame(count_panel) {
 	for (var i = 0; i < count; i++) {
 		actions[i].endAction();
 	}
@@ -185,7 +195,7 @@ function startGame(count_button) {
 	count = 0;
 	actions = [];
 	playerActions = [];
-	count_button.innerHTML = 0;
+	count_panel.innerHTML = 0;
 	playerNumMove = 0;
 	createNextAction = true;
 }
@@ -196,17 +206,19 @@ function startGame(count_button) {
 * Once player completes the sequence, a new action will be added to the sequence
 * and be played to the player to imitate
 *
-* @possible_actions: an array of possible actions to add (each element in the array is an action object)
+* @param possible_actions: an array of possible actions to add (each element in the array is an action object)
+* @param count_panel: DOM reference to the count panel
 *
 * @var playedFalse: true iff player made a mistake in the sequence
 * @var playerNumMove: indicates the number of successfull steps imitated in the sequence
 **/
-function nextMovesToReplay(possible_actions) {	
+function nextMovesToReplay(possible_actions, count_panel) {	
 	if (playedFalse == false) {		
 		if (createNextAction) {
 			playMove = false;
 			console.log("next moves to replay");
 			count += createActionToSequence(actions, possible_actions);
+			updateCountPanel(count_panel, count);
 			playSequence(actions);
 			createNextAction = false;
 			playerNumMove = 0;
@@ -254,7 +266,7 @@ $(document).ready(function() {
 
 	var power_button = document.getElementById("power");
 	var start_button = document.getElementById("start");
-	var count_button = document.getElementById("count");
+	var count_panel = document.getElementById("count");
 	/********************/
 	
 	/********************/
@@ -275,10 +287,10 @@ $(document).ready(function() {
 	$(start_button).click(function() {
 		if (isOn) {
 			console.log("start");
-			startGame(count_button);
+			startGame(count_panel);
 			start = true;
 			count += createActionToSequence(actions, possible_actions);
-			
+			updateCountPanel(count_panel, count);
 			/**/
 			//count = 1;
 			//actions = [red]
@@ -311,7 +323,7 @@ $(document).ready(function() {
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
 		red.endAction();
-		nextMovesToReplay(possible_actions);
+		nextMovesToReplay(possible_actions, count_panel);
 	});
 
 	$(blue_button).mousedown(function() {
@@ -336,7 +348,7 @@ $(document).ready(function() {
 	$(blue_button).mouseup(function() {
 		console.log("up*************************************");
 		blue.endAction();
-		nextMovesToReplay(possible_actions);
+		nextMovesToReplay(possible_actions, count_panel);
 	});
 
 	$(green_button).mousedown(function() {
@@ -361,7 +373,7 @@ $(document).ready(function() {
 	$(green_button).mouseup(function() {
 		console.log("up*************************************");
 		green.endAction();
-		nextMovesToReplay(possible_actions);
+		nextMovesToReplay(possible_actions, count_panel);
 	});
 
 	$(yellow_button).mousedown(function() {
@@ -386,7 +398,7 @@ $(document).ready(function() {
 	$(yellow_button).mouseup(function() {
 		console.log("up*************************************");
 		yellow.endAction();
-		nextMovesToReplay(possible_actions);
+		nextMovesToReplay(possible_actions, color_panel);
 	});
 	/********************/
 	
