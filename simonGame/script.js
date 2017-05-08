@@ -134,7 +134,7 @@ function playNextAction(i) {
 **/
 function playSequence(actions) {
 	var i = 0; //loop counter for the position in the actions list
-	if (createNextAction) {
+	if (createNextAction || playedFalse) {
 		setTimeout(function() {
 			console.log(actions[i].sound_name);
 			playAction(actions[i], 0, 0, "next");
