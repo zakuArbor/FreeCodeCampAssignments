@@ -5,6 +5,10 @@ THINGS TO DO:
 -Strict mode
 */
 
+/**/
+//Constants
+var soundLength = 1500;
+/**/
 
 
 var isOn = false;
@@ -84,7 +88,7 @@ function checkActions(action, playerAction) {
 		createNextAction = true;
 		setTimeOut = true;
 	}
-
+	/*
 	if (setTimeOut) {
 		setTimeout(function() {
 			action.endAction();
@@ -92,9 +96,9 @@ function checkActions(action, playerAction) {
 			return actionCorrect;
 		}, 1000);
 	}
-	else {
+	else {*/
 		return actionCorrect;
-	}
+	//}
 
 }
 
@@ -249,9 +253,9 @@ $(document).ready(function() {
 	/********************/
 	
 	/********************/
-	var blue = new Action(blue_button, "sound.wav");
-	var green = new Action(green_button, "sound2.wav");
-	var red = new Action(red_button, "sound3.wav");
+	var blue = new Action(blue_button, "sound.mp3");
+	var green = new Action(green_button, "sound2.mp3");
+	var red = new Action(red_button, "sound3.mp3");
 	var yellow = new Action(yellow_button, "sound4.wav");
 	var possible_actions = [blue, green, red, yellow];
 	/********************/
@@ -293,16 +297,14 @@ $(document).ready(function() {
 				playedFalse = true;
 				falseMove(red);
 			}
-			var redInterval = setInterval(function() {
+			setTimeout(function() {
 				red.endAction();
-				console.log("pika");
-				red.playAction();
-			}, 1500);
+			}, soundLength);
 		}
 	});
+
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
-		clearInterval(redInterval);
 		red.endAction();
 		nextMovesToReplay(possible_actions);
 	});
@@ -319,6 +321,10 @@ $(document).ready(function() {
 				playedFalse = true;
 				falseMove(blue);
 			}
+
+			setTimeout(function() {
+				blue.endAction();
+			}, soundLength);
 		}
 	});
 
