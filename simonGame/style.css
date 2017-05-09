@@ -3,6 +3,7 @@ body {
 }
 
 #game_board {
+	position: relative;
 	margin: auto;
 	height: 500px;
 	width: 500px;
@@ -88,214 +89,19 @@ body {
 	border-style: solid;
 	border-radius: 100%;
 	padding: 10px;
+	top: 120px;
+	left: 110px;
 }
 
 
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-/* Styles */
-}
+@media (max-device-width: 500px) {
+	#game_board { 
+		transform: scale(0.55, 0.55);	
+		margin: 0px;
+		left: -90px;
 
-/* Smartphones (landscape) ----------- */
-@media only screen and (min-width : 321px) {
-/* Styles */
-	#game_board {
-		width: 300px;
-		height: 300px;
-		margin-top: 25%;
 	}
-
-	#green, #red, #blue, #yellow {
-		width: 145px;
-		height: 145px;
-		//margin-right: 0px;
 	}
-
-	#menu {
-		border-width: 10px;
-		height: 150px;
-		width: 150px;
-		top: 25%;
-		left: 26.5%;
 	}
-}
-
-/* Smartphones (portrait) ----------- */
-@media only screen and (max-width : 320px) {
-/* Styles */
-}
-
-/* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-/* Styles */
-	#game_board {
-		width: 600px;
-		height: 600px;
-		margin-top: 25%;
-	}
-
-	#green, #red, #blue, #yellow {
-		width: 280px;
-		height: 280px;
-		//margin-right: 0px;
-	}
-
-	#menu {
-		border-width: 10px;
-		height: 300px;
-		width: 300px;
-		top: 30%;
-		left: 28%;
-	}
-}
-
-/* iPads (landscape) ----------- */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
-/* Styles */
-	#game_board {
-		width: 600px;
-		height: 600px;
-		margin-top: 10%;
-	}
-
-	#green, #red, #blue, #yellow {
-		width: 280px;
-		height: 280px;
-		//margin-right: 0px;
-	}
-
-	#menu {
-		border-width: 10px;
-		height: 300px;
-		width: 300px;
-		top: 30%;
-		left: 33%;
-	}
-}
-
-/* Desktops and laptops ----------- */
-@media only screen  and (min-width : 1224px) {
-/* Styles */
-}
-
-/* Large screens ----------- */
-@media only screen  and (min-width : 1824px) {
-/* Styles */
-}
-
-/* iPhone 4 ----------- */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
-/* Styles */
-	#menu {
-		border-width: 10px;
-		height: 300px;
-		width: 300px;
-		top: 10%;
-		left: 33%;
-	}
-
-}
-
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
-/* Styles */
-	#menu {
-		border-width: 10px;
-		height: 250px;
-		width: 250px;
-		top: 27%;
-		left: 39%;
-	}
-}
-
-/* iPhone 5 ----------- */
-@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-		#game_board {
-		width: 300px;
-		height: 300px;
-		margin-top: 25%;
-	}
-
-	#green, #red, #blue, #yellow {
-		width: 145px;
-		height: 145px;
-		//margin-right: 0px;
-	}
-
-	#menu {
-		border-width: 10px;
-		height: 150px;
-		width: 150px;
-		top: 25%;
-		left: 26.5%;
-	}
-
-}
-
-@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-		#game_board {
-		width: 300px;
-		height: 300px;
-		margin-top: 25%;
-	}
-
-	#green, #red, #blue, #yellow {
-		width: 145px;
-		height: 145px;
-		//margin-right: 0px;
-	}
-
-	#menu {
-		border-width: 10px;
-		height: 150px;
-		width: 150px;
-		top: 25%;
-		left: 26.5%;
-	}
-}
-
-/* iPhone 6 ----------- */
-@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-}
-
-@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-}
-
-/* iPhone 6+ ----------- */
-@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-}
-
-@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-}
-
-/* Samsung Galaxy S3 ----------- */
-@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-}
-
-@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
-/* Styles */
-}
-
-/* Samsung Galaxy S4 ----------- */
-@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
-/* Styles */
-}
-
-@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
-/* Styles */
-}
-
-/* Samsung Galaxy S5 ----------- */
-@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
-/* Styles */
-}
-
-@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
-/* Styles */
 }
