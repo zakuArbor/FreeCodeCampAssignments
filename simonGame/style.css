@@ -13,30 +13,31 @@ body {
 	opacity: 0.4;
 }
 
+#green, #red, #blue, #yellow, #menu{
+	border-color: #474646;
+}
+
 #green, #red, #blue, #yellow {
 	height: 240px;
 	width: 240px;
 	border-width: 10px;
 	border-style: solid;
-	border-color: black;
-	font-size: 0px;
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 #top-half {
 	padding: 0px;
 	margin: 0px;
-	margin-bottom: -5px;
+	margin-bottom: -6px;
 }
 
 #green {
-	background-color: green;
+	background-color: #0fbb04;
 	border-radius: 100% 0% 0% 0%;
+	border-left-width: 20px;
 }
 
 #red {
-	background-color: red;
+	background-color:  #e01313;
 	border-radius: 0% 100% 0% 0%;
 }
 
@@ -47,20 +48,28 @@ body {
 
 #green, #yellow {
 	margin-right: -5px;
-	border-right-width: 0px;	
+	border-left-width: 20px;
 }
 
 #green, #red {
-	border-bottom-width: 0px;
+	border-top-width: 20px;
+}
+
+#blue, #red {
+	border-right-width: 20px;
+}
+
+#blue, #yellow {
+	border-bottom-width: 20px;
 }
 
 #blue {
-	background-color: blue;
+	background-color: #089591;
 	border-radius: 0% 0% 100% 0%;
 }
 
 #yellow {
-	background-color: yellow;
+	background-color: #e5e500;
 	border-radius: 0% 0% 0% 100%;
 }
 
@@ -73,13 +82,220 @@ body {
 #menu {
 	position: absolute;
 	background-color: white;
-	height: 300px;
-	width: 300px;
-	border-width: 5px;
-	border-color: black;
+	height: 250px;
+	width: 250px;
+	border-width: 15px;
 	border-style: solid;
 	border-radius: 100%;
-	top: 17%;
-	left: 37.5%;
 	padding: 10px;
+}
+
+
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+/* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+/* Styles */
+	#game_board {
+		width: 300px;
+		height: 300px;
+		margin-top: 25%;
+	}
+
+	#green, #red, #blue, #yellow {
+		width: 145px;
+		height: 145px;
+		//margin-right: 0px;
+	}
+
+	#menu {
+		border-width: 10px;
+		height: 150px;
+		width: 150px;
+		top: 25%;
+		left: 26.5%;
+	}
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+/* Styles */
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+/* Styles */
+	#game_board {
+		width: 600px;
+		height: 600px;
+		margin-top: 25%;
+	}
+
+	#green, #red, #blue, #yellow {
+		width: 280px;
+		height: 280px;
+		//margin-right: 0px;
+	}
+
+	#menu {
+		border-width: 10px;
+		height: 300px;
+		width: 300px;
+		top: 30%;
+		left: 28%;
+	}
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+/* Styles */
+	#game_board {
+		width: 600px;
+		height: 600px;
+		margin-top: 10%;
+	}
+
+	#green, #red, #blue, #yellow {
+		width: 280px;
+		height: 280px;
+		//margin-right: 0px;
+	}
+
+	#menu {
+		border-width: 10px;
+		height: 300px;
+		width: 300px;
+		top: 30%;
+		left: 33%;
+	}
+}
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+/* Styles */
+}
+
+/* Large screens ----------- */
+@media only screen  and (min-width : 1824px) {
+/* Styles */
+}
+
+/* iPhone 4 ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio : 2) {
+/* Styles */
+	#menu {
+		border-width: 10px;
+		height: 300px;
+		width: 300px;
+		top: 10%;
+		left: 33%;
+	}
+
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) and (-webkit-min-device-pixel-ratio : 2) {
+/* Styles */
+	#menu {
+		border-width: 10px;
+		height: 250px;
+		width: 250px;
+		top: 27%;
+		left: 39%;
+	}
+}
+
+/* iPhone 5 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+		#game_board {
+		width: 300px;
+		height: 300px;
+		margin-top: 25%;
+	}
+
+	#green, #red, #blue, #yellow {
+		width: 145px;
+		height: 145px;
+		//margin-right: 0px;
+	}
+
+	#menu {
+		border-width: 10px;
+		height: 150px;
+		width: 150px;
+		top: 25%;
+		left: 26.5%;
+	}
+
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 568px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+		#game_board {
+		width: 300px;
+		height: 300px;
+		margin-top: 25%;
+	}
+
+	#green, #red, #blue, #yellow {
+		width: 145px;
+		height: 145px;
+		//margin-right: 0px;
+	}
+
+	#menu {
+		border-width: 10px;
+		height: 150px;
+		width: 150px;
+		top: 25%;
+		left: 26.5%;
+	}
+}
+
+/* iPhone 6 ----------- */
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+}
+
+/* iPhone 6+ ----------- */
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+}
+
+/* Samsung Galaxy S3 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+/* Styles */
+}
+
+/* Samsung Galaxy S4 ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+/* Styles */
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+/* Styles */
+}
+
+/* Samsung Galaxy S5 ----------- */
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 3){
+/* Styles */
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 3){
+/* Styles */
 }
