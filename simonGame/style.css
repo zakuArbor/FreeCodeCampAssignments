@@ -1,0 +1,85 @@
+body {
+	background-image: url("wood-background.png");
+}
+
+#game_board {
+	margin: auto;
+	height: 500px;
+	width: 500px;
+	margin-top: 22px;
+}
+
+.playAction {
+	opacity: 0.4;
+}
+
+#green, #red, #blue, #yellow {
+	height: 240px;
+	width: 240px;
+	border-width: 10px;
+	border-style: solid;
+	border-color: black;
+	font-size: 0px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#top-half {
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: -5px;
+}
+
+#green {
+	background-color: green;
+	border-radius: 100% 0% 0% 0%;
+}
+
+#red {
+	background-color: red;
+	border-radius: 0% 100% 0% 0%;
+}
+
+#green, #red, #yellow, #blue {
+	display: inline-block;
+	padding: 0px;
+}
+
+#green, #yellow {
+	margin-right: -5px;
+	border-right-width: 0px;	
+}
+
+#green, #red {
+	border-bottom-width: 0px;
+}
+
+#blue {
+	background-color: blue;
+	border-radius: 0% 0% 100% 0%;
+}
+
+#yellow {
+	background-color: yellow;
+	border-radius: 0% 0% 0% 100%;
+}
+
+#leaf {
+	height: 100px;
+	width: 100px;
+	border-radius: 90% 0% 90% 0%;
+}
+
+#menu {
+	position: absolute;
+	background-color: white;
+	height: 300px;
+	width: 300px;
+	border-width: 5px;
+	border-color: black;
+	border-style: solid;
+	border-radius: 100%;
+	top: 17%;
+	left: 37.5%;
+	padding: 10px;
+}
