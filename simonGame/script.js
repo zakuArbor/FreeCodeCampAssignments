@@ -10,6 +10,7 @@ THINGS TO DO:
 var soundLength = 1500;
 var maxReplayLength = 1500;
 var timeDelayBetweenActions = 500;
+var countUpdateDelay = 400;
 /**/
 
 
@@ -117,7 +118,10 @@ function playAction(action, delay, i, event) {
 }
 
 function updateCountPanel(count_panel, count){
-	count_panel.innerHTML = count;
+	setTimeout(function() {
+		count_panel.innerHTML = count;
+	}, countUpdateDelay);
+	
 }
 
 /**
@@ -267,6 +271,8 @@ $(document).ready(function() {
 	var power_button = document.getElementById("power");
 	var start_button = document.getElementById("start");
 	var count_panel = document.getElementById("count");
+	var off_switch = document.getElementById("switch_off");
+	var on_switch = document.getElementById("switch_on");
 	/********************/
 	
 	/********************/
@@ -281,6 +287,15 @@ $(document).ready(function() {
 
 	$(power_button).click(function() {
 		isOn = isOn == false ? true : false;
+		if (isOn) {
+			$(on_switch).removeClass("removeSwitch");
+			$(off_switch).addClass("removeSwitch");
+		}
+		else {
+			$(on_switch).addClass("removeSwitch");
+			$(off_switch).removeClass("removeSwitch");
+		}
+
 		console.log(isOn); 
 	});
 
@@ -398,7 +413,7 @@ $(document).ready(function() {
 	$(yellow_button).mouseup(function() {
 		console.log("up*************************************");
 		yellow.endAction();
-		nextMovesToReplay(possible_actions, color_panel);
+		nextMovesToReplay(possible_actions, count_panel);
 	});
 	/********************/
 	
