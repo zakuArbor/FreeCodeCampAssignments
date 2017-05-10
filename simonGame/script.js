@@ -193,7 +193,7 @@ function startGame(count_panel) {
 	for (var i = 0; i < count; i++) {
 		actions[i].endAction();
 	}
-	start = false;
+	start = true;
 	playMove = false;
 	playedFalse = false;
 	count = 0;
@@ -243,21 +243,35 @@ function nextMovesToReplay(possible_actions, count_panel) {
 *	2. Else, replay sequence to user
 *
 * @param action: an action object 
+* @param count_panel: reference to the count DOM
 *
 * @var strict: boolean value indicating if the game mode is strict 
 * @var actions: a sequences of actions that the player is to replay
 * Note: @var is not a param but just a note on what the variables in the function means
 **/
-function falseMove(action) {
+function falseMove(action, count_panel) {
 	action.endAction();
+	console.log(strict);
 	if (strict) {
-
+		startGame(count_panel);
+		start = true;
+		count += createActionToSequence(actions, possible_actions);
+		updateCountPanel(count_panel, count);
+		playSequence(actions);
 	}
 	else {
 		console.log("incorrect sequences");
 		playSequence(actions);
 		playerNumMove = 0;
 	}
+}
+
+function offline (count_panel) {
+	startGame(count_panel);
+	start = false;
+	playMove = false;
+	strict = false;
+
 }
 
 $(document).ready(function() {
@@ -270,6 +284,7 @@ $(document).ready(function() {
 
 	var power_button = document.getElementById("power");
 	var start_button = document.getElementById("start");
+	var strict_button = document.getElementById("strict");
 	var count_panel = document.getElementById("count");
 	var off_switch = document.getElementById("switch_off");
 	var on_switch = document.getElementById("switch_on");
@@ -294,40 +309,53 @@ $(document).ready(function() {
 		else {
 			$(on_switch).addClass("removeSwitch");
 			$(off_switch).removeClass("removeSwitch");
+			offline(count_panel);
 		}
 
 		console.log(isOn); 
 	});
 
-	$(start_button).click(function() {
+
+	$(strict_button).click(function() {
+		if (isOn) {
+			strict = strict == false ? true : false;
+			if (strict) {
+				$(strict_button).removeClass("addShadow");
+			}
+			else {
+				$(strict_button).addClass("addShadow");
+			}
+		}
+		console.log(strict);
+	});
+
+	$(start_button).mousedown(function() {
+		$(start_button).removeClass("addShadow");
 		if (isOn) {
 			console.log("start");
 			startGame(count_panel);
 			start = true;
 			count += createActionToSequence(actions, possible_actions);
 			updateCountPanel(count_panel, count);
-			/**/
-			//count = 1;
-			//actions = [red]
-			/**/
-
 			playSequence(actions);
-
-			console.log(actions);
 		}
+	});
+
+	$(start_button).mouseup(function() {
+		$(start_button).addClass("addShadow");
 	});
 
 	/********************/
 	$(red_button).mousedown(function() {
 		console.log("down");
-		if (playMove) {
+		if (playMove && start) {
 			red.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
 			if (playerNumMove < actions.length && checkActions(actions[playerNumMove], red) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(red);
+				falseMove(red, count_panel);
 			}
 			setTimeout(function() {
 				red.endAction();
@@ -337,13 +365,15 @@ $(document).ready(function() {
 
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
-		red.endAction();
-		nextMovesToReplay(possible_actions, count_panel);
+		if (start) {
+			red.endAction();
+			nextMovesToReplay(possible_actions, count_panel);
+		}
 	});
 
 	$(blue_button).mousedown(function() {
 		console.log("down");
-		if (playMove) {
+		if (playMove && start) {
 			blue.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
@@ -351,7 +381,7 @@ $(document).ready(function() {
 			if (checkActions(actions[playerNumMove], blue) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(blue);
+				falseMove(blue, count_panel);
 			}
 
 			setTimeout(function() {
@@ -362,13 +392,15 @@ $(document).ready(function() {
 
 	$(blue_button).mouseup(function() {
 		console.log("up*************************************");
-		blue.endAction();
-		nextMovesToReplay(possible_actions, count_panel);
+		if (start) {
+			blue.endAction();
+			nextMovesToReplay(possible_actions, count_panel);
+		}
 	});
 
 	$(green_button).mousedown(function() {
 		console.log("down");
-		if (playMove) {
+		if (playMove && start) {
 			green.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
@@ -376,7 +408,7 @@ $(document).ready(function() {
 			if (checkActions(actions[playerNumMove], green) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(green);
+				falseMove(green, count_panel);
 			}
 
 			setTimeout(function() {
@@ -387,13 +419,15 @@ $(document).ready(function() {
 
 	$(green_button).mouseup(function() {
 		console.log("up*************************************");
-		green.endAction();
-		nextMovesToReplay(possible_actions, count_panel);
+		if (start) {
+			green.endAction();
+			nextMovesToReplay(possible_actions, count_panel);
+		}
 	});
 
 	$(yellow_button).mousedown(function() {
 		console.log("down");
-		if (playMove) {
+		if (playMove && start) {
 			yellow.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
@@ -401,7 +435,7 @@ $(document).ready(function() {
 			if (checkActions(actions[playerNumMove], yellow) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(yellow);
+				falseMove(yellow, count_panel);
 			}
 
 			setTimeout(function() {
@@ -412,8 +446,10 @@ $(document).ready(function() {
 
 	$(yellow_button).mouseup(function() {
 		console.log("up*************************************");
-		yellow.endAction();
-		nextMovesToReplay(possible_actions, count_panel);
+		if (start) {
+			yellow.endAction();
+			nextMovesToReplay(possible_actions, count_panel);
+		}
 	});
 	/********************/
 	
