@@ -88,7 +88,8 @@ function checkActions(action, playerAction) {
 	}
 	if (actionCorrect && (playerNumMove + 1) == actions.length) {
 		console.log("end of sequence add new seuqence needed");
-		playMove = 0;
+		playMove = false;
+		playerNumMove = 0;
 		createNextAction = true;
 		setTimeOut = true;
 	}
