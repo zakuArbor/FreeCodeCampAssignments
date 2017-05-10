@@ -21,3 +21,9 @@ A repository for my FreeCodeCamp work
 <li><s>Weather not loading on Firefox anymore due to Firefox unable to retrieve geo coordinates after Firefox new update. Suspecting Firefox's new implementation on Strict Secure Cookies</s>[RESOLVED]]Reverted to HTML5 geolocation</li>
 </ul>
 </p>
+<h2>Simon Game</h2>
+<ul>
+<li>REPORTED BUG: When player clicks two buttons very fast, creates a weird echo noise</li>
+<li>FEEDBACK: Should indent the color and now a quater of a circle when clicking a button</li>
+</ul>
+</p>
