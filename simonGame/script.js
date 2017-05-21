@@ -27,6 +27,7 @@ var createNextAction = false;
 var playedFalse = false;
 var nextAction = false;
 var playSequenceBool = false;
+var currentActionObj = null;
 
 /**
 *An object that is an action with a color and sound associated with it
@@ -115,6 +116,7 @@ function checkActions(action, playerAction) {
 **/
 function playAction(action, delay, i, event) {
 	playMove = false;
+	currentActionObj = action;
 	setTimeout(function () {
 		action.playAction();
 		setTimeout(function(){
@@ -138,17 +140,21 @@ function updateCountPanel(count_panel, count){
 }
 
 function updateCountPanelError(count_panel, count){
-	count_panel.innerHTML = "!!!";
+	displayError(count_panel);
 	setTimeout(function() {
 		updateCountPanel(count_panel, count)
 		playSequence(actions);
 		playerNumMove = 0;
-	}, countUpdateDelay);
+	}, countErrorDelay);
 	
 }
 
 
-/**
+function displayError(count_panel){
+	count_panel.innerHTML = "!!!";
+}
+
+/*
 * Play/replay the next action in the sequence to the player
 *
 * @param i: a counter for the action array that represents the position in the array of action objects
@@ -220,10 +226,18 @@ function createActionToSequence(actions, possible_actions) {
 * Intializes all game parameters to it's default values
 *
 * @param count_panel: reference to the count element
+* @param possible_actions: reference to the 4 possible action objects in the game
 **/
-function startGame(count_panel) {
+function startGame(count_panel, possible_actions) {
+	for (var i = 0; i < 4; i++) {
+		possible_actions[i].endAction();
+	}
 	for (var i = 0; i < count; i++) {
 		actions[i].endAction();
+	}
+	if (currentActionObj != null) {
+		currentActionObj.endAction;
+		currentActionObj = null;
 	}
 	start = true;
 	playMove = false;
@@ -288,12 +302,15 @@ function falseMove(action, count_panel, possible_actions) {
 	action.endAction();
 	console.log(strict);
 	if (strict) {
-		startGame(count_panel);
-		start = true;
-		count += createActionToSequence(actions, possible_actions);
-		updateCountPanel(count_panel, count);
-
-		playSequence(actions);
+		displayError(count_panel);
+		setTimeout(function(){
+			 startGame(count_panel, possible_actions);
+               		 start = true;
+               	 	 count += createActionToSequence(actions, possible_actions);
+        	         updateCountPanel(count_panel, count);
+	
+	                 playSequence(actions);
+		}, countErrorDelay);
 	}
 	else {
 		console.log("incorrect sequences");
@@ -369,7 +386,7 @@ $(document).ready(function() {
 		$(start_button).removeClass("addShadow");
 		if (isOn) {
 			console.log("start");
-			startGame(count_panel);
+			startGame(count_panel, possible_actions);
 			start = true;
 			count += createActionToSequence(actions, possible_actions);
 			updateCountPanel(count_panel, count);
@@ -388,10 +405,10 @@ $(document).ready(function() {
 			red.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
-			if (playerNumMove < actions.length && checkActions(actions[playerNumMove], red, possible_actions) == false) {
+			if (playerNumMove < actions.length && checkActions(actions[playerNumMove], red) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(red, count_panel);
+				falseMove(red, count_panel, possible_actions);
 			}
 			setTimeout(function() {
 				red.endAction();
@@ -414,10 +431,10 @@ $(document).ready(function() {
 			playedFalse = false;
 			console.log(playerNumMove);
 
-			if (checkActions(actions[playerNumMove], blue, possible_actions) == false) {
+			if (checkActions(actions[playerNumMove], blue) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(blue, count_panel);
+				falseMove(blue, count_panel, possible_actions);
 			}
 
 			setTimeout(function() {
@@ -441,10 +458,10 @@ $(document).ready(function() {
 			playedFalse = false;
 			console.log(playerNumMove);
 
-			if (checkActions(actions[playerNumMove], green, possible_actions) == false) {
+			if (checkActions(actions[playerNumMove], green) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(green, count_panel);
+				falseMove(green, count_panel, possible_actions);
 			}
 
 			setTimeout(function() {
@@ -468,10 +485,10 @@ $(document).ready(function() {
 			playedFalse = false;
 			console.log(playerNumMove);
 
-			if (checkActions(actions[playerNumMove], yellow, possible_actions) == false) {
+			if (checkActions(actions[playerNumMove], yellow) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(yellow, count_panel);
+				falseMove(yellow, count_panel, possible_actions);
 			}
 
 			setTimeout(function() {
