@@ -23,7 +23,7 @@ A repository for my FreeCodeCamp work
 </p>
 <h2>Simon Game</h2>
 <ul>
-<li>REPORTED BUG: When player clicks two buttons very fast, creates a weird echo noise</li>
+<li>REPORTED BUG 1: When player clicks two buttons very fast, creates a weird echo noise</li>
 <li>FEEDBACK: Should indent the color and now a quater of a circle when clicking a button</li>
 </ul>
 </p>
