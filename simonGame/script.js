@@ -11,6 +11,7 @@ var soundLength = 1500;
 var maxReplayLength = 1500;
 var timeDelayBetweenActions = 500;
 var countUpdateDelay = 400;
+var countErrorDelay = 1000;
 /**/
 
 
@@ -25,7 +26,7 @@ var playerNumMove = 0;
 var createNextAction = false;
 var playedFalse = false;
 var nextAction = false;
-
+var playSequenceBool = false;
 
 /**
 *An object that is an action with a color and sound associated with it
@@ -76,18 +77,28 @@ Action.prototype = {
 function checkActions(action, playerAction) {
 	var setTimeOut = false;
 
+	if (actions.length > count) {
+		playMove = false;
+		return false;
+	}
+
+	if (action === undefined) {
+		playedFalse = true;
+		return false;
+	}
+  
 	var actionCorrect;
 	if (action.getColor() == playerAction.getColor()) {
 		actionCorrect = true;
-		console.log("correct move");
+		//console.log("correct move");
 	}
 	else {
 		actionCorrect = false;
 		playedFalse = true;
-		console.log("incorrect move");
+		//console.log("incorrect move");
 	}
 	if (actionCorrect && (playerNumMove + 1) == actions.length) {
-		console.log("end of sequence add new seuqence needed");
+		//console.log("end of sequence add new seuqence needed");
 		playMove = false;
 		playerNumMove = 0;
 		createNextAction = true;
@@ -107,16 +118,17 @@ function playAction(action, delay, i, event) {
 	setTimeout(function () {
 		action.playAction();
 		setTimeout(function(){
-			console.log("close playACtion " + action.sound_name);
+			//console.log("close playACtion " + action.sound_name);
 	        action.endAction();
-	        playMove = true;
+	        //playMove = true;
 	        if (event == "next") {
+	        	console.log("plaing next action");
 	        	playNextAction(i);
-	        }
-	        
+	        }    
 	   	}, maxReplayLength);
 	}, delay);
 }
+
 
 function updateCountPanel(count_panel, count){
 	setTimeout(function() {
@@ -124,6 +136,17 @@ function updateCountPanel(count_panel, count){
 	}, countUpdateDelay);
 	
 }
+
+function updateCountPanelError(count_panel, count){
+	count_panel.innerHTML = "!!!";
+	setTimeout(function() {
+		updateCountPanel(count_panel, count)
+		playSequence(actions);
+		playerNumMove = 0;
+	}, countUpdateDelay);
+	
+}
+
 
 /**
 * Play/replay the next action in the sequence to the player
@@ -133,11 +156,13 @@ function updateCountPanel(count_panel, count){
 function playNextAction(i) {
 	i++;
 	if (i < actions.length) {
-		console.log("next action");
+		//console.log("next action");
 		playAction(actions[i], timeDelayBetweenActions, i, "next");
 	}
 	else {
 		console.log("at the last action");
+    	playSequenceBool = false;
+    	playMove = true;
 	}
 
 }
@@ -148,17 +173,22 @@ function playNextAction(i) {
 * @param actions: a sequence of action objects
 **/
 function playSequence(actions) {
-	var i = 0; //loop counter for the position in the actions list
-	if (createNextAction || playedFalse) {
-		setTimeout(function() {
-			console.log(actions[i].sound_name);
-			playAction(actions[i], 0, 0, "next");
-			createNextAction = false;
-			playedFalse = false;	
-			playMove = true;
-		}, 1500);
+	if (playSequenceBool == false) {
+		playSequenceBool = true; //playSequence function is currently on
+		var i = 0; //loop counter for the position in the actions list
+		if (createNextAction || playedFalse) {
+			setTimeout(function() {
+				//console.log(actions[i].sound_name);
+				playAction(actions[i], 0, 0, "next");
+				createNextAction = false;
+				playedFalse = false;	
+				//playMove = true;
+				console.log("time");
+			}, 1500);
+		}
+		console.log("end of sequence");
+		//playSequenceBool = false;
 	}
-	console.log("end of sequence");
 }
 
 
@@ -203,6 +233,7 @@ function startGame(count_panel) {
 	count_panel.innerHTML = 0;
 	playerNumMove = 0;
 	createNextAction = true;
+	playSequenceBool = false;
 }
 
 /**
@@ -236,6 +267,7 @@ function nextMovesToReplay(possible_actions, count_panel) {
 	}
 }
 
+
 /**
 * Guide gamepath to the appropriate path when user plays incorrect move
 *
@@ -258,12 +290,13 @@ function falseMove(action, count_panel) {
 		start = true;
 		count += createActionToSequence(actions, possible_actions);
 		updateCountPanel(count_panel, count);
+
 		playSequence(actions);
 	}
 	else {
 		console.log("incorrect sequences");
-		playSequence(actions);
-		playerNumMove = 0;
+		playMove = false;
+		updateCountPanelError(count_panel, count);
 	}
 }
 
