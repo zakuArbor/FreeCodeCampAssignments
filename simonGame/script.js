@@ -319,8 +319,8 @@ function falseMove(action, count_panel, possible_actions) {
 	}
 }
 
-function offline (count_panel) {
-	startGame(count_panel);
+function offline (count_panel, possible_actions) {
+	startGame(count_panel, possible_actions);
 	start = false;
 	playMove = false;
 	strict = false;
@@ -362,7 +362,7 @@ $(document).ready(function() {
 		else {
 			$(on_switch).addClass("removeSwitch");
 			$(off_switch).removeClass("removeSwitch");
-			offline(count_panel);
+			offline(count_panel, possible_actions);
 		}
 
 		console.log(isOn); 
