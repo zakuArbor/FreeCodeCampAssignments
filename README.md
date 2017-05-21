@@ -28,4 +28,5 @@ A repository for my FreeCodeCamp work
 <li>BUG 2: When game is on strict mode, if player continously press the wrong key very fast to get incorrect moves several times, the game will create an echo noise due to the sounds from the previous game has not ended.</li>
 <li>FEEDBACK: Should indent the color and now a quater of a circle when clicking a button</li>
 </ul>
+Try keeping all audio in an array and turn off all sound
 </p>
