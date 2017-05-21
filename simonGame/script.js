@@ -163,6 +163,7 @@ function playNextAction(i) {
 		console.log("at the last action");
     	playSequenceBool = false;
     	playMove = true;
+		playerNumMove = 0;
 	}
 
 }
@@ -277,12 +278,13 @@ function nextMovesToReplay(possible_actions, count_panel) {
 *
 * @param action: an action object 
 * @param count_panel: reference to the count DOM
+* @param possible_actions: an array of actions that are possible to be added to the seqence
 *
 * @var strict: boolean value indicating if the game mode is strict 
 * @var actions: a sequences of actions that the player is to replay
 * Note: @var is not a param but just a note on what the variables in the function means
 **/
-function falseMove(action, count_panel) {
+function falseMove(action, count_panel, possible_actions) {
 	action.endAction();
 	console.log(strict);
 	if (strict) {
@@ -381,12 +383,12 @@ $(document).ready(function() {
 
 	/********************/
 	$(red_button).mousedown(function() {
-		console.log("down");
+		console.log("red down**********************");
 		if (playMove && start) {
 			red.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
-			if (playerNumMove < actions.length && checkActions(actions[playerNumMove], red) == false) {
+			if (playerNumMove < actions.length && checkActions(actions[playerNumMove], red, possible_actions) == false) {
 				console.log("returned false");
 				playedFalse = true;
 				falseMove(red, count_panel);
@@ -399,20 +401,20 @@ $(document).ready(function() {
 
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start) {
+		if (start && start) {
 			red.endAction();
 			nextMovesToReplay(possible_actions, count_panel);
 		}
 	});
 
 	$(blue_button).mousedown(function() {
-		console.log("down");
+		console.log("blue down*******************************");
 		if (playMove && start) {
 			blue.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
 
-			if (checkActions(actions[playerNumMove], blue) == false) {
+			if (checkActions(actions[playerNumMove], blue, possible_actions) == false) {
 				console.log("returned false");
 				playedFalse = true;
 				falseMove(blue, count_panel);
@@ -426,20 +428,20 @@ $(document).ready(function() {
 
 	$(blue_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start) {
+		if (start && start) {
 			blue.endAction();
 			nextMovesToReplay(possible_actions, count_panel);
 		}
 	});
 
 	$(green_button).mousedown(function() {
-		console.log("down");
+		console.log("green down*********************************");
 		if (playMove && start) {
 			green.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
 
-			if (checkActions(actions[playerNumMove], green) == false) {
+			if (checkActions(actions[playerNumMove], green, possible_actions) == false) {
 				console.log("returned false");
 				playedFalse = true;
 				falseMove(green, count_panel);
@@ -453,20 +455,20 @@ $(document).ready(function() {
 
 	$(green_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start) {
+		if (start && start) {
 			green.endAction();
 			nextMovesToReplay(possible_actions, count_panel);
 		}
 	});
 
 	$(yellow_button).mousedown(function() {
-		console.log("down");
+		console.log("yellow down****************************");
 		if (playMove && start) {
 			yellow.playAction();
 			playedFalse = false;
 			console.log(playerNumMove);
 
-			if (checkActions(actions[playerNumMove], yellow) == false) {
+			if (checkActions(actions[playerNumMove], yellow, possible_actions) == false) {
 				console.log("returned false");
 				playedFalse = true;
 				falseMove(yellow, count_panel);
@@ -480,7 +482,7 @@ $(document).ready(function() {
 
 	$(yellow_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start) {
+		if (start && start) {
 			yellow.endAction();
 			nextMovesToReplay(possible_actions, count_panel);
 		}
