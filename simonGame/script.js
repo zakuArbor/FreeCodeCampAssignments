@@ -430,7 +430,7 @@ $(document).ready(function() {
 
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && start) {
+		if (start && playMove) {
 			red.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
@@ -457,7 +457,7 @@ $(document).ready(function() {
 
 	$(blue_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && start) {
+		if (start && playMove) {
 			blue.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
@@ -484,7 +484,7 @@ $(document).ready(function() {
 
 	$(green_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && start) {
+		if (start && playMove) {
 			green.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
@@ -511,7 +511,7 @@ $(document).ready(function() {
 
 	$(yellow_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && start) {
+		if (start && playMove) {
 			yellow.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
