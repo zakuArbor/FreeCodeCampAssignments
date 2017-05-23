@@ -23,11 +23,12 @@ var count = 0;
 var actions = [];
 var playerActions = [];
 var playerNumMove = 0;
+var currentState = 0; //the current number of games that has been started 
 var createNextAction = false;
 var playedFalse = false;
 var nextAction = false;
 var playSequenceBool = false;
-var currentActionObj = null;
+
 
 /**
 *An object that is an action with a color and sound associated with it
@@ -113,22 +114,35 @@ function checkActions(action, playerAction) {
 * Play a single action
 *
 * @param actions: an action object
+* @param delay: number of milliseconds to delay the sound to start
+* @param i:
+* @param event: indicates if there is another action in the sequence after this current action
+* @param state: the number of times a game has started when the function was called
 **/
-function playAction(action, delay, i, event) {
+function playAction(action, delay, i, event, state) {
 	playMove = false;
-	currentActionObj = action;
+	
 	setTimeout(function () {
+		if (state != currentState) {
+			console.log(state + "vs" + currentState);
+			console.log("stop sound due to reset");
+			return;
+		}
+
+
 		action.playAction();
 		setTimeout(function(){
-			//console.log("close playACtion " + action.sound_name);
+		//console.log("close playACtion " + action.sound_name);
 	        action.endAction();
 	        //playMove = true;
-	        if (event == "next") {
+	        	
+		if (event == "next") {
 	        	console.log("plaing next action");
-	        	playNextAction(i);
+	        	playNextAction(i, state);
 	        }    
 	   	}, maxReplayLength);
 	}, delay);
+	
 }
 
 
@@ -139,11 +153,11 @@ function updateCountPanel(count_panel, count){
 	
 }
 
-function updateCountPanelError(count_panel, count){
+function updateCountPanelError(count_panel, count, state){
 	displayError(count_panel);
 	setTimeout(function() {
 		updateCountPanel(count_panel, count)
-		playSequence(actions);
+		playSequence(actions, state);
 		playerNumMove = 0;
 	}, countErrorDelay);
 	
@@ -158,12 +172,13 @@ function displayError(count_panel){
 * Play/replay the next action in the sequence to the player
 *
 * @param i: a counter for the action array that represents the position in the array of action objects
+* @param state: the number of games that has been started at the moment when the whole play sequence was called
 **/
-function playNextAction(i) {
+function playNextAction(i, state) {
 	i++;
 	if (i < actions.length) {
 		//console.log("next action");
-		playAction(actions[i], timeDelayBetweenActions, i, "next");
+		playAction(actions[i], timeDelayBetweenActions, i, "next", state);
 	}
 	else {
 		console.log("at the last action");
@@ -179,14 +194,14 @@ function playNextAction(i) {
 *
 * @param actions: a sequence of action objects
 **/
-function playSequence(actions) {
+function playSequence(actions, state) {
 	if (playSequenceBool == false) {
 		playSequenceBool = true; //playSequence function is currently on
 		var i = 0; //loop counter for the position in the actions list
 		if (createNextAction || playedFalse) {
 			setTimeout(function() {
 				//console.log(actions[i].sound_name);
-				playAction(actions[i], 0, 0, "next");
+				playAction(actions[i], 0, 0, "next", state);
 				createNextAction = false;
 				playedFalse = false;	
 				//playMove = true;
@@ -235,10 +250,6 @@ function startGame(count_panel, possible_actions) {
 	for (var i = 0; i < count; i++) {
 		actions[i].endAction();
 	}
-	if (currentActionObj != null) {
-		currentActionObj.endAction;
-		currentActionObj = null;
-	}
 	start = true;
 	playMove = false;
 	playedFalse = false;
@@ -263,14 +274,14 @@ function startGame(count_panel, possible_actions) {
 * @var playedFalse: true iff player made a mistake in the sequence
 * @var playerNumMove: indicates the number of successfull steps imitated in the sequence
 **/
-function nextMovesToReplay(possible_actions, count_panel) {	
+function nextMovesToReplay(possible_actions, count_panel, state) {	
 	if (playedFalse == false) {		
 		if (createNextAction) {
 			playMove = false;
 			console.log("next moves to replay");
 			count += createActionToSequence(actions, possible_actions);
 			updateCountPanel(count_panel, count);
-			playSequence(actions);
+			playSequence(actions, state);
 			createNextAction = false;
 			playerNumMove = 0;
 		}
@@ -298,7 +309,7 @@ function nextMovesToReplay(possible_actions, count_panel) {
 * @var actions: a sequences of actions that the player is to replay
 * Note: @var is not a param but just a note on what the variables in the function means
 **/
-function falseMove(action, count_panel, possible_actions) {
+function falseMove(action, count_panel, possible_actions, state) {
 	action.endAction();
 	console.log(strict);
 	if (strict) {
@@ -308,14 +319,14 @@ function falseMove(action, count_panel, possible_actions) {
                		 start = true;
                	 	 count += createActionToSequence(actions, possible_actions);
         	         updateCountPanel(count_panel, count);
-	
-	                 playSequence(actions);
+			 currentState++;
+	                 playSequence(actions, currentState);
 		}, countErrorDelay);
 	}
 	else {
 		console.log("incorrect sequences");
 		playMove = false;
-		updateCountPanelError(count_panel, count);
+		updateCountPanelError(count_panel, count, state);
 	}
 }
 
@@ -390,7 +401,8 @@ $(document).ready(function() {
 			start = true;
 			count += createActionToSequence(actions, possible_actions);
 			updateCountPanel(count_panel, count);
-			playSequence(actions);
+			currentState++;
+			playSequence(actions, currentState);
 		}
 	});
 
@@ -408,7 +420,7 @@ $(document).ready(function() {
 			if (playerNumMove < actions.length && checkActions(actions[playerNumMove], red) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(red, count_panel, possible_actions);
+				falseMove(red, count_panel, possible_actions, currentState);
 			}
 			setTimeout(function() {
 				red.endAction();
@@ -420,7 +432,7 @@ $(document).ready(function() {
 		console.log("up*************************************");
 		if (start && start) {
 			red.endAction();
-			nextMovesToReplay(possible_actions, count_panel);
+			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
 
@@ -434,7 +446,7 @@ $(document).ready(function() {
 			if (checkActions(actions[playerNumMove], blue) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(blue, count_panel, possible_actions);
+				falseMove(blue, count_panel, possible_actions, currentState);
 			}
 
 			setTimeout(function() {
@@ -447,7 +459,7 @@ $(document).ready(function() {
 		console.log("up*************************************");
 		if (start && start) {
 			blue.endAction();
-			nextMovesToReplay(possible_actions, count_panel);
+			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
 
@@ -461,7 +473,7 @@ $(document).ready(function() {
 			if (checkActions(actions[playerNumMove], green) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(green, count_panel, possible_actions);
+				falseMove(green, count_panel, possible_actions, currentState);
 			}
 
 			setTimeout(function() {
@@ -474,7 +486,7 @@ $(document).ready(function() {
 		console.log("up*************************************");
 		if (start && start) {
 			green.endAction();
-			nextMovesToReplay(possible_actions, count_panel);
+			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
 
@@ -488,7 +500,7 @@ $(document).ready(function() {
 			if (checkActions(actions[playerNumMove], yellow) == false) {
 				console.log("returned false");
 				playedFalse = true;
-				falseMove(yellow, count_panel, possible_actions);
+				falseMove(yellow, count_panel, possible_actions, currentState);
 			}
 
 			setTimeout(function() {
@@ -501,7 +513,7 @@ $(document).ready(function() {
 		console.log("up*************************************");
 		if (start && start) {
 			yellow.endAction();
-			nextMovesToReplay(possible_actions, count_panel);
+			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
 	/********************/
