@@ -99,7 +99,7 @@ function checkActions(action, playerAction) {
 		playedFalse = true;
 		//console.log("incorrect move");
 	}
-	if (actionCorrect && (playerNumMove + 1) == 2) {
+	if (actionCorrect && (playerNumMove + 1) == 20) {
                 console.log("win set true");
                 win = true;
 		playMove = false;
@@ -127,7 +127,7 @@ function playAction(action, delay, i, event, state) {
 	playMove = false;
 	
 	setTimeout(function () {
-		if (state != currentState) {
+		if (state != currentState || isOn == false) {
 			console.log(state + "vs" + currentState);
 			console.log("stop sound due to reset");
 			return;
