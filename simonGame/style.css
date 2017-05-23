@@ -2,6 +2,25 @@ body {
 	background-image: url("wood-background.png");
 }
 
+/***************
+Blink class code belongs to https://stackoverflow.com/users/182705/neil
+*/
+.blink {
+  animation: blink-animation 1s steps(5, start) 3;
+  -webkit-animation: blink-animation 1s steps(5, start) 3;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+/***************/
+
 #game_board {
 	position: relative;
 	margin: auto;

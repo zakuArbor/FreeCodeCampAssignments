@@ -28,7 +28,7 @@ var createNextAction = false;
 var playedFalse = false;
 var nextAction = false;
 var playSequenceBool = false;
-
+var win = false;
 
 /**
 *An object that is an action with a color and sound associated with it
@@ -99,14 +99,18 @@ function checkActions(action, playerAction) {
 		playedFalse = true;
 		//console.log("incorrect move");
 	}
+	if (actionCorrect && (playerNumMove + 1) == 2) {
+                console.log("win set true");
+                win = true;
+		playMove = false;
+        }
 	if (actionCorrect && (playerNumMove + 1) == actions.length) {
 		//console.log("end of sequence add new seuqence needed");
-		playMove = false;
 		playerNumMove = 0;
 		createNextAction = true;
 		setTimeOut = true;
 	}
-		return actionCorrect;
+	return actionCorrect;
 }
 
 
@@ -260,6 +264,7 @@ function startGame(count_panel, possible_actions) {
 	playerNumMove = 0;
 	createNextAction = true;
 	playSequenceBool = false;
+	win = false;
 }
 
 /**
@@ -275,6 +280,10 @@ function startGame(count_panel, possible_actions) {
 * @var playerNumMove: indicates the number of successfull steps imitated in the sequence
 **/
 function nextMovesToReplay(possible_actions, count_panel, state) {	
+	if (win) {
+		display_win(count_panel, actions[actions.length-1]);
+		return;
+	}
 	if (playedFalse == false) {		
 		if (createNextAction) {
 			playMove = false;
@@ -336,6 +345,13 @@ function offline (count_panel, possible_actions) {
 	playMove = false;
 	strict = false;
 
+}
+
+function display_win (count_panel, lastAction) {
+	count_panel.innerHTML = "***";
+	console.log(lastAction);
+	$(lastAction.getColor()).addClass("blink");
+	playMove = false;
 }
 
 $(document).ready(function() {
@@ -431,7 +447,9 @@ $(document).ready(function() {
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
 		if (start) {
-			red.endAction();
+			if (playMove) {
+				red.endAction();
+			}
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
@@ -458,7 +476,9 @@ $(document).ready(function() {
 	$(blue_button).mouseup(function() {
 		console.log("up*************************************");
 		if (start) {
-			blue.endAction();
+			if (playMove) {
+				blue.endAction();
+			}
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
@@ -485,7 +505,9 @@ $(document).ready(function() {
 	$(green_button).mouseup(function() {
 		console.log("up*************************************");
 		if (start) {
-			green.endAction();
+			if (playMove) {
+				green.endAction();
+			}
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
@@ -512,7 +534,9 @@ $(document).ready(function() {
 	$(yellow_button).mouseup(function() {
 		console.log("up*************************************");
 		if (start) {
-			yellow.endAction();
+			if (playMove) {
+				yellow.endAction();
+			}
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
 	});
