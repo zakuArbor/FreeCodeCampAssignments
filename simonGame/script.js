@@ -252,7 +252,7 @@ function startGame(count_panel, possible_actions) {
 	}
 	start = true;
 	playMove = false;
-	playedFalse = false;
+	playedFalse = true;
 	count = 0;
 	actions = [];
 	playerActions = [];
@@ -430,7 +430,7 @@ $(document).ready(function() {
 
 	$(red_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && playMove) {
+		if (start) {
 			red.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
@@ -457,7 +457,7 @@ $(document).ready(function() {
 
 	$(blue_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && playMove) {
+		if (start) {
 			blue.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
@@ -484,7 +484,7 @@ $(document).ready(function() {
 
 	$(green_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && playMove) {
+		if (start) {
 			green.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
@@ -511,7 +511,7 @@ $(document).ready(function() {
 
 	$(yellow_button).mouseup(function() {
 		console.log("up*************************************");
-		if (start && playMove) {
+		if (start) {
 			yellow.endAction();
 			nextMovesToReplay(possible_actions, count_panel, currentState);
 		}
