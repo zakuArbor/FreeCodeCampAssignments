@@ -28,6 +28,5 @@ A repository for my FreeCodeCamp work
 <li>BUG 2: When player spams start continously, the program creates a weird echo noise due to the sounds from the previous game has not ended [Fixed]</li>
 <li>BUG 2: When game is on strict mode, if player continously press the wrong key very fast to get incorrect moves several times, the game will create an echo noise due to the sounds from the previous game has not ended. [Fixed]</li>
 <li>Big 3: Counter increments when it's not supposed to. When game starts, if a player quickly presses a key, then the counter would increment regardless if the player plays the correct move or not[Fixed]</li>
-<li>FEEDBACK: Should indent the color and now a quater of a circle when clicking a button</li>
-</ul>
+<li>FEEDBACK: The button when clicked should only indent (add pressing animation) to the color of the button rather than then entire button itself(shaped in quater of a circle)</ul>
 </p>
