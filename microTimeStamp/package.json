@@ -1,0 +1,23 @@
+{
+  "name": "micro_time_stamp",
+  "version": "1.0.0",
+  "description": "Retrieve a timestamp of a specified date",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakuArbor/FreeCodeCampAssignments.git"
+  },
+  "author": "Ju Hong Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zakuArbor/FreeCodeCampAssignments/issues"
+  },
+  "homepage": "https://github.com/zakuArbor/FreeCodeCampAssignments#readme",
+  "dependencies": {
+    "express": "*",
+    "body-parser": "*"
+  }
+}
