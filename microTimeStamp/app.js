@@ -1,15 +1,9 @@
 var express = require('express');
+var moment= require('moment');
 var body_parser = require('body-parser');
 var path = require('path');
 
 var app = express();
-
-/*var logger = function (req, res, next) {
-	console.log('Logging...');
-	next();
-}*/
-
-//app.use(logger);
 
 //view engine
 app.set('view engine', 'ejs');
@@ -23,16 +17,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/:date', function (req, res) {
-	var date = new Date(req.params.date);
+	var date;
+	if (req.params.date && 
+		(new Date(req.params.date) &&  (date = moment(new Date(req.params.date)))) || 
+		((date = moment(req.params.date)))) {
+		var unix, natural;
+		if (date.isValid()) {
+			unix =  date.unix();
+			natural =  date.format('LL');
+		}
+		else {
+			unix = null;
+			natural = null;
+		}
+		var timeStamp = {
+			unix: unix,
+			natural: natural
+		};	
+		res.json(timeStamp);
+	}
+	else {
+		res.render('index', timeStamp);
+	}
 
-	var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	console.log(date.toString());
-	var timeStamp = {
-		unix: date.getTime(),
-		natural: month[date.getMonth()] + " " + date.getDate() + ', ' + date.getFullYear(),
-	};
-	//res.render('index', timeStamp);
-	res.json(timeStamp);
 });	
 
 app.listen(8080, function() {
