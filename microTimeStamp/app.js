@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/:date', function (req, res) {
 	var date;
 	if (req.params.date && 
-		(new Date(req.params.date) &&  (date = moment(new Date(req.params.date)))) || 
+		(new Date(req.params.date) &&  (date = moment(new Date(req.params.date).toISOString()))) || 
 		((date = moment(req.params.date)))) {
 		var unix, natural;
 		if (date.isValid()) {
