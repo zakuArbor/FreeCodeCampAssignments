@@ -26,13 +26,13 @@ app.get('/:date', function (req, res) {
 	var date = new Date(req.params.date);
 
 	var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+	console.log(date.toString());
 	var timeStamp = {
 		unix: date.getTime(),
-		natural: month[date.getMonth()] + " " + date.getDay() + ',' + date.getFullYear(),
-	}
+		natural: month[date.getMonth()] + " " + date.getDate() + ', ' + date.getFullYear(),
+	};
 	//res.render('index', timeStamp);
-	res.send(timeStamp);
+	res.json(timeStamp);
 });	
 
 app.listen(8080, function() {
