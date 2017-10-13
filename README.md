@@ -1,15 +1,15 @@
 # FreeCodeCampAssignments
 A repository for my FreeCodeCamp work
 
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/tribute">Tribute</a></p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/profile">Profile</a></p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/randomQuoteGenerator">Random Quote Generator</a></p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/weather">Weather</a></p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/wikiViewer/">Wikipedia Viewer</p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/twitchTv/">Twitch TV</p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/calculator/">Calculator</p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/pomodoroClock/">Pomodoro Clock</p>
-<p><a href = "http://juhongkim.ml/FreeCodeCampAssignments/ticTacToe/">Tic Tac Toe</p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/tribute">Tribute</a></p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/profile">Profile</a></p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/randomQuoteGenerator">Random Quote Generator</a></p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/weather">Weather</a></p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/wikiViewer/">Wikipedia Viewer</p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/twitchTv/">Twitch TV</p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/calculator/">Calculator</p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/pomodoroClock/">Pomodoro Clock</p>
+<p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/ticTacToe/">Tic Tac Toe</p>
 <p><a href = "https://juhongkim.ml/FreeCodeCampAssignments/simonGame/">Simon Game</p>
 <p>
 <h1><u>NOTES</u></h1>
