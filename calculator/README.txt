@@ -1,2 +1,2 @@
-Project Demo: https://juhongkim.tk/FreeCodeCampAssignments/calculator
-FreeCodeCampDemos: https://juhongkim.tk/FreeCodeCampAssignments/
+Project Demo: https://juhongkim.ml/FreeCodeCampAssignments/calculator
+FreeCodeCampDemos: https://juhongkim.ml/FreeCodeCampAssignments/
