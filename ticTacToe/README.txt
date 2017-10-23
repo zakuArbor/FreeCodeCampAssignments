@@ -1,2 +1,2 @@
-Project Demo: https://juhongkim.tk/FreeCodeCampAssignments/ticTacToe
-FreeCodeCampDemos: https://juhongkim.tk/FreeCodeCampAssignments/
+Project Demo: https://juhongkim.ml/FreeCodeCampAssignments/ticTacToe
+FreeCodeCampDemos: https://juhongkim.ml/FreeCodeCampAssignments/
