@@ -1,2 +1,2 @@
-Project Demo: https://juhongkim.tk/FreeCodeCampAssignments/tribute
-FreeCodeCampDemos: https://juhongkim.tk/FreeCodeCampAssignments/
+Project Demo: https://juhongkim.ml/FreeCodeCampAssignments/tribute
+FreeCodeCampDemos: https://juhongkim.ml/FreeCodeCampAssignments/
