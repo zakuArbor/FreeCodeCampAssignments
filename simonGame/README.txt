@@ -1,2 +1,2 @@
-Project Demo: https://juhongkim.tk/FreeCodeCampAssignments/simonGame
-FreeCodeCampDemos: https://juhongkim.tk/FreeCodeCampAssignments/
+Project Demo: https://juhongkim.ml/FreeCodeCampAssignments/simonGame
+FreeCodeCampDemos: https://juhongkim.ml/FreeCodeCampAssignments/
