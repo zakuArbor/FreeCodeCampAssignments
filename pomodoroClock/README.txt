@@ -1,2 +1,2 @@
-Project Demo: https://juhongkim.tk/FreeCodeCampAssignments/pomodoroClock
-FreeCodeCampDemos: https://juhongkim.tk/FreeCodeCampAssignments/
+Project Demo: https://juhongkim.ml/FreeCodeCampAssignments/pomodoroClock
+FreeCodeCampDemos: https://juhongkim.ml/FreeCodeCampAssignments/
