@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Survey</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	</head>
+	<body>
+		<h1>2018 Student Survey</h1>
+		<pre>Your data <b>will not</b> be shared with anyone and will be stored securely</pre>
+		<form id="survey-form">
+			<div class="form-group">
+			
+			<label for ="name" id="name-label">Name:</label>
+			<input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+			<label for ="email" id="email-label">Email:</label>
+			<input type="email" class="form-control" id="email" placeholder="example@mail.com" required>
+			<label for="number" id="number-label">Year of Study:</label>
+			<input type="number" class="form-control" id="number" min="1" max="5" placeholder="Your year of study" required>
+			<label for="dropdown">Program of Study</label>
+			<select class="form-control" id="dropdown" required>
+				<option value="art">Art</option>
+				<option value="architecture">Architecture</option>
+				<option value="biology">Biology</option>
+				<option value="business">Business</option>
+				<option value="chemistry">Chemistry</option>
+				<option value="commerce">Commerce</option>
+				<option value="computer-engineering">Computer Engineering</option>
+				<option value="computer-science">Computer Science</option>
+				<option value="digital-design">Digital Design</option>
+				<option value="electrical-engineering">Electrical Engineering</option>
+				<option value="forensic-science">Forensic Science</option>
+				<option value="geography">Geographu</option>
+				<option value="gis">Geographical Information System</option>
+				<option value="history">History</option>
+				<option value="industrial-engineering">Industrial Engineering</option>
+				<option value="inforation-technology">Information Technology</option>
+				<option value="language">Language</option>
+				<option value="life-science">Life Science</option>
+				<option value="material-engineering">Material Engineering</option>
+				<option value="math">Math</option>
+				<option value="mechanical-engineering">Mechanical Engineering</option>
+				<option value="philosophy">Philsophy</option>
+				<option value="physics">Physics</option>
+				<option value="psychology">Psychology</option>
+				<option value="religion">Religion</option>
+				<option value="software-engineering">Software Engineering</option>
+			</select>
+			<fieldset class="form-group">
+				<legend>Gender:</legend>
+				<div class="form-check">
+				<label for = "male" class="form-check-label">
+					<input type="radio" class="form-check-input" name="gender" id="male" value="male">
+					Male
+				</label>
+				</div>
+				<div class="form-check">
+				<label for = "female" class="form-check-label">
+					<input type="radio" class="form-check-input" name="gender" id="female" value="female">
+					Female
+				</label>
+				</div>
+				<div class="form-check">
+				<label for = "other" class="form-check-label">
+					<input type="radio" class="form-check-input" name="gender" id="other" value="other">
+					Other
+				</label>
+				</div>
+
+			</fieldset>
+
+			<fieldset>
+				<legend>Interests:</legend>
+				<div class="form-check">
+				<label for="art" class="form-check-label"><input type="checkbox" id="art" name="interest" value="art" class="form-check-input">Art</label>
+				</div>
+				<div class="form-check">
+				<label for="business" class="form-check-label"><input type="checkbox" id="business" name="interest" value="business" class="form-check-input">Business</label>
+				</div>
+				<div class="form-check">
+				<label for="computer" class="form-check-label"><input type="checkbox" id="computer" name="interest" value="computer" class="form-check-input">Computers</label>
+				</div>
+				<div class="form-check">
+				<label for="design" class="form-check-label"><input type="checkbox" id="design" name="interest" value="design" class="form-check-input">Design</label>
+				</div>
+				<div class="form-check">
+				<label for="game" class="form-check-label"><input type="checkbox" id="game" name="interest" value="game" class="form-check-input">Games</label>
+				</div>
+				<div class="form-check">
+				<label for="movie" class="form-check-label"><input type="checkbox" id="movie" name="interest" value="movie" class="form-check-input">Movies</label>
+				</div>
+				<div class="form-check">
+				<label for="sport" class="form-check-label"><input type="checkbox" id="sport" name="interest" value="sport" class="form-check-input">Sports</label>
+				</div>
+			</fieldset>
+
+			<div class="form-group">
+		    	<label for="comment">Comments:</label>
+		    	<textarea class="form-control" id="comment" rows="3"></textarea>
+		  	</div>
+
+			<button type="submit" id="submit">Submit</button>
+
+			</div>
+		</form>
+	</body>
+</html>
