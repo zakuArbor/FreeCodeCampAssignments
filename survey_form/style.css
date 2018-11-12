@@ -1,10 +1,10 @@
 body {
-	background-color: rgb(55, 71, 133, 0.9);
+	background-color: rgb(55, 71, 133, 0.8);
 	padding-top: 5vh;
 	padding-bottom: 5vh;
 }
 
-h1 {
+#header {
 	background-color: white;
 	width: 80%;
 	margin: auto;
@@ -23,6 +23,7 @@ h1 {
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 	background-color: white;
+	color: rgb(55, 75, 133, 1)
 }
 
 #name-label,#email-label,#number-label,#program-label {
