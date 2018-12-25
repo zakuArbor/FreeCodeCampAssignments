@@ -28,9 +28,26 @@ function update_time_setting (panel, time) {
 	panel.innerHTML = time;
 }
 
+/**
+* Update the Pomodoro Clock
+*
+* @param current_time_panel: The DOM Reference to the clock
+* @param current_time: The current time of the clock in seconds
+**/
+function update_clock (current_time_panel, current_time) {
+	var min = Math.floor((current_time/60) % 60);
+	var sec = Math.floor(current_time % 60);
+
+	if (sec <= 9) {
+		var sec = "0" + sec;
+	}
+
+	current_time_panel.innerHTML = min + ":" + sec;
+}
+
 $(document).ready(function() {
-	var break_time = 25; //constraint: >= 1min
-	var study_time = 25; //constraint: >= 1min
+	var break_time = 1; //constraint: >= 1min
+	var study_time = 1; //constraint: >= 1min
 
 	/***************************************************************************/
 	//panel references
@@ -45,6 +62,17 @@ $(document).ready(function() {
 	var current_status_panel = document.getElementById("current_status");
 	var current_time_panel = document.getElementById("current_time");
 	/***************************************************************************/
+
+	var debug = true; //for testing purposes
+	if (debug) {
+		console.log("**********");
+		console.log("Debug Mode");
+		console.log(increase_break_panel);
+		console.log(increase_study_panel);
+		console.log("**********");
+	}
+
+
 
 
 	/***************************************************************************/
@@ -74,6 +102,7 @@ $(document).ready(function() {
 	/***************************************************************************/
 	//Action listener for changing break/study time setting and pausing clock
 	$(increase_study_panel).click(function() {
+		console.log("pika");
 		study_time += 1;
 		update_time_setting(display_study_setting, study_time);
 	});
@@ -102,12 +131,16 @@ $(document).ready(function() {
 		}
 	});
 	/***************************************************************************/
-	
+	var update_new_clock = (start_new_clock, current_time_panel, time) => {
+		if (start_new_clock) {
+
+		} 
+	}
+	/***************************************************************************/
+
 	var time_interval = setInterval(function(){
 		if (!isPaused) {	
 			if (start_new_clock) {
-				var min = Math.floor((current_time/60) % 60); //min
-				var sec = Math.floor(current_time % 60);
 				$(display_clock_panel).css("color", "white");
 				if (isStudyTime) {
 					$(display_clock_panel).css("border-color", "#32CD32");
@@ -116,17 +149,12 @@ $(document).ready(function() {
 					$(display_clock_panel).css("border-color", "#FF0009");
 				}
 				current_status_panel.innerHTML = current_status;
-				current_time_panel.innerHTML = min + ":" + sec;
+				update_clock (current_time_panel, current_time);
 			}
 			current_time -= 1; //decrement by 1 second for each second that passes
-			var min = Math.floor((current_time/60) % 60); //min
-			var sec = Math.floor(current_time % 60);
-			
-			if (sec <= 9) {
-				var sec = "0" + sec;
-			}	
+
 		
-			current_time_panel.innerHTML = min + ":" + sec;
+			update_clock (current_time_panel, current_time);
 			console.log(current_time);
 			if (current_time <= 0) {
 				start_new_clock = true;
