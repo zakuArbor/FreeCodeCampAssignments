@@ -3,8 +3,8 @@
 <title>Pomodoro Clock</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="/FreeCodeCampAssignments/scripts/jquery-latest.js"></script>
-    <script src="/FreeCodeCampAssignments/scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"></script>
     <script src="script.js"></script>
  </head>
 <body>
@@ -12,15 +12,15 @@
 <div id = "break_study_settings">
 	<div id = "break_block">
 		<p class = "set_duration">Break Duration</p>
-		<div id = "decrease_break_time">-</div>
+		<div id = "decrease_break_time" class = "break">-</div>
 		<div id = "display_break_setting"></div>
-		<div id = "increase_break_time">+</div>
+		<div id = "increase_break_time" class = "break">+</div>
 	</div>
 	<div id = "study_block">
 		<p class = "set_duration">Study Duration</p>
-		<div id = "decrease_study_time">-</div>
+		<div id = "decrease_study_time" class = "study">-</div>
 		<div id = "display_study_setting"></div>
-		<div id = "increase_study_time">+</div>
+		<div id = "increase_study_time" class = "study">+</div>
 	</div>
 </div>
 <div id = "display_clock">

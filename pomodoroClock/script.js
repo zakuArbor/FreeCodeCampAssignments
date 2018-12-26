@@ -9,13 +9,13 @@
 * Purpose: Want to make sure that time can never be less than or equal to 0
 *
 * @param time: the variable that holds the current time amount to set for either break or study time	
-* @return 1 iff time > 1 and 0 iff time = 1	 
+* @return -1 iff time > 1 and 0 iff time = 1	 
 */
 function decrease_time (time) {
 	if (time == 1) {
 		return 0;
 	}
-	return 1;
+	return -1;
 }
 
 /**
@@ -26,6 +26,21 @@ function decrease_time (time) {
 **/
 function update_time_setting (panel, time) {
 	panel.innerHTML = time;
+}
+
+/**
+* Check if we can update clock to reflect the new session time of an activity (i.e. break or study) if the clock has not been started
+*
+* @param time: the variable that holds the current time amount to set for either break or study time
+* @param current_time_panel: The DOM Reference to the clock
+* @param start_new_clock: a boolean that indicates if there is a switch in the activity (break/study) mode to be done
+* @return boolean: returns true iff the clock has not been started for the updated session
+**/
+function can_update_clock (start_new_clock, current_status, status) {
+	if (current_status == status && start_new_clock) {
+		return true;
+	}
+	return false;
 }
 
 /**
@@ -45,12 +60,45 @@ function update_clock (current_time_panel, current_time) {
 	current_time_panel.innerHTML = min + ":" + sec;
 }
 
+function update(panel, time, start_new_clock, current_status, update_session, status) {
+	update_time_setting(panel, time);
+
+	if (can_update_clock(start_new_clock, current_status, status)) {
+		update_session(time);
+	}
+}
+
+/**
+* 
+* @param time_obj: an object that contains the reference of the session_time to update and the current_time
+* @param value: the value to increment/decrement the session_time by
+* @param current_time_panel: The DOM Reference to the clock
+* @param start_new_clock: a boolean that indicates if there is a switch in the activity (break/study) mode to be done
+* Note: Passing an object because primitive types are pass by values
+**/
+function update_time(time_obj, value, start_new_clock, current_status, update_session, status) {
+	let status_prop = status + "_time";
+	time_obj[status_prop] += value;
+
+	if (can_update_clock(start_new_clock, current_status, status)) {
+		time_obj.current_time = time_obj[status_prop] * 60;
+		update_session(time_obj.current_time);
+	}
+}
+
 $(document).ready(function() {
-	var break_time = 1; //constraint: >= 1min
-	var study_time = 1; //constraint: >= 1min
+	//Keeping time in object to pass by reference
+	var time_obj = {
+		"break_time": 1, //constraint: >= 1min
+		"study_time": 1, //constraint: >= 1min
+		"current_time": 1 * 60
+	};
 
 	/***************************************************************************/
 	//panel references
+	var study_block = document.getElementById("study_block");
+	var break_block = document.getElementById("break_block");
+
 	var increase_break_panel = document.getElementById("increase_break_time");
 	var increase_study_panel = document.getElementById("increase_study_time"); 
 	var decrease_break_panel = document.getElementById("decrease_break_time");
@@ -63,79 +111,59 @@ $(document).ready(function() {
 	var current_time_panel = document.getElementById("current_time");
 	/***************************************************************************/
 
-	var debug = true; //for testing purposes
-	if (debug) {
-		console.log("**********");
-		console.log("Debug Mode");
-		console.log(increase_break_panel);
-		console.log(increase_study_panel);
-		console.log("**********");
-	}
-
-
-
-
-	/***************************************************************************/
-	var current_time = study_time * 60;
-	var current_status = "Study" //Study or Break
-	var isStudyTime = true;
-
-	var current_time = study_time * 60;
-	var current_status = "Study" //Study or Break
+	var current_status = "study" //Study or Break
 	var isStudyTime = true;
 	var start_new_clock = true;
 	var isPaused = true;
-	var session_total_time = current_time; //total study or break time
+	var session_total_time = time_obj.current_time; //total study or break time
 	var progress_time = 0; //% to fill in
-	display_study_setting.innerHTML = study_time;
-	display_break_setting.innerHTML = break_time;
+	display_study_setting.innerHTML = time_obj.study_time;
+	display_break_setting.innerHTML = time_obj.break_time;
+	
 	/***************************************************************************/
-	var min = Math.floor((current_time/60) % 60); //min
-	var sec = Math.floor(current_time % 60);
-	if (sec <= 9) {
-		sec = "0" + sec;
+	//Display Initial Clock
+	update_clock(current_time_panel, time_obj.current_time);
+
+	/***************************************************************************/
+	var update_session_clock = function (current_time_panel, time) {
+		update_clock(current_time_panel, time);
 	}
 
-	current_status_panel.innerHTML = current_status;
-	current_time_panel.innerHTML = min + ":" + sec;
+	var update_session = update_session_clock.bind(null, current_time_panel);
 
 	/***************************************************************************/
 	//Action listener for changing break/study time setting and pausing clock
 	$(increase_study_panel).click(function() {
-		console.log("pika");
-		study_time += 1;
-		update_time_setting(display_study_setting, study_time);
-	});
-
-	$(increase_break_panel).click(function() {
-		break_time += 1;
-		update_time_setting(display_break_setting, break_time);
+		update_time(time_obj, 1, start_new_clock, current_status, update_session, this.className);
+		update_time_setting(display_study_setting, time_obj.study_time);
 	});
 
 	$(decrease_study_panel).click(function() {
-		study_time -= decrease_time(study_time);
-		update_time_setting(display_study_setting, study_time);
+		update_time(time_obj, decrease_time(time_obj.study_time), start_new_clock, current_status, update_session, this.className);
+		update(display_study_setting, time_obj.study_time);
+	});
+
+	$(increase_break_panel).click(function() {
+		update_time(time_obj, 1, start_new_clock, current_status, update_session, this.className);
+		update(display_break_setting, time_obj.break_time);
 	});
 
 	$(decrease_break_panel).click(function() {
-		break_time -= decrease_time(break_time);
-		update_time_setting(display_break_setting, break_time);
+		update_time(time_obj, decrease_time(time_obj.break_time), start_new_clock, current_status, update_session, this.className);
+		update_time_setting(display_break_setting, time_obj.break_time);
 	});
+
 
 	$(display_clock_panel).click(function() {
 		if (isPaused) {
 			isPaused = false;
+			start_new_clock = false;
 		}
 		else {
 			isPaused = true;	
 		}
 	});
-	/***************************************************************************/
-	var update_new_clock = (start_new_clock, current_time_panel, time) => {
-		if (start_new_clock) {
 
-		} 
-	}
 	/***************************************************************************/
 
 	var time_interval = setInterval(function(){
@@ -149,26 +177,27 @@ $(document).ready(function() {
 					$(display_clock_panel).css("border-color", "#FF0009");
 				}
 				current_status_panel.innerHTML = current_status;
-				update_clock (current_time_panel, current_time);
+				update_clock(current_time_panel, time_obj.current_time);
+				start_new_clock = false;
 			}
-			current_time -= 1; //decrement by 1 second for each second that passes
+			time_obj.current_time -= 1; //decrement by 1 second for each second that passes
 
 		
-			update_clock (current_time_panel, current_time);
-			console.log(current_time);
-			if (current_time <= 0) {
+			update_clock(current_time_panel, time_obj.current_time);
+			console.log(time_obj.current_time);
+			if (time_obj.current_time <= 0) {
 				start_new_clock = true;
 				var snd = new Audio("alarm.mp3"); // buffers automatically when created
 				snd.play();
 				if (isStudyTime) {
-					current_time = break_time * 60;
+					time_obj.current_time = time_obj.break_time * 60;
 					isStudyTime = false;
-					current_status = "Break";	
+					current_status = "break";	
 				}
 				else {
-					current_time = study_time * 60;
+					time_obj.current_time = time_obj.study_time * 60;
 					isStudyTime = true;
-					current_status = "Study";
+					current_status = "study";
 				} 
 			}
 		}
