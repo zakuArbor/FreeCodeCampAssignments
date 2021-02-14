@@ -1,0 +1,30 @@
+{
+  "name": "micro-url-shortner",
+  "version": "1.0.0",
+  "description": "Shortens long url to a tiny url",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakuArbor/microUrlShortner.git"
+  },
+  "author": "Ju Hong Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zakuArbor/microUrlShortner/issues"
+  },
+  "homepage": "https://github.com/zakuArbor/microUrlShortner#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "dotenv": "^1.2.0",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^3.5.0"
+  }
+}

@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<title>TinyUrl</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	</head>
+	<body>
+	<div class="container">
+		<% if (error) { %>
+		<div class="alert alert-danger" style = "margin: 10px;">
+ 			<strong>Invalid Usage: </strong> Please refer to the documentation below.
+		</div>
+		<% } %>
+		<h1>Url Shortener Microservice</h1>
+		<blockquote><h4>
+			<b><dl>User Stories:</dl></b> 
+			<ol>
+			<li> I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.</li>
+			<li>If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.</li>
+			<li>When I visit that shortened URL, it will redirect me to my original link.</li>
+			</ol>
+		</h4></blockquote>
+		<h3>Creation Usage:</h3>
+		<code>
+			<%= domain_name %>new/http://website.com
+		</code>
+		<h3>Creation Example:</h3>
+		<code>
+			<%= domain_name %>new/http://youtube.com
+		</code><br>
+		<h3>Sample Output:</h3>
+		<code>
+			{"long_url":"http://youtube.com","short_url": <%= domain_name %>"jinu51"}
+		</code>
+		<h3>Redirect Usage:</h3>
+		<code>
+			<%= domain_name %>short-url
+		</code><br>
+		<h3>Redirect Example</h3>
+		<code>
+			<%= domain_name %>jinu51
+		</code><br>
+		<h3>Will redirect you to:</h3>
+		<code>
+		http://google.com
+		</code><br>
+	</div>	
+	</body>
+</html>
