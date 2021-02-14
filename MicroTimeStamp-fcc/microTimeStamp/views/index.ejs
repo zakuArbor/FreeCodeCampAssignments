@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>TimeStamp</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	</head>
+	<body>
+	<div class="container">
+		<h1>TimeStamp Microservice</h1>
+		<blockquote><h4>
+			<b><dl>User Stories:</dl></b> 
+			<ol>
+			<li> I can pass a string as a parameter, and it will check to see whether that string contains either a unix timestamp or a natural language date (example: January 1, 2016)</li>
+			<li>If it does, it returns both the Unix timestamp and the natural language form of that date.</li>
+			<li>If it does not contain a date or Unix timestamp, it returns null for those properties.</li>
+			</ol>
+		</h4></blockquote>
+		<h3>Usage:</h3>
+		<code>
+			<%= app_domain_name %>date
+		</code>
+		<h3>Examples:</h3>
+		<code>
+			<%= app_domain_name %>December 25,2015
+		</code><br>
+		<code>
+			<%= app_domain_name %>1451001600
+		</code><br>
+		<code>
+			<%= app_domain_name %>12-25-2015
+		</code>
+		<h3>Sample Output:</h3>
+		<code>
+			{"unix":1450137600,"natural":"December 15, 2015"}	
+		</code>
+	</div>	
+	</body>
+</html>
