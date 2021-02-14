@@ -1,0 +1,26 @@
+{
+  "name": "img-search-abstract-fcc",
+  "version": "1.0.0",
+  "description": "Search for images",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakuArbor/img-search-abstract-fcc.git"
+  },
+  "author": "Ju Hong Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zakuArbor/img-search-abstract-fcc/issues"
+  },
+  "homepage": "https://github.com/zakuArbor/img-search-abstract-fcc#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "google-search": "0.0.5",
+    "mongodb": ">=5.7.5"
+  },
+  "devDependencies": {}
+}

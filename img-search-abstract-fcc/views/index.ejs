@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<title>Image Search</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	</head>
+	<body>
+	<div class="container">
+		<h1>Image Search Abstraction Layer Microservice</h1>
+		<blockquote><h4>
+			<b><dl>User Stories:</dl></b> 
+			<ol>
+			<li>I can get the image URLs, alt text and page urls for a set of images relating to a given search string.</li>
+			<li>I can paginate through the responses by adding a ?offset=2 parameter to the URL.</li>
+			<li>I can get a list of the most recently submitted search strings.</li>
+			</ol>
+		</h4></blockquote>
+		<h3>Search Usage:</h3>
+		<code>
+			<%= app_domain_name %>/search/<i>search_query</i>[?offset=[1-10]]
+		</code>
+		<h3>Search Examples:</h3>
+		<code>
+			<%= app_domain_name %>/search/Pikachu
+		</code><br>
+		<code>
+			<%= app_domain_name %>/search/Pikachu?offset=4
+		</code><br>
+		<h3>Sample Output:</h3>
+		<code>
+			[{url: "https://i.ytimg.com/vi/iYyDbVUWgTI/hqdefault.jpg"
+			snippet: "Pikachu Song - YouTube",
+			thumbnail: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhPh0WpaeHyTk4uqDEdUaOFizov_9_Tz64vGMZkLR8LxnsBo0uC98moSw", 
+			context: "https://www.youtube.com/watch?v=iYyDbVUWgTI"}]
+		</code>
+		<h3>List Most Recent Search</h3>
+		<code><%= app_domain_name %>/latest/</code>
+	</div>	
+	</body>
+</html>
